@@ -62,14 +62,14 @@ linking:
 
 /* END OS DETECTOR */
 
-typedef void* S_DSO_handl;
-typedef void* S_DSO_func;
+typedef void* ALF_DSO_handl;
+typedef void* ALF_DSO_func;
 
 
-S_DSO_handl S_DSO_load_file(const char *file);
-S_DSO_func S_DSO_load_function(S_DSO_handl handler, const char *function);
-int S_DSO_close_file(S_DSO_handl handler);
-char *S_DSO_get_last_error(void);
+ALF_DSO_handl ALF_DSO_load_file(const char *file);
+ALF_DSO_func ALF_DSO_load_function(ALF_DSO_handl handler, const char *function);
+int ALF_DSO_close_file(ALF_DSO_handl handler);
+char *ALF_DSO_get_last_error(void);
 
 
 #endif /* SIMPLE_DSO_LOADER */

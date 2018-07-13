@@ -11,6 +11,7 @@ OBJ_DIR		= obj
 INCLUDE_DIR	= include
 EXTRA_DIR	= extra
 OUT_DIR		= out
+DOCS		= docs
 
 O_EXT_DIR	= $(OBJ_DIR)/$(EXTRA_DIR)
 STATIC_DIR	= $(OUT_DIR)/static
@@ -30,6 +31,9 @@ SHARED_FLAG	= -shared
 AR			= @ar
 AR_FLAGS	= cvq
 
+# Doxygen, documentation generator
+DOXYGEN		= doxygen 
+
 # Commands
 ECHO		= @echo
 COPY		= @cp
@@ -46,6 +50,10 @@ install: #static_lib dynamic_lib
 
 clean:
 	$(REMOVE) -rf $(FOLDERS)
+
+docs:
+	$(MAKEDIR) -p $(DOCS)
+	$(DOXYGEN) docs.conf
 
 
 static_lib: make_objects make_extra_objects ar_static_lib ar_static_extra_lib

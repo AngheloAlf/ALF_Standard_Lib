@@ -10,7 +10,7 @@ typedef struct alf_dict{
 	void *value;
 } ALF_Dict;
 
-ALF_Dict *ALF_dict_init();
+ALF_Dict *ALF_dict_init(void);
 int ALF_dict_add(ALF_Dict *dict, const char *key, void *value);
 void *ALF_dict_get(ALF_Dict *dict, const char *key);
 int ALF_dict_delete(ALF_Dict *dict, const char *key);

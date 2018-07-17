@@ -38,8 +38,7 @@ char *ALF_DSO_get_last_error(void){
 		result = malloc(sizeof(char) * 32);
 		sprintf(result, "%lu", GetLastError());
 	#elif __unix__
-		char *aux = NULL;
-		aux = dlerror();
+		char *aux = dlerror();
 		result = malloc(sizeof(char) * (strlen(aux) + 1));
 		strcpy(result, aux);
 	#endif

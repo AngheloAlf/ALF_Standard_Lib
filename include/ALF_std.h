@@ -13,7 +13,8 @@
 #include "ALF_bool.h"
 #include "ALF_dict.h"
 #include "ALF_IO.h"
-#include "ALF_jit.h"
 #include "ALF_str.h"
+#include "ALF_jit.h"
+#include "ALF_OS.h"
 
 #endif /* ALF_std_h */

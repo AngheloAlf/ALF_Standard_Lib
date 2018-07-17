@@ -1,22 +1,21 @@
-#ifndef SIMPLE_DSO_LOADER
-#define SIMPLE_DSO_LOADER
+#ifndef ALF_dso_loader_h
+#define ALF_dso_loader_h
+
+#include "ALF_common.h"
+
+#define ALF_dso_loader_major_version (1)
+#define ALF_dso_loader_minor_version (0)
+#define ALF_dso_loader_patch_version (0)
+#define ALF_dso_loader_version (ALF_dso_loader_major_version.ALF_dso_loader_minor_version)
+#define ALF_dso_loader_version_str (ALF_STR(ALF_dso_loader_major_version)"."ALF_STR(ALF_dso_loader_minor_version)"."ALF_STR(ALF_dso_loader_patch_version))
+
 
 #include <stdlib.h>
 #include <string.h>
 
-/* gcc simple_dso_loader.c -c -Wall */
-/*
-linking:
- linux:
-  -> -ldl
- windows:
-  -> 
-
-*/
-
 /* OS DETECTOR */
 
-#ifdef _WIN32
+#ifdef __WIN32__
     //define something for Windows (32-bit and 64-bit, this part is common)
     #include <windows.h>
     #include <winbase.h>
@@ -72,4 +71,4 @@ int ALF_DSO_close_file(ALF_DSO_handl handler);
 char *ALF_DSO_get_last_error(void);
 
 
-#endif /* SIMPLE_DSO_LOADER */
+#endif /* ALF_dso_loader_h */

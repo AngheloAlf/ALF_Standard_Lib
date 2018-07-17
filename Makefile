@@ -26,6 +26,7 @@ HEADER_EXT	= h
 OBJ_EXT		= o
 FLAGS		= -Wall -fPIC -I$(INCLUDE_DIR)
 SHARED_FLAG	= -shared
+DEBUG_FLAG	= -g
 
 # 
 AR			= @ar
@@ -44,6 +45,9 @@ REMOVE		= @rm
 
 all: static_lib dynamic_lib
 	$(ECHO) "Done\n"
+
+debug: make_debug_objects ar_static_lib ar_static_extra_lib compile_dynamic_lib compile_dynamic_extra_lib
+	$(ECHO) "Debug ready\n"
 
 install: #static_lib dynamic_lib
 	$(ECHO) "Not supported yet"
@@ -79,6 +83,18 @@ make_objects: makefolders
 make_extra_objects: makefolders
 	$(ECHO) "Making extra objects"
 	$(CC) -c $(SRC_DIR)/$(EXTRA_DIR)/*.$(LANG_EXT) $(FLAGS)
+	$(ECHO) "->Moving files"
+	$(MOVE) *.$(OBJ_EXT) $(O_EXT_DIR)/
+	$(ECHO) "\tExtra objects done\n"
+
+make_debug_objects: makefolders
+	$(ECHO) "Making objects"
+	$(CC) -c $(SRC_DIR)/*.$(LANG_EXT) $(FLAGS) $(DEBUG_FLAG)
+	$(ECHO) "->Moving files"
+	$(MOVE) *.$(OBJ_EXT) $(OBJ_DIR)/
+	$(ECHO) "\tObjects done\n"
+	$(ECHO) "Making extra objects"
+	$(CC) -c $(SRC_DIR)/$(EXTRA_DIR)/*.$(LANG_EXT) $(FLAGS) $(DEBUG_FLAG)
 	$(ECHO) "->Moving files"
 	$(MOVE) *.$(OBJ_EXT) $(O_EXT_DIR)/
 	$(ECHO) "\tExtra objects done\n"

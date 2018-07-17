@@ -1,5 +1,14 @@
-#ifndef ALF_LIB_IO
-#define ALF_LIB_IO
+#ifndef ALF_IO_h
+#define ALF_IO_h
+
+#include "ALF_common.h"
+
+#define ALF_IO_major_version (1)
+#define ALF_IO_minor_version (0)
+#define ALF_IO_patch_version (0)
+#define ALF_IO_version (ALF_IO_major_version.ALF_IO_minor_version)
+#define ALF_IO_version_str (ALF_STR(ALF_IO_major_version)"."ALF_STR(ALF_IO_minor_version)"."ALF_STR(ALF_IO_patch_version))
+
 
 #include <string.h>
 #include <stdlib.h>

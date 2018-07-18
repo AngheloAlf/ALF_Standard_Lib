@@ -12,12 +12,12 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include <unistd.h>
 
-#ifdef __WIN32__
+#ifdef _WIN32
 #	include <windows.h>
 #elif defined(__unix__)
 #	include <sys/mman.h>
+#	include <unistd.h>
 #endif
 
 #define ALF_PAGE_SIZE sysconf(_SC_PAGESIZE)

@@ -22,12 +22,17 @@
     <ClCompile Include="..\..\..\src\ALF_bool.c" />
     <ClCompile Include="..\..\..\src\ALF_dict.c" />
     <ClCompile Include="..\..\..\src\ALF_IO.c" />
+    <ClCompile Include="..\..\..\src\ALF_jit.c" />
+    <ClCompile Include="..\..\..\src\ALF_OS.c" />
     <ClCompile Include="..\..\..\src\ALF_str.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ALF_bool.h" />
+    <ClInclude Include="..\..\..\include\ALF_common.h" />
     <ClInclude Include="..\..\..\include\ALF_dict.h" />
     <ClInclude Include="..\..\..\include\ALF_IO.h" />
+    <ClInclude Include="..\..\..\include\ALF_jit.h" />
+    <ClInclude Include="..\..\..\include\ALF_OS.h" />
     <ClInclude Include="..\..\..\include\ALF_std.h" />
     <ClInclude Include="..\..\..\include\ALF_str.h" />
   </ItemGroup>

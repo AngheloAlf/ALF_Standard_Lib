@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef __WIN32__
+#ifdef _WIN32
 #   include <windows.h>
 #else
 #   include <dlfcn.h> // DSO library

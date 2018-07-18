@@ -21,5 +21,7 @@ int main(int argc, char *argv[]){
 	printf("ALF_isAppleOther: %d\n", ALF_isAppleOther());
 	printf("ALF_isOther: %d\n", ALF_isOther());
 
+	ALF_raw_input("ENTER");
+
 	return 0;
 }

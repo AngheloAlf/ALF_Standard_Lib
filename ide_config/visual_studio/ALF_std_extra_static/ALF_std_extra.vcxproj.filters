@@ -21,6 +21,9 @@
     <ClInclude Include="..\..\..\include\ALF_std_extra.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ALF_common.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\extra\ALF_dso_loader.c">

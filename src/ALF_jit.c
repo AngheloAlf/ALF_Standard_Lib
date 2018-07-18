@@ -4,9 +4,9 @@ char *ALF_jit_error = "";
 
 ALF_jit_buf *ALF_jit_init(void){
 	ALF_jit_buf *handler = malloc(sizeof(ALF_jit_buf *));
-	#ifdef __WIN32__
+	#ifdef _WIN32
 		DWORD type = MEM_RESERVE | MEM_COMMIT;
-		handler->code = (uint8_t *)VirtualAlloc(NULL, PAGE_SIZE, type, PAGE_READWRITE);
+		handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_PAGE_SIZE, type, PAGE_READWRITE);
 	#elif defined(__unix__)
 		int prot = PROT_READ | PROT_WRITE;
 		int flags = MAP_ANONYMOUS | MAP_PRIVATE;
@@ -57,9 +57,9 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 		return 1;
 	}
 
-	#ifdef __WIN32__
+	#ifdef _WIN32
 		DWORD old;
-		VirtualProtect(handler->code, sizeof(*buf), PAGE_EXECUTE_READ, &old);
+		VirtualProtect(handler->code, sizeof(handler->code), PAGE_EXECUTE_READ, &old);
 	#elif defined(__unix__)
 		mprotect(handler->code, ALF_PAGE_SIZE, PROT_READ | PROT_EXEC);
 	#else
@@ -71,10 +71,10 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 }
 
 void ALF_jit_free(ALF_jit_buf *handler){
-	#ifdef __WIN32__
-		VirtualFree(buf, 0, MEM_RELEASE);
+	#ifdef _WIN32
+		VirtualFree(handler->code, 0, MEM_RELEASE);
 	#elif defined(__unix__)
-		munmap(handler, ALF_PAGE_SIZE);
+		munmap(handler->code, ALF_PAGE_SIZE);
 	#else
 		return;
 	#endif

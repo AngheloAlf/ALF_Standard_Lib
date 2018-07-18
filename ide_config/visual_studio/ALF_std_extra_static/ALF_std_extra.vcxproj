@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\..\src\extra\ALF_dso_loader.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\ALF_common.h" />
     <ClInclude Include="..\..\..\include\ALF_dso_loader.h" />
     <ClInclude Include="..\..\..\include\ALF_std_extra.h" />
   </ItemGroup>

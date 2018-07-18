@@ -20,8 +20,6 @@
 #	define ALF_PAGE_SIZE() sysconf(_SC_PAGESIZE)
 #endif
 
-
-
 typedef struct {
     uint64_t position;
     /**

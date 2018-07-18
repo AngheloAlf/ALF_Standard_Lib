@@ -9,7 +9,6 @@
 #define ALF_std_version (ALF_std_major_version.ALF_std_minor_version)
 #define ALF_std_version_str (ALF_STR(ALF_std_major_version)"."ALF_STR(ALF_std_minor_version)"."ALF_STR(ALF_std_patch_version))
 
-
 #include "ALF_bool.h"
 #include "ALF_dict.h"
 #include "ALF_IO.h"

@@ -9,9 +9,6 @@
 #define ALF_dict_version (ALF_dict_major_version.ALF_dict_minor_version)
 #define ALF_dict_version_str (ALF_STR(ALF_dict_major_version)"."ALF_STR(ALF_dict_minor_version)"."ALF_STR(ALF_dict_patch_version))
 
-#include "stdlib.h"
-#include "string.h"
-
 typedef struct{
 	void *next;
 	char *key;

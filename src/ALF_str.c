@@ -1,5 +1,7 @@
 #include "ALF_str.h"
 
+#include <string.h>
+
 char **ALF_split(char *string, char *delimiters){
     char **splitted = malloc(sizeof(char *));
     char *token = strtok(string, delimiters);

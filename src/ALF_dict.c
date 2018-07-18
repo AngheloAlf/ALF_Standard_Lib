@@ -1,5 +1,8 @@
 #include "ALF_dict.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 ALF_Dict *ALF_dict_init(void){
 	ALF_Dict *dict = malloc(sizeof(ALF_Dict *));
 	dict->next = NULL;

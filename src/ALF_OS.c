@@ -115,7 +115,7 @@ char ALF_isFreeBSD(void){
 }
 
 char ALF_isOther(void){
-	#if !defined(__WIN32__) && !defined(__APPLE__) && !defined(__unix__) && !defined(_POSIX_VERSION) && !defined(__FreeBSD__)
+	#if !defined(_WIN32) && !defined(__APPLE__) && !defined(__unix__) && !defined(_POSIX_VERSION) && !defined(__FreeBSD__)
 	return 1;
 	#else
 	return 0;

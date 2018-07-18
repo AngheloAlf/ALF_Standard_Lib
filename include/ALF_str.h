@@ -10,7 +10,6 @@
 #define ALF_str_version_str (ALF_STR(ALF_str_major_version)"."ALF_STR(ALF_str_minor_version)"."ALF_STR(ALF_str_patch_version))
 
 #include <stdlib.h>
-#include <string.h>
 
 char **ALF_split(char *string, char *delimiters);
 

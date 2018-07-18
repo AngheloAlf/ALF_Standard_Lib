@@ -1,5 +1,13 @@
 #include "ALF_dso_loader.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#ifdef _WIN32
+#   include <windows.h>
+#else
+#   include <dlfcn.h> // DSO library
+#endif
 
 ALF_DSO_handl ALF_DSO_load_file(const char *file){
 	ALF_DSO_handl handler = NULL;
@@ -31,10 +39,10 @@ int ALF_DSO_close_file(ALF_DSO_handl handler){
 	return retVal;
 }
 
-char *ALF_DSO_get_last_error(void){
+char *ALF_DSO_get_error(void){
 	char *result = NULL;
 
-	#ifdef __WIN32__
+	#ifdef _WIN32
 		result = malloc(sizeof(char) * 32);
 		sprintf(result, "%lu", GetLastError());
 	#else

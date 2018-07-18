@@ -1,5 +1,9 @@
 #include "ALF_IO.h"
 
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 char *ALF_raw_input(const char *outMessage){
     printf("%s", outMessage);
 

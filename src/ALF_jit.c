@@ -82,7 +82,7 @@ char *ALF_jit_get_error(void){
 }
 
 #ifdef _WIN32
-	long ALF_PAGE_SIZE()(){
+	long ALF_PAGE_SIZE(){
 		SYSTEM_INFO system_info;
 		GetSystemInfo(&system_info);
 		return system_info.dwPageSize;

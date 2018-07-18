@@ -1,7 +1,11 @@
 #include "ALF_OS.h"
 
+#if defined(__unix__) || defined(__APPLE__) || defined(__MACH__)
+#	include <unistd.h>
+#endif
+
 char ALF_isWindows(void){
-	#ifdef __WIN32__
+	#ifdef _WIN32
 	return 1;
 	#else
 	return 0;
@@ -23,14 +27,14 @@ char ALF_isLinux(void){
 }
 
 char ALF_isWindows32(void){
-	#if defined(__WIN32__) && !defined(__WIN64__)
+	#if defined(_WIN32) && !defined(_WIN64)
 	return 1;
 	#else
 	return 0;
 	#endif
 }
 char ALF_isWindows64(void){
-	#ifdef __WIN64__
+	#ifdef _WIN64
 	return 1;
 	#else
 	return 0;
@@ -102,9 +106,16 @@ char ALF_isAppleOther(void){
 	#endif
 }
 
+char ALF_isFreeBSD(void){
+	#ifdef __FreeBSD__
+	return 1;
+	#else
+	return 0;
+	#endif
+}
 
 char ALF_isOther(void){
-	#if !defined(__WIN32__) && !defined(__unix__) && !defined(_POSIX_VERSION)
+	#if !defined(__WIN32__) && !defined(__APPLE__) && !defined(__unix__) && !defined(_POSIX_VERSION) && !defined(__FreeBSD__)
 	return 1;
 	#else
 	return 0;

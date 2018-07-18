@@ -9,18 +9,18 @@
 #define ALF_jit_version (ALF_jit_major_version.ALF_jit_minor_version)
 #define ALF_jit_version_str (ALF_STR(ALF_jit_major_version)"."ALF_STR(ALF_jit_minor_version)"."ALF_STR(ALF_jit_patch_version))
 
-#include <stdlib.h>
 #include <stdint.h>
-#include <string.h>
 
 #ifdef _WIN32
 #	include <windows.h>
+	long ALF_PAGE_SIZE(void);
 #elif defined(__unix__)
-#	include <sys/mman.h>
 #	include <unistd.h>
+#	include <sys/mman.h>
+#	define ALF_PAGE_SIZE() sysconf(_SC_PAGESIZE)
 #endif
 
-#define ALF_PAGE_SIZE sysconf(_SC_PAGESIZE)
+
 
 typedef struct {
     uint64_t position;

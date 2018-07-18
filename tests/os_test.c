@@ -19,6 +19,7 @@ int main(int argc, char *argv[]){
 	printf("ALF_isOSXOther: %d\n", ALF_isOSXOther());
 	printf("ALF_isMACOther: %d\n", ALF_isMACOther());
 	printf("ALF_isAppleOther: %d\n", ALF_isAppleOther());
+	printf("ALF_isFreeBSD: %d\n", ALF_isFreeBSD());
 	printf("ALF_isOther: %d\n", ALF_isOther());
 
 	ALF_raw_input("ENTER");

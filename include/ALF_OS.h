@@ -31,6 +31,8 @@ char ALF_isOSXOther(void);
 #define ALF_isMACOther() ALF_isOSXOther()
 char ALF_isAppleOther(void);
 
+char ALF_isFreeBSD(void);
+
 char ALF_isOther(void);
 
 /* OS DETECTOR */
@@ -66,11 +68,12 @@ char ALF_isOther(void);
     #elif __linux__
          // linux
 
-    #endif
+    #include <unistd.h>
+    #elif defined(_POSIX_VERSION)
+        // POSIX
+        #error "Supported?"
 
-#elif defined(_POSIX_VERSION)
-    // POSIX
-    #error "Supported?"
+    #endif
 #else
     #error "Unknown compiler"
 #endif

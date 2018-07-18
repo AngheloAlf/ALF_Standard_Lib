@@ -37,11 +37,11 @@ int ALF_dict_delete(ALF_Dict *dict, const char *key){
     ALF_Dict *aux = dict, *aux2;
     if(aux->key != NULL && strcmp(aux->key, key) == 0){
         free(aux->key);
-        aux->key = aux->next->key;
-        aux->value = aux->next->value;
         aux2 = aux->next;
+        aux->key = aux2->key;
+        aux->value = aux2->value;
         if(aux->next != NULL){
-            aux->next = aux->next->next;
+            aux->next = aux2->next;
         }
         else{
             aux->next = NULL;
@@ -50,10 +50,11 @@ int ALF_dict_delete(ALF_Dict *dict, const char *key){
         return 0;
     }
     if(aux->next != NULL){
-        for (; aux->next->next != NULL; aux = aux->next){
-            if (strcmp(aux->next->key, key) == 0){
-                free(aux->next->key);
-                aux2 = aux->next->next;
+        for (; ((ALF_Dict *)(aux->next))->next != NULL; aux = aux->next){
+            aux2 = aux->next;
+            if (strcmp(aux2->key, key) == 0){
+                free(aux2->key);
+                aux2 = aux2->next;
                 free(aux->next);
                 aux->next = aux2;
                 return 0;

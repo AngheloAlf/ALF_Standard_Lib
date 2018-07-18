@@ -14,7 +14,7 @@
 #ifdef _WIN32
 #	include <windows.h>
 	long ALF_PAGE_SIZE(void);
-#elif defined(__unix__)
+#else
 #	include <unistd.h>
 #	include <sys/mman.h>
 #	define ALF_PAGE_SIZE() sysconf(_SC_PAGESIZE)

@@ -5,7 +5,7 @@ ALF_DSO_handl ALF_DSO_load_file(const char *file){
 	ALF_DSO_handl handler = NULL;
 	#ifdef _WIN32
 		handler = (ALF_DSO_handl)LoadLibrary(file);
-	#elif __unix__
+	#else
 		handler = (ALF_DSO_handl)dlopen(file, RTLD_LAZY);
 	#endif
 	return handler;
@@ -15,7 +15,7 @@ ALF_DSO_func ALF_DSO_load_function(ALF_DSO_handl handler, const char *function){
 	ALF_DSO_func func = NULL;
 	#ifdef _WIN32
 		func = (ALF_DSO_func)GetProcAddress((HMODULE)handler, function);
-	#elif __unix__
+	#else
 		func = (ALF_DSO_func)dlsym(handler, function);
 	#endif
 	return func;
@@ -25,7 +25,7 @@ int ALF_DSO_close_file(ALF_DSO_handl handler){
 	int retVal = 0;
 	#ifdef _WIN32
 		retVal = !FreeLibrary((HMODULE)handler); // Returns nonzero in success
-	#elif __unix__
+	#else
 		retVal = dlclose(handler);
 	#endif
 	return retVal;
@@ -37,7 +37,7 @@ char *ALF_DSO_get_last_error(void){
 	#ifdef __WIN32__
 		result = malloc(sizeof(char) * 32);
 		sprintf(result, "%lu", GetLastError());
-	#elif __unix__
+	#else
 		char *aux = dlerror();
 		result = malloc(sizeof(char) * (strlen(aux) + 1));
 		strcpy(result, aux);

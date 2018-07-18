@@ -12,8 +12,8 @@
 #include "stdlib.h"
 #include "string.h"
 
-typedef struct alf_dict{
-	struct alf_dict *next;
+typedef struct{
+	void *next;
 	char *key;
 	void *value;
 } ALF_Dict;

@@ -1,12 +1,21 @@
+/** \file ALF_OS.h
+ * A Operative System detector using the defined macros.
+ * This library tries to detect differents operative systems using the macros defined by the compiler.
+ * Any of the function return non-zero if at compile time detected it was compiled on the system it think it is.
+ * 0 Otherwise.
+ * Some macros are implemented, so the caller can use any of them by any name.
+**/
+
 #ifndef ALF_OS_h
 #define ALF_OS_h
+
+#include "ALF_common.h"
 
 #define ALF_OS_major_version (1)
 #define ALF_OS_minor_version (0)
 #define ALF_OS_patch_version (0)
 #define ALF_OS_version (ALF_OS_major_version.ALF_OS_minor_version)
 #define ALF_OS_version_str (ALF_STR(ALF_OS_major_version)"."ALF_STR(ALF_OS_minor_version)"."ALF_STR(ALF_OS_patch_version))
-
 
 char ALF_isWindows(void);
 char ALF_isOSX(void);
@@ -33,6 +42,11 @@ char ALF_isAppleOther(void);
 
 char ALF_isFreeBSD(void);
 
+/// Detects the not detected by this library.
+/**
+ * Returns 1 only if none of the others are detected by this library.
+ * 0 Otherwise.
+**/
 char ALF_isOther(void);
 
 /* OS DETECTOR */

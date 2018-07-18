@@ -10,13 +10,10 @@ ALF_jit_buf *ALF_jit_init(void){
 	#ifdef _WIN32
 		DWORD type = MEM_RESERVE | MEM_COMMIT;
 		handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_PAGE_SIZE(), type, PAGE_READWRITE);
-	#elif defined(__unix__)
+	#else
 		int prot = PROT_READ | PROT_WRITE;
 		int flags = MAP_ANONYMOUS | MAP_PRIVATE;
 		handler->code = (uint8_t *)mmap(NULL, ALF_PAGE_SIZE(), prot, flags, -1, 0);
-	#else
-		handler = NULL;
-		ALF_jit_error = "System not recognized.";
 	#endif
     return handler;
 }
@@ -63,11 +60,8 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 	#ifdef _WIN32
 		DWORD old;
 		VirtualProtect(handler->code, ALF_PAGE_SIZE(), PAGE_EXECUTE_READ, &old);
-	#elif defined(__unix__)
-		mprotect(handler->code, ALF_PAGE_SIZE(), PROT_READ | PROT_EXEC);
 	#else
-		ALF_jit_error = "System not recognized.";
-		return -1;
+		mprotect(handler->code, ALF_PAGE_SIZE(), PROT_READ | PROT_EXEC);
 	#endif
 	handler->state |= 0x1;
 	return 0;
@@ -76,10 +70,8 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 void ALF_jit_free(ALF_jit_buf *handler){
 	#ifdef _WIN32
 		VirtualFree(handler->code, 0, MEM_RELEASE);
-	#elif defined(__unix__)
-		munmap(handler->code, ALF_PAGE_SIZE());
 	#else
-		return;
+		munmap(handler->code, ALF_PAGE_SIZE());
 	#endif
 	free(handler);
 	// handler->state |= 0x2;

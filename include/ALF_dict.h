@@ -3,11 +3,11 @@
 
 #include "ALF_common.h"
 
-#define ALF_dict_major_version (1)
-#define ALF_dict_minor_version (0)
-#define ALF_dict_patch_version (0)
-#define ALF_dict_version (ALF_dict_major_version.ALF_dict_minor_version)
-#define ALF_dict_version_str (ALF_STR(ALF_dict_major_version)"."ALF_STR(ALF_dict_minor_version)"."ALF_STR(ALF_dict_patch_version))
+#define ALF_dict_major_version 1
+#define ALF_dict_minor_version 0
+#define ALF_dict_patch_version 0
+// #define ALF_dict_version ALF_dict_major_version.ALF_dict_minor_version
+#define ALF_dict_version_str ALF_STR(ALF_dict_major_version)"."ALF_STR(ALF_dict_minor_version)"."ALF_STR(ALF_dict_patch_version)
 
 typedef struct{
 	void *next;

@@ -3,12 +3,16 @@
 
 #define _ALF_STR(x) #x
 #define ALF_STR(x) _ALF_STR(x)
+#define _ALF_NUMBER_LENGTH(x) (sizeof(ALF_STR(x)) - 1)
+#define ALF_NUMBER_LENGTH(x) _ALF_NUMBER_LENGTH(x)
 
-#define ALF_common_major_version (1)
-#define ALF_common_minor_version (0)
-#define ALF_common_patch_version (0)
-#define ALF_common_version (ALF_common_major_version.ALF_common_minor_version)
-#define ALF_common_version_str (ALF_STR(ALF_common_major_version)"."ALF_STR(ALF_common_minor_version)"."ALF_STR(ALF_common_patch_version))
+// #define ALF_MAKE_VERSION(x, y) ((x) + (y)/(pow(10, ALF_NUMBER_LENGTH(y))) )//
+
+#define ALF_common_major_version 1
+#define ALF_common_minor_version 0
+#define ALF_common_patch_version 0
+// #define ALF_common_version ALF_common_major_version.ALF_common_minor_version
+#define ALF_common_version_str ALF_STR(ALF_common_major_version)"."ALF_STR(ALF_common_minor_version)"."ALF_STR(ALF_common_patch_version)
 
 
 

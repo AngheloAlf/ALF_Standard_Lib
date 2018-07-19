@@ -3,11 +3,11 @@
 
 #include "ALF_common.h"
 
-#define ALF_jit_major_version (1)
-#define ALF_jit_minor_version (0)
-#define ALF_jit_patch_version (0)
-#define ALF_jit_version (ALF_jit_major_version.ALF_jit_minor_version)
-#define ALF_jit_version_str (ALF_STR(ALF_jit_major_version)"."ALF_STR(ALF_jit_minor_version)"."ALF_STR(ALF_jit_patch_version))
+#define ALF_jit_major_version 1
+#define ALF_jit_minor_version 0
+#define ALF_jit_patch_version 0
+// #define ALF_jit_version ALF_jit_major_version.ALF_jit_minor_version
+#define ALF_jit_version_str ALF_STR(ALF_jit_major_version)"."ALF_STR(ALF_jit_minor_version)"."ALF_STR(ALF_jit_patch_version)
 
 #include <stdint.h>
 

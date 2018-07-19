@@ -3,11 +3,11 @@
 
 #include "ALF_common.h"
 
-#define ALF_std_extra_major_version (1)
-#define ALF_std_extra_minor_version (0)
-#define ALF_std_extra_patch_version (0)
-#define ALF_std_extra_version (ALF_std_extra_major_version.ALF_std_extra_minor_version)
-#define ALF_std_extra_version_str (ALF_STR(ALF_std_extra_major_version)"."ALF_STR(ALF_std_extra_minor_version)"."ALF_STR(ALF_std_extra_patch_version))
+#define ALF_std_extra_major_version 1
+#define ALF_std_extra_minor_version 0
+#define ALF_std_extra_patch_version 0
+// #define ALF_std_extra_version ALF_std_extra_major_version.ALF_std_extra_minor_version
+#define ALF_std_extra_version_str ALF_STR(ALF_std_extra_major_version)"."ALF_STR(ALF_std_extra_minor_version)"."ALF_STR(ALF_std_extra_patch_version)
 
 #include "ALF_dso_loader.h"
 

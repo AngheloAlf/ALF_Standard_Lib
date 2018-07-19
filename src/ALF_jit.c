@@ -22,7 +22,7 @@ uint64_t ALF_jit_get_avaible_size(ALF_jit_buf *handler){
 	return ALF_PAGE_SIZE() - sizeof(uint64_t) - sizeof(uint8_t) - handler->position*sizeof(uint8_t);
 }
 
-int ALF_jit_instruction(ALF_jit_buf *handler, int size, uint64_t ins){
+int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 	if (handler->state & 0x1){
 		ALF_jit_error = "JIT buffer is finalized. Can't write on it.";
 		return 1;
@@ -37,7 +37,7 @@ int ALF_jit_instruction(ALF_jit_buf *handler, int size, uint64_t ins){
     return 0;
 }
 
-int ALF_jit_immediate(ALF_jit_buf *handler, int size, const void *value){
+int ALF_jit_immediate(ALF_jit_buf *handler, uint64_t size, const void *value){
 	if (handler->state & 0x1){
 		ALF_jit_error = "JIT buffer is finalized. Can't write on it.";
 		return 1;
@@ -82,7 +82,7 @@ char *ALF_jit_get_error(void){
 }
 
 #ifdef _WIN32
-	long ALF_PAGE_SIZE(){
+	uint64_t ALF_PAGE_SIZE(void){
 		SYSTEM_INFO system_info;
 		GetSystemInfo(&system_info);
 		return system_info.dwPageSize;

@@ -12,14 +12,14 @@ char ALF_isWindows(void){
 	#endif
 }
 char ALF_isOSX(void){
-	#if __APPLE__
+	#ifdef __APPLE__
 	return 1;
 	#else
 	return 0;
 	#endif
 }
 char ALF_isLinux(void){
-	#if __linux__
+	#ifdef __linux__
 	return 1;
 	#else
 	return 0;
@@ -42,14 +42,14 @@ char ALF_isWindows64(void){
 }
 
 char ALF_isUnix(void){
-	#if __unix__
+	#ifdef __unix__
 	return 1;
 	#else
 	return 0;
 	#endif
 }
 char ALF_isUnixOther(void){
-	#if __unix__
+	#ifdef __unix__
 		#if !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__linux__)
 		return 1;
 		#else
@@ -69,7 +69,7 @@ char ALF_isPosix(void){
 }
 
 char ALF_isAndroid(void){
-	#if __unix__ &&  defined(__ANDROID__)
+	#if defined(__unix__) &&  defined(__ANDROID__)
 	return 1;
 	#else
 	return 0;
@@ -77,14 +77,14 @@ char ALF_isAndroid(void){
 }
 
 char ALF_isIOS(void){
-	#if __APPLE__ && TARGET_OS_IPHONE
+	#if defined(__APPLE__) && TARGET_OS_IPHONE
 	return 1;
 	#else
 	return 0;
 	#endif
 }
 char ALF_isIOSSimulator(void){
-	#if __APPLE__ && TARGET_IPHONE_SIMULATOR
+	#if defined(__APPLE__) && TARGET_IPHONE_SIMULATOR
 	return 1;
 	#else
 	return 0;
@@ -92,14 +92,14 @@ char ALF_isIOSSimulator(void){
 }
 
 char ALF_isOSXOther(void){
-	#if __APPLE__ && TARGET_OS_MAC
+	#if defined(__APPLE__) && TARGET_OS_MAC
 	return 1;
 	#else
 	return 0;
 	#endif
 }
 char ALF_isAppleOther(void){
-	#if __APPLE__ && !TARGET_IPHONE_SIMULATOR && !TARGET_IPHONE_SIMULATOR && !TARGET_OS_MAC
+	#if defined(__APPLE__) && !TARGET_IPHONE_SIMULATOR && !TARGET_IPHONE_SIMULATOR && !TARGET_OS_MAC
 	return 1;
 	#else
 	return 0;

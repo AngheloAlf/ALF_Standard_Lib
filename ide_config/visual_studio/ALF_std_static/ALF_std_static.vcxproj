@@ -75,7 +75,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\</IntDir>
+    <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
     <ExcludePath>$(SolutionDir)..\..\tests;$(ExcludePath)</ExcludePath>
   </PropertyGroup>
@@ -84,7 +84,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\</IntDir>
+    <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
     <ExcludePath>$(SolutionDir)..\..\tests;$(ExcludePath)</ExcludePath>
   </PropertyGroup>
@@ -93,7 +93,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\</IntDir>
+    <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
     <ExcludePath>$(SolutionDir)..\..\tests;$(ExcludePath)</ExcludePath>
   </PropertyGroup>
@@ -103,7 +103,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\</IntDir>
+    <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
     <ExcludePath>$(SolutionDir)..\..\tests;$(ExcludePath)</ExcludePath>
   </PropertyGroup>
@@ -115,6 +115,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -129,6 +131,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +149,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,6 +169,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

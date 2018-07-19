@@ -81,8 +81,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ALF_std_extra</TargetName>
-    <OutDir>$(SolutionDir)..\..\out\dynamic</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
@@ -90,8 +90,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>ALF_std_extra</TargetName>
-    <OutDir>$(SolutionDir)..\..\out\dynamic</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
@@ -99,8 +99,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>ALF_std_extra</TargetName>
-    <OutDir>$(SolutionDir)..\..\out\dynamic</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
@@ -108,8 +108,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ALF_std_extra</TargetName>
-    <OutDir>$(SolutionDir)..\..\out\dynamic</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
@@ -124,6 +124,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +143,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -155,6 +159,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -171,6 +177,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

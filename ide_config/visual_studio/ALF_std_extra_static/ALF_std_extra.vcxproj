@@ -81,32 +81,32 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)..\..\out\static</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\extra</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <TargetName>ALF_std_extra</TargetName>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src\extra;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\..\out\static</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\extra</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <TargetName>ALF_std_extra</TargetName>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src\extra;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\..\out\static</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\extra</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <TargetName>ALF_std_extra</TargetName>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src\extra;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)..\..\out\static</OutDir>
-    <IntDir>$(SolutionDir)..\..\obj\extra</IntDir>
+    <OutDir>$(SolutionDir)..\..\out\static\</OutDir>
+    <IntDir>$(SolutionDir)..\..\obj\extra\$(ProjectName)\</IntDir>
     <TargetName>ALF_std_extra</TargetName>
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src\extra;$(SourcePath)</SourcePath>
@@ -121,6 +121,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,6 +139,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,6 +155,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -167,6 +173,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

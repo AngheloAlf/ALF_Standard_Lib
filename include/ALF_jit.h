@@ -13,7 +13,7 @@
 
 #ifdef _WIN32
 #	include <windows.h>
-	long ALF_PAGE_SIZE(void);
+	uint64_t ALF_PAGE_SIZE(void);
 #else
 #	include <unistd.h>
 #	include <sys/mman.h>
@@ -48,13 +48,13 @@ uint64_t ALF_jit_get_avaible_size(ALF_jit_buf *handler);
 /**
  * 
 **/
-int ALF_jit_instruction(ALF_jit_buf *handler, int size, uint64_t ins);
+int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins);
 
 /// Inserts an immediate (number) in the code.
 /**
  * 
 **/
-int ALF_jit_immediate(ALF_jit_buf *handler, int size, const void *value);
+int ALF_jit_immediate(ALF_jit_buf *handler, uint64_t size, const void *value);
 
 /// Prepares the code to be executed.
 /**

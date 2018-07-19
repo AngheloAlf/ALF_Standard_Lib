@@ -31,7 +31,7 @@ int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 		ALF_jit_error = "Input data is bigger than free space.";
 		return 2;
 	}
-    for (int i = size - 1; i >= 0; i--){
+    for (uint64_t i = size - 1; i >= 0; i--){
         handler->code[handler->position++] = (ins >> (i * 8)) & 0xff;
     }
     return 0;

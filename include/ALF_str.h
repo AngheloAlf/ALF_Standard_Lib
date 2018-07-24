@@ -18,10 +18,15 @@
 /// Python-like string.split()
 /**
  * Params:
+
  * -char *string: The string to be splited.
+
  * -char *delimiters: The delimiter that is going to split the string.
+
  * Return value:
+
  * ->char **: An 'array' of strings. Each string is a part of the original string param.
+
 **/
 char **ALF_split(char *string, const char *delimiters);
 

@@ -1,9 +1,14 @@
 /** \file ALF_OS.h
  * A Operative System detector using the defined macros.
+
  * This library tries to detect differents operative systems using the macros defined by the compiler.
+
  * Any  function return non-zero if at compile time detected it was compiled on the system it think it is.
+
  * 0 Otherwise.
+
  * Some alternative macros are implemented, their function is comodity for the dev.
+
 **/
 
 #ifndef ALF_OS_h
@@ -64,7 +69,9 @@ char ALF_isFreeBSD(void);
 
 /// Detects the not detected by this library.
 /**
+
  * Returns 1 only if none of the others are detected by this library.
+
  * 0 Otherwise.
 **/
 char ALF_isOther(void);

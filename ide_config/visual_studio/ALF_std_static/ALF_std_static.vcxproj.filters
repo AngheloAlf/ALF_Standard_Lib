@@ -59,5 +59,8 @@
     <ClInclude Include="..\..\..\include\ALF_common.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ALF_bit.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

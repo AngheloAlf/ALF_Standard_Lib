@@ -189,6 +189,7 @@
     <ClCompile Include="..\..\..\src\ALF_str.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\ALF_bit.h" />
     <ClInclude Include="..\..\..\include\ALF_bool.h" />
     <ClInclude Include="..\..\..\include\ALF_common.h" />
     <ClInclude Include="..\..\..\include\ALF_IO.h" />

@@ -1,5 +1,6 @@
 /** \file ALF_bool.h
 * A simple boolean type implementation.
+
 * Remark: This implementation is defined only if compiling C code, not C++.
 **/
 

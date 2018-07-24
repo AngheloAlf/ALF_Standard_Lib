@@ -1,6 +1,8 @@
 /** \file ALF_str_extra.h
 * The ALF_std_extra library header.
+
 * It includes the other headers.
+
 **/
 
 #ifndef ALF_std_extra_h

@@ -19,9 +19,13 @@ typedef void* ALF_DSO_func;
 /// Loads a .dll or .so file.
 /**
  * Params: 
+
  * -const char *file: the route and name of the file.
+
  * Return value:
+
  * ->ALF_DSO_handl: The dso handler. NULL in case of error.
+
 **/
 ALF_DSO_handl ALF_DSO_load_file(const char *file);
 /// Search a function in the handler.

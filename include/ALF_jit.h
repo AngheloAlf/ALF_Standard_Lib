@@ -1,4 +1,4 @@
-/** \file ALF_IO.h
+/** \file ALF_jit.h
 * A simple cross-platform wraper to use JIT recompilation.
 **/
 
@@ -28,7 +28,9 @@ typedef struct {
     uint64_t position;
     /**
 	 * Posible states:
+
 	 * 0x0: Normal. Data can be inserted.
+
 	 * 0x1: Ready for execution.
     **/
     uint8_t state;

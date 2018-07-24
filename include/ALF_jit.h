@@ -1,3 +1,7 @@
+/** \file ALF_IO.h
+* A simple cross-platform wraper to use JIT recompilation.
+**/
+
 #ifndef ALF_jit_h
 #define ALF_jit_h
 

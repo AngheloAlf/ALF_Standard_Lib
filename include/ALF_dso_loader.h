@@ -1,3 +1,7 @@
+/** \file ALF_dso_loader.h
+* A simple cross-platform wraper to use Dynamic Shared objects.
+**/
+
 #ifndef ALF_dso_loader_h
 #define ALF_dso_loader_h
 
@@ -12,10 +16,19 @@
 typedef void* ALF_DSO_handl;
 typedef void* ALF_DSO_func;
 
-
+/// Loads a .dll or .so file.
+/**
+ * Params: 
+ * -const char *file: the route and name of the file.
+ * Return value:
+ * ->ALF_DSO_handl: The dso handler. NULL in case of error.
+**/
 ALF_DSO_handl ALF_DSO_load_file(const char *file);
+/// Search a function in the handler.
 ALF_DSO_func ALF_DSO_load_function(ALF_DSO_handl handler, const char *function);
+/// Closes the handler.
 int ALF_DSO_close_file(ALF_DSO_handl handler);
+/// Returns the last error.
 char *ALF_DSO_get_error(void);
 
 

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\ALF_common.c" />
     <ClCompile Include="..\..\..\src\extra\ALF_dso_loader.c" />
   </ItemGroup>
   <ItemGroup>

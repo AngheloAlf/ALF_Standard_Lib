@@ -1,3 +1,7 @@
+/** \file ALF_str.h
+* Macros and functions concerning strings operations
+**/
+
 #ifndef ALF_str_h
 #define ALF_str_h
 
@@ -11,12 +15,23 @@
 
 #include <stdlib.h>
 
-char **ALF_split(char *string, char *delimiters);
+/// Python-like string.split()
+/**
+ * Params:
+ * -char *string: The string to be splited.
+ * -char *delimiters: The delimiter that is going to split the string.
+ * Return value:
+ * ->char **: An 'array' of strings. Each string is a part of the original string param.
+**/
+char **ALF_split(char *string, const char *delimiters);
 
+///
 void ALF_charCopy(unsigned char* dst, const unsigned char* src, size_t size);
 
+///
 unsigned char *ALF_newCharFromIndex(const unsigned char* src, size_t size, size_t start);
 
+/// 
 char* ALF_changeExtension(const char* word, const char* newExt, int lenExt);
 
 #endif /* ALF_str_h */

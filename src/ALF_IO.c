@@ -47,7 +47,7 @@ void ALF_puthex(unsigned char character){
     printf("%x", character);
 }
 
-void ALF_printfColoredBlock(unsigned char character, int withNumber){
+void ALF_printfColoredBlock(unsigned char character, char withNumber){
     if(withNumber){
         printf("\033[%im%i " ALF_ANSI_COLOR_RESET, character + 40, character);
     }

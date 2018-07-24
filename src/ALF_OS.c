@@ -12,7 +12,7 @@ char ALF_isWindows(void){
 	#endif
 }
 char ALF_isOSX(void){
-	#ifdef __APPLE__
+	#if defined(__APPLE__)
 	return 1;
 	#else
 	return 0;
@@ -69,7 +69,7 @@ char ALF_isPosix(void){
 }
 
 char ALF_isAndroid(void){
-	#if defined(__unix__) &&  defined(__ANDROID__)
+	#if defined(__unix__) && defined(__ANDROID__)
 	return 1;
 	#else
 	return 0;

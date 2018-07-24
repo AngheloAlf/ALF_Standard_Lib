@@ -29,5 +29,8 @@
     <ClCompile Include="..\..\..\src\extra\ALF_dso_loader.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\ALF_common.c">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

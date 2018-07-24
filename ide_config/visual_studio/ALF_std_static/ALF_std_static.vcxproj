@@ -182,6 +182,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\ALF_bit.c" />
     <ClCompile Include="..\..\..\src\ALF_bool.c" />
+    <ClCompile Include="..\..\..\src\ALF_common.c" />
     <ClCompile Include="..\..\..\src\ALF_IO.c" />
     <ClCompile Include="..\..\..\src\ALF_jit.c" />
     <ClCompile Include="..\..\..\src\ALF_OS.c" />

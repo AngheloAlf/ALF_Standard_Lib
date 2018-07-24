@@ -16,12 +16,14 @@ INCLUDE_DIR	= include
 EXTRA_DIR	= extra
 OUT_DIR		= out
 DOCS		= docs
+TESTS		= tests
 
 O_EXT_DIR	= $(OBJ_DIR)$(PATH_SEPARATOR)$(EXTRA_DIR)
 STATIC_DIR	= $(OUT_DIR)$(PATH_SEPARATOR)static
 DYNAMIC_DIR	= $(OUT_DIR)$(PATH_SEPARATOR)dynamic
+TESTS_OUT	= $(OUT_DIR)$(PATH_SEPARATOR)$(TESTS)
 
-FOLDERS		= $(OBJ_DIR) $(OUT_DIR) $(STATIC_DIR) $(DYNAMIC_DIR) $(O_EXT_DIR)
+FOLDERS		= $(OBJ_DIR) $(OUT_DIR) $(STATIC_DIR) $(DYNAMIC_DIR) $(O_EXT_DIR) $(TESTS_OUT)
 RM_FOLDERS	= $(OBJ_DIR) $(OUT_DIR) 
 
 MKFILE_PATH	:= $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -47,7 +49,7 @@ DOXYGEN		= doxygen
 ECHO		= @echo
 COPY		= @cp
 MOVE		= @mv
-MAKEDIR		= mkdir
+MAKEDIR		= @mkdir
 MKDIR_FLAGS	= -p
 REMOVE		= @rm
 RM_FLAGS	= -rf
@@ -58,6 +60,9 @@ ifeq ($(OS),Windows_NT)
 	RM_FLAGS	= /s /q
 	MOVE		= move
 endif
+
+TEST_SRC	= $(wildcard $(TESTS)/*.$(LANG_EXT))
+TEST_EXE	= $(patsubst $(TESTS)/%.$(LANG_EXT), $(TESTS_OUT)/%, $(TEST_SRC))
 
 all: static_lib dynamic_lib
 	$(ECHO) "Done\n"
@@ -73,6 +78,14 @@ clean:
 
 docs: make_docs_folder doxygen_make_docs
 	$(ECHO) "done"
+
+tests: makefolders $(TEST_EXE)
+	$(ECHO) "Done."
+
+
+$(TESTS_OUT)/%: $(TESTS)/%.c
+	$(ECHO) $(CC) $<
+	$(CC) $< -o $@ $(FLAGS) -L$(STATIC_DIR) -l$(LIB_NAME) -l$(LIB_NAME)_extra -ldl
 
 make_docs_folder:
 	$(MAKEDIR) $(MKDIR_FLAGS) $(DOCS)

@@ -16,12 +16,16 @@
 /// Returns the amount of digits in a number.
 #define ALF_NUMBER_LENGTH(x) _ALF_NUMBER_LENGTH(x)
 
-// #define ALF_MAKE_VERSION(x, y) ((x) + (y)/(pow(10, ALF_NUMBER_LENGTH(y))) )//
+
+#define ALF_CONC_(A, B) A##B
+#define ALF_CONC(A, B) ALF_CONC_(A, B)
+
+#define ALF_MAKE_VERSION(x, y) ALF_CONC(x, ALF_CONC(.,y))
 
 #define ALF_common_major_version 1
 #define ALF_common_minor_version 0
 #define ALF_common_patch_version 0
-// #define ALF_common_version ALF_common_major_version.ALF_common_minor_version
+#define ALF_common_version ALF_MAKE_VERSION(ALF_common_major_version, ALF_common_minor_version)
 #define ALF_common_version_str ALF_STR(ALF_common_major_version)"."ALF_STR(ALF_common_minor_version)"."ALF_STR(ALF_common_patch_version)
 
 

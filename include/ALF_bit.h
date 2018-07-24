@@ -10,7 +10,7 @@
 #define ALF_bit_major_version 1
 #define ALF_bit_minor_version 0
 #define ALF_bit_patch_version 0
-// #define ALF_bit_version ALF_bit_major_version.ALF_bit_minor_version
+#define ALF_bit_version ALF_MAKE_VERSION(ALF_bit_major_version, ALF_bit_minor_version)
 #define ALF_bit_version_str ALF_STR(ALF_bit_major_version)"."ALF_STR(ALF_bit_minor_version)"."ALF_STR(ALF_bit_patch_version)
 
 /// Bit 0

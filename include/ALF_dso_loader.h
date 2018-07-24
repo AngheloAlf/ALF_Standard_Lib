@@ -10,7 +10,7 @@
 #define ALF_dso_loader_major_version 1
 #define ALF_dso_loader_minor_version 0
 #define ALF_dso_loader_patch_version 0
-// #define ALF_dso_loader_version ALF_dso_loader_major_version.ALF_dso_loader_minor_version
+#define ALF_dso_loader_version ALF_MAKE_VERSION(ALF_dso_loader_major_version, ALF_dso_loader_minor_version)
 #define ALF_dso_loader_version_str ALF_STR(ALF_dso_loader_major_version)"."ALF_STR(ALF_dso_loader_minor_version)"."ALF_STR(ALF_dso_loader_patch_version)
 
 typedef void* ALF_DSO_handl;

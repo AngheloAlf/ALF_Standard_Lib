@@ -19,7 +19,7 @@
 #define ALF_OS_major_version 1
 #define ALF_OS_minor_version 0
 #define ALF_OS_patch_version 0
-// #define ALF_OS_version ALF_OS_major_version.ALF_OS_minor_version
+#define ALF_OS_version ALF_MAKE_VERSION(ALF_OS_major_version, ALF_OS_minor_version)
 #define ALF_OS_version_str ALF_STR(ALF_OS_major_version)"."ALF_STR(ALF_OS_minor_version)"."ALF_STR(ALF_OS_patch_version)
 
 /// Detects the macro _WIN32

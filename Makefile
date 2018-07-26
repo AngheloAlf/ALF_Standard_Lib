@@ -33,7 +33,7 @@ OBJ_EXT		= o
 FLAGS		= -Wall -fPIC -I$(INCLUDE_DIR)
 SHARED_FLAG	= -shared
 DEBUG_FLAG	= -g
-LIBS		= -ldl
+LIBS		= 
 
 # 
 AR			= @ar
@@ -79,8 +79,8 @@ clean:
 docs: make_docs_folder doxygen_make_docs
 	$(ECHO) "done"
 
-tests: makefolders $(TEST_EXE)
-	$(ECHO) "Done."
+tests: $(TEST_EXE)
+	$(ECHO) "Tests done."
 
 
 $(TESTS_OUT)/%: $(TESTS)/%.$(LANG_EXT)

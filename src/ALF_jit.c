@@ -7,6 +7,8 @@ char *ALF_jit_error = "";
 
 ALF_jit_buf *ALF_jit_init(void){
 	ALF_jit_buf *handler = malloc(sizeof(ALF_jit_buf *));
+	handler->position = 0;
+	handler->state = 0;
 	#ifdef _WIN32
 		DWORD type = MEM_RESERVE | MEM_COMMIT;
 		handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_PAGE_SIZE(), type, PAGE_READWRITE);
@@ -31,7 +33,7 @@ int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 		ALF_jit_error = "Input data is bigger than free space.";
 		return 2;
 	}
-    for (uint64_t i = size - 1; i >= 0; i--){
+    for (int64_t i = size - 1; i >= 0; i--){
         handler->code[handler->position++] = (ins >> (i * 8)) & 0xff;
     }
     return 0;

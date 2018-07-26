@@ -94,7 +94,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
-    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <OutDir>$(SolutionDir)..\..\out\</OutDir>
     <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
   </PropertyGroup>
@@ -103,7 +103,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
-    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <OutDir>$(SolutionDir)..\..\out\</OutDir>
     <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
   </PropertyGroup>
@@ -112,7 +112,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
-    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <OutDir>$(SolutionDir)..\..\out\</OutDir>
     <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
   </PropertyGroup>
@@ -121,7 +121,7 @@
     <IncludePath>$(SolutionDir)..\..\include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)..\..\src;$(VC_SourcePath);</SourcePath>
     <ExcludePath>$(SolutionDir)..\..\tests;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath)</ExcludePath>
-    <OutDir>$(SolutionDir)..\..\out\dynamic\</OutDir>
+    <OutDir>$(SolutionDir)..\..\out\</OutDir>
     <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\</IntDir>
     <TargetName>ALF_std</TargetName>
   </PropertyGroup>
@@ -138,7 +138,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
@@ -155,7 +155,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>

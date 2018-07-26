@@ -4,6 +4,9 @@ STC_LIB_EXT		= a
 DYN_LIB_PRE		= lib
 DYN_LIB_EXT		= so
 
+LIB_STATIC		= $(STC_LIB_PRE)$(LIB_NAME).$(STC_LIB_EXT)
+LIB_DYNAMIC		= $(DYN_LIB_PRE)$(LIB_NAME).$(DYN_LIB_EXT)
+
 
 # Directories
 PATH_SEPARATOR	= /
@@ -13,30 +16,24 @@ endif
 SRC_DIR		= src
 OBJ_DIR		= obj
 INCLUDE_DIR	= include
-EXTRA_DIR	= extra
 OUT_DIR		= out
 DOCS		= docs
 TESTS		= tests
 
-O_EXT_DIR	= $(OBJ_DIR)$(PATH_SEPARATOR)$(EXTRA_DIR)
-STATIC_DIR	= $(OUT_DIR)$(PATH_SEPARATOR)static
-DYNAMIC_DIR	= $(OUT_DIR)$(PATH_SEPARATOR)dynamic
 TESTS_OUT	= $(OUT_DIR)$(PATH_SEPARATOR)$(TESTS)
 
-FOLDERS		= $(OBJ_DIR) $(OUT_DIR) $(STATIC_DIR) $(DYNAMIC_DIR) $(O_EXT_DIR) $(TESTS_OUT)
-RM_FOLDERS	= $(OBJ_DIR) $(OUT_DIR) 
-
-MKFILE_PATH	:= $(abspath $(lastword $(MAKEFILE_LIST)))
-CURRENT_DIR	:= $(notdir $(patsubst %/,%,$(dir $(MKFILE_PATH))))
+FOLDERS		= $(OBJ_DIR) $(OUT_DIR) $(TESTS_OUT)
+RM_FOLDERS	= $(OBJ_DIR) $(OUT_DIR)
 
 # Compiler
 CC			= @gcc
 LANG_EXT	= c
 HEADER_EXT	= h
 OBJ_EXT		= o
-FLAGS		= -Wall -fPIC -I$(INCLUDE_DIR) -O2
+FLAGS		= -Wall -fPIC -I$(INCLUDE_DIR)
 SHARED_FLAG	= -shared
 DEBUG_FLAG	= -g
+LIBS		= -ldl
 
 # 
 AR			= @ar
@@ -64,10 +61,13 @@ endif
 TEST_SRC	= $(wildcard $(TESTS)/*.$(LANG_EXT))
 TEST_EXE	= $(patsubst $(TESTS)/%.$(LANG_EXT), $(TESTS_OUT)/%, $(TEST_SRC))
 
+SRC_FILES	= $(wildcard $(SRC_DIR)/*.$(LANG_EXT))
+OBJ_O		= $(patsubst $(SRC_DIR)/%.$(LANG_EXT), $(OBJ_DIR)/%.$(OBJ_EXT), $(SRC_FILES))
+
 all: static_lib dynamic_lib
 	$(ECHO) "Done\n"
 
-debug: make_debug_objects ar_static_lib ar_static_extra_lib compile_dynamic_lib compile_dynamic_extra_lib
+debug: make_debug_objects ar_static_lib compile_dynamic_lib
 	$(ECHO) "Debug ready\n"
 
 install: #static_lib dynamic_lib
@@ -83,9 +83,9 @@ tests: makefolders $(TEST_EXE)
 	$(ECHO) "Done."
 
 
-$(TESTS_OUT)/%: $(TESTS)/%.c
+$(TESTS_OUT)/%: $(TESTS)/%.$(LANG_EXT)
 	$(ECHO) $(CC) $<
-	$(CC) $< -o $@ $(FLAGS) -L$(STATIC_DIR) -l$(LIB_NAME) -l$(LIB_NAME)_extra -ldl
+	$(CC) $< -o $@ $(FLAGS) -L$(OUT_DIR) -l$(LIB_NAME)
 
 make_docs_folder:
 	$(MAKEDIR) $(MKDIR_FLAGS) $(DOCS)
@@ -97,10 +97,10 @@ clean_docs:
 	$(REMOVE) $(RM_FLAGS) $(DOCS)
 
 
-static_lib: make_objects make_extra_objects ar_static_lib ar_static_extra_lib
+static_lib: make_objects ar_static_lib
 	$(ECHO) "\tStatic library done\n"
 
-dynamic_lib: make_objects make_extra_objects compile_dynamic_lib compile_dynamic_extra_lib
+dynamic_lib: make_objects compile_dynamic_lib
 	$(ECHO) "\tDynamic library done\n"
 
 
@@ -109,20 +109,12 @@ makefolders:
 	$(MAKEDIR) $(MKDIR_FLAGS) $(FOLDERS)
 	$(ECHO) "\tFolders done\n"
 
+$(OBJ_DIR)/%.$(OBJ_EXT): $(SRC_DIR)/%.$(LANG_EXT)
+	$(ECHO) $(CC) -c $< 
+	$(CC) -c $< -o $@ $(FLAGS) $(LIBS)
 
-make_objects: makefolders
-	$(ECHO) "Making objects"
-	$(CC) -c $(SRC_DIR)$(PATH_SEPARATOR)*.$(LANG_EXT) $(FLAGS)
-	$(ECHO) "->Moving files"
-	$(MOVE) *.$(OBJ_EXT) $(OBJ_DIR)/
+make_objects: makefolders $(OBJ_O)
 	$(ECHO) "\tObjects done\n"
-
-make_extra_objects: makefolders
-	$(ECHO) "Making extra objects"
-	$(CC) -c $(SRC_DIR)$(PATH_SEPARATOR)$(EXTRA_DIR)$(PATH_SEPARATOR)*.$(LANG_EXT) $(FLAGS)
-	$(ECHO) "->Moving files"
-	$(MOVE) *.$(OBJ_EXT) $(O_EXT_DIR)$(PATH_SEPARATOR)
-	$(ECHO) "\tExtra objects done\n"
 
 make_debug_objects: makefolders
 	$(ECHO) "Making objects"
@@ -130,29 +122,15 @@ make_debug_objects: makefolders
 	$(ECHO) "->Moving files"
 	$(MOVE) *.$(OBJ_EXT) $(OBJ_DIR)$(PATH_SEPARATOR)
 	$(ECHO) "\tObjects done\n"
-	$(ECHO) "Making extra objects"
-	$(CC) -c $(SRC_DIR)$(PATH_SEPARATOR)$(EXTRA_DIR)$(PATH_SEPARATOR)*.$(LANG_EXT) $(FLAGS) $(DEBUG_FLAG)
-	$(ECHO) "->Moving files"
-	$(MOVE) *.$(OBJ_EXT) $(O_EXT_DIR)$(PATH_SEPARATOR)
-	$(ECHO) "\tExtra objects done\n"
-
 
 ar_static_lib: make_objects
 	$(ECHO) "Making static lib"
-	$(AR) $(AR_FLAGS) $(STATIC_DIR)$(PATH_SEPARATOR)$(STC_LIB_PRE)$(LIB_NAME).$(STC_LIB_EXT) $(OBJ_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT)
+	$(ECHO) $(AR) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_STATIC)
+	$(AR) $(AR_FLAGS) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_STATIC) $(OBJ_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT)
 	$(ECHO) "->Static lib done"
 
 compile_dynamic_lib: make_objects
 	$(ECHO) "Making dynamic lib"
-	$(CC) $(OBJ_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT) $(SHARED_FLAG) -o $(DYNAMIC_DIR)$(PATH_SEPARATOR)$(DYN_LIB_PRE)$(LIB_NAME).$(DYN_LIB_EXT)
-	$(ECHO) "->Dynamic lib done"
-
-ar_static_extra_lib: make_extra_objects
-	$(ECHO) "Making static extra lib"
-	$(AR) $(AR_FLAGS) $(STATIC_DIR)$(PATH_SEPARATOR)$(STC_LIB_PRE)$(LIB_NAME)_extra.$(STC_LIB_EXT) $(O_EXT_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT)
-	$(ECHO) "->Static extra lib done"
-
-compile_dynamic_extra_lib: make_extra_objects
-	$(ECHO) "Making dynamic extra lib"
-	$(CC) $(O_EXT_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT) $(SHARED_FLAG) -o $(DYNAMIC_DIR)$(PATH_SEPARATOR)$(DYN_LIB_PRE)$(LIB_NAME)_extra.$(DYN_LIB_EXT)
+	$(ECHO) $(CC) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_DYNAMIC) $(SHARED_FLAG)
+	$(CC) $(OBJ_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT) $(SHARED_FLAG) -o $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_DYNAMIC) $(LIBS)
 	$(ECHO) "->Dynamic lib done"

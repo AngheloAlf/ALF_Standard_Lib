@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 char *ALF_jit_error = "";
 
@@ -78,13 +79,21 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 	return 0;
 }
 
-void ALF_jit_free(ALF_jit_buf *handler){
+int ALF_jit_free(ALF_jit_buf *handler){
+	int retVal = 0;
 	#ifdef _WIN32
-		VirtualFree(handler->code, 0, MEM_RELEASE);
+		retVal = !VirtualFree(handler->code, 0, MEM_RELEASE);
+		if (retVal) {
+			ALF_jit_error = GetLastError();
+		}
 	#else
-		munmap(handler->code, ALF_PAGE_SIZE());
+		if (munmap(handler->code, ALF_PAGE_SIZE())) {
+			retVal = errno;
+			ALF_jit_error = "ALF_jit_free(): Couldn't unmap the memory allocated";
+		}
 	#endif
-	free(handler);
+	// free(handler); // FIXME: Throws error on windows.
+	return retVal;
 }
 
 char *ALF_jit_get_error(void){

@@ -72,7 +72,7 @@ int ALF_jit_finalize(ALF_jit_buf *handler);
 /**
  * 
 **/
-void ALF_jit_free(ALF_jit_buf *handler);
+int ALF_jit_free(ALF_jit_buf *handler);
 
 /// Returns the last error.
 /**
@@ -81,3 +81,4 @@ void ALF_jit_free(ALF_jit_buf *handler);
 char *ALF_jit_get_error(void);
 
 #endif /* ALF_jit_h */
+

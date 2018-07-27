@@ -22,38 +22,26 @@ void puthex_test(void) {
 }
 
 void printfColoredBlock_test(void) {
-	ALF_printfColoredBlock(0, 0);
-	ALF_printfColoredBlock(1, 0);
-	ALF_printfColoredBlock(2, 0);
-	ALF_printfColoredBlock(3, 0);
-	ALF_printfColoredBlock(4, 0);
-	ALF_printfColoredBlock(5, 0);
-	ALF_printfColoredBlock(6, 0);
-	ALF_printfColoredBlock(7, 0);
+	for(int i = 0; i < 8; i++){
+		ALF_printfColoredBlock(i, 0);
+	}
+
+	printf("\n");
+	for(int i = 0; i < 256; i++){
+		if(i % 8 == 0){
+			printf("\n");
+		}
+		ALF_printfColoredBlock(i, 1);
+	}
 
 	printf("\n");
 
-	ALF_printfColoredBlock(0, 1);
-	ALF_printfColoredBlock(1, 1);
-	ALF_printfColoredBlock(2, 1);
-	ALF_printfColoredBlock(3, 1);
-	ALF_printfColoredBlock(4, 1);
-	ALF_printfColoredBlock(5, 1);
-	ALF_printfColoredBlock(6, 1);
-	ALF_printfColoredBlock(7, 1);
+	/*
+	int a = 31;
+	int b = 44;
 
-	printf("\n");
-
-	ALF_printfColoredBlock(8, 1);
-	ALF_printfColoredBlock(9, 1);
-	ALF_printfColoredBlock(10, 1);
-	ALF_printfColoredBlock(11, 1);
-	ALF_printfColoredBlock(12, 1);
-	ALF_printfColoredBlock(13, 1);
-	ALF_printfColoredBlock(14, 1);
-	ALF_printfColoredBlock(15, 1);
-
-	printf("\n");
+	printf("\033[%i;%im%i%i"ALF_ANSI_COLOR_RESET"\n", a, b, a, b);
+	*/
 }
 
 int main(int argc, char *argv[]) {

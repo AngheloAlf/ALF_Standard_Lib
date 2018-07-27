@@ -9,14 +9,23 @@ ALF_jit_buf *ALF_jit_init(void){
 	ALF_jit_buf *handler = malloc(sizeof(ALF_jit_buf *));
 	handler->position = 0;
 	handler->state = 0;
-	#ifdef _WIN32
-		DWORD type = MEM_RESERVE | MEM_COMMIT;
-		handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_PAGE_SIZE(), type, PAGE_READWRITE);
-	#else
-		int prot = PROT_READ | PROT_WRITE;
-		int flags = MAP_ANONYMOUS | MAP_PRIVATE;
-		handler->code = (uint8_t *)mmap(NULL, ALF_PAGE_SIZE(), prot, flags, -1, 0);
-	#endif
+	if(handler != NULL){
+		#ifdef _WIN32
+			DWORD type = MEM_RESERVE | MEM_COMMIT;
+			handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_PAGE_SIZE(), type, PAGE_READWRITE);
+		#else
+			int prot = PROT_READ | PROT_WRITE;
+			int flags = MAP_ANONYMOUS | MAP_PRIVATE;
+			handler->code = (uint8_t *)mmap(NULL, ALF_PAGE_SIZE(), prot, flags, -1, 0);
+		#endif
+
+		if(handler->code == NULL){
+			ALF_jit_error = "ALF_jit_init(): Can't init. Couldn't allocate memory for instructions.";
+		}
+	}
+	else{
+		ALF_jit_error = "ALF_jit_init(): Can't init. The malloc returned NULL.";
+	}
     return handler;
 }
 
@@ -26,11 +35,11 @@ uint64_t ALF_jit_get_avaible_size(ALF_jit_buf *handler){
 
 int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 	if (handler->state & 0x1){
-		ALF_jit_error = "JIT buffer is finalized. Can't write on it.";
+		ALF_jit_error = "ALF_jit_instruction(): JIT buffer is finalized. Can't write on it.";
 		return 1;
 	}
 	if(ALF_jit_get_avaible_size(handler) < size){
-		ALF_jit_error = "Input data is bigger than free space.";
+		ALF_jit_error = "ALF_jit_instruction(): Input data is bigger than free space.";
 		return 2;
 	}
     for (int64_t i = size - 1; i >= 0; i--){
@@ -41,11 +50,11 @@ int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 
 int ALF_jit_immediate(ALF_jit_buf *handler, uint64_t size, const void *value){
 	if (handler->state & 0x1){
-		ALF_jit_error = "JIT buffer is finalized. Can't write on it.";
+		ALF_jit_error = "ALF_jit_immediate(): JIT buffer is finalized. Can't write on it.";
 		return 1;
 	}
 	if(ALF_jit_get_avaible_size(handler) < size){
-		ALF_jit_error = "Input data is bigger than free space.";
+		ALF_jit_error = "ALF_jit_immediate(): Input data is bigger than free space.";
 		return 2;
 	}
     memcpy(handler->code + handler->position, value, size);
@@ -55,7 +64,7 @@ int ALF_jit_immediate(ALF_jit_buf *handler, uint64_t size, const void *value){
 
 int ALF_jit_finalize(ALF_jit_buf *handler){
 	if (handler->state & 0x1){
-		ALF_jit_error = "JIT buffer can already be executed.";
+		ALF_jit_error = "ALF_jit_finalize(): JIT buffer was already finalized.";
 		return 1;
 	}
 
@@ -76,7 +85,6 @@ void ALF_jit_free(ALF_jit_buf *handler){
 		munmap(handler->code, ALF_PAGE_SIZE());
 	#endif
 	free(handler);
-	// handler->state |= 0x2;
 }
 
 char *ALF_jit_get_error(void){

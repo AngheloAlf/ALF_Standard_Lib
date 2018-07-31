@@ -126,11 +126,11 @@ make_debug_objects: makefolders
 ar_static_lib: make_objects
 	$(ECHO) "Making static lib"
 	$(ECHO) $(AR) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_STATIC)
-	$(AR) $(AR_FLAGS) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_STATIC) $(OBJ_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT)
+	$(AR) $(AR_FLAGS) $(OUT_DIR)/$(LIB_STATIC) $(OBJ_DIR)/*.$(OBJ_EXT)
 	$(ECHO) "->Static lib done"
 
 compile_dynamic_lib: make_objects
 	$(ECHO) "Making dynamic lib"
 	$(ECHO) $(CC) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_DYNAMIC) $(SHARED_FLAG)
-	$(CC) $(OBJ_DIR)$(PATH_SEPARATOR)*.$(OBJ_EXT) $(SHARED_FLAG) -o $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_DYNAMIC) $(LIBS)
+	$(CC) $(OBJ_DIR)/*.$(OBJ_EXT) $(SHARED_FLAG) -o $(OUT_DIR)/$(LIB_DYNAMIC) $(LIBS)
 	$(ECHO) "->Dynamic lib done"

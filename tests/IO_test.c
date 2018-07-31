@@ -22,7 +22,11 @@ void puthex_test(void) {
 }
 
 void printfColoredBlock_test(void) {
-	for(int i = 0; i < 8; i++){
+
+	for(int i = 0; i < 256; i++){
+		if(i % 8 == 0){
+			printf("\n");
+		}
 		ALF_printfColoredBlock(i, 0);
 	}
 
@@ -45,10 +49,10 @@ void printfColoredBlock_test(void) {
 }
 
 int main(int argc, char *argv[]) {
-	raw_input_test();
-	puthex_test();
+	// raw_input_test();
+	// puthex_test();
 	printfColoredBlock_test();
 
-	ALF_raw_input("ENTER");
+	ALF_raw_input("ENTER ");
 	return 0;
 }

@@ -48,11 +48,24 @@ void ALF_puthex(unsigned char character){
 }
 
 void ALF_printfColoredBlock(unsigned char character, char withNumber){
+    unsigned char color = 0, param = character;
+    character &= 0x0F;
+    if(character >= 0 && character <= 7){
+        color = character + 40;
+    }
+    else if(character >= 8 && character <= 15){
+        color = character - 8 + 100;
+    }
     if(withNumber){
-        printf("\033[%im%i " ALF_ANSI_COLOR_RESET, character + 40, character);
+        if(param > 0x0F){
+            printf("\033[%im%x" ALF_ANSI_COLOR_RESET, color, param);
+        }
+        else{
+            printf("\033[%im %x" ALF_ANSI_COLOR_RESET, color, param);
+        }
     }
     else{
-        printf("\033[%im  " ALF_ANSI_COLOR_RESET, character + 40);
+        printf("\033[%im  " ALF_ANSI_COLOR_RESET, color);
     }
 }
 

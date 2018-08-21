@@ -26,12 +26,6 @@
 **/
 char **ALF_split(char *string, const char *delimiters);
 
-///
-void ALF_charCopy(unsigned char* dst, const unsigned char* src, size_t size);
-
-///
-unsigned char *ALF_newCharFromIndex(const unsigned char* src, size_t size, size_t start);
-
 /// 
 char* ALF_changeExtension(const char* word, const char* newExt, int lenExt);
 

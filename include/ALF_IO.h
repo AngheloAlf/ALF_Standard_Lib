@@ -56,7 +56,7 @@ char *ALF_raw_input(const char *outMessage){
 void ALF_IO_puthex(unsigned char character);
 /// @deprecated 
 void ALF_puthex(unsigned char character){
-    return ALF_IO_puthex(unsigned char character);
+    return ALF_IO_puthex(character);
 }
 
 /// Printfs a colored block. The color depends on the input.

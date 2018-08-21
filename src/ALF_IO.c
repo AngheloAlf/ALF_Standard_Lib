@@ -58,14 +58,14 @@ void ALF_IO_printfColoredBlock(unsigned char character, char withNumber){
     }
     if(withNumber){
         if(param > 0x0F){
-            printf("\033[%im%x" ALF_ANSI_COLOR_RESET, color, param);
+            printf("\033[%im%x" ALF_IO_ANSI_COLOR_RESET, color, param);
         }
         else{
-            printf("\033[%im %x" ALF_ANSI_COLOR_RESET, color, param);
+            printf("\033[%im %x" ALF_IO_ANSI_COLOR_RESET, color, param);
         }
     }
     else{
-        printf("\033[%im  " ALF_ANSI_COLOR_RESET, color);
+        printf("\033[%im  " ALF_IO_ANSI_COLOR_RESET, color);
     }
 }
 

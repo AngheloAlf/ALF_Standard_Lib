@@ -11,7 +11,7 @@
 #define ALF_IO_minor_version 0
 #define ALF_IO_patch_version 0
 #define ALF_IO_version ALF_MAKE_VERSION(ALF_IO_major_version, ALF_IO_minor_version)
-#define ALF_IO_version_str ALF_STR(ALF_IO_major_version)"."ALF_STR(ALF_IO_minor_version)"."ALF_STR(ALF_IO_patch_version)
+#define ALF_IO_version_str ALF_STR(ALF_IO_major_version) "." ALF_STR(ALF_IO_minor_version) "." ALF_STR(ALF_IO_patch_version)
 
 #define ALF_ANSI_COLOR_BLACK	"\x1b[30m"
 #define ALF_ANSI_COLOR_RED		"\x1b[31m"

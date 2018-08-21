@@ -11,7 +11,7 @@
 #define ALF_str_minor_version 0
 #define ALF_str_patch_version 0
 #define ALF_str_version ALF_MAKE_VERSION(ALF_str_major_version, ALF_str_minor_version)
-#define ALF_str_version_str ALF_STR(ALF_str_major_version)"."ALF_STR(ALF_str_minor_version)"."ALF_STR(ALF_str_patch_version)
+#define ALF_str_version_str ALF_STR(ALF_str_major_version) "." ALF_STR(ALF_str_minor_version) "." ALF_STR(ALF_str_patch_version)
 
 #include <stdlib.h>
 

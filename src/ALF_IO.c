@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char *ALF_raw_input(const char *outMessage){
+char *ALF_IO_raw_input(const char *outMessage){
     printf("%s", outMessage);
 
     int inSize = 32;
@@ -40,14 +40,14 @@ char *ALF_raw_input(const char *outMessage){
     }
 }
 
-void ALF_puthex(unsigned char character){
+void ALF_IO_puthex(unsigned char character){
     if(character < 0x10){
         printf("0");
     }
     printf("%x", character);
 }
 
-void ALF_printfColoredBlock(unsigned char character, char withNumber){
+void ALF_IO_printfColoredBlock(unsigned char character, char withNumber){
     unsigned char color = 0, param = character;
     character &= 0x0F;
     if(character >= 0 && character <= 7){

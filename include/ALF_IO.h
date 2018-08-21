@@ -7,21 +7,15 @@
 
 #include "ALF_common.h"
 
-#define ALF_IO_major_version 1
-#define ALF_IO_minor_version 0
-#define ALF_IO_patch_version 0
-#define ALF_IO_version ALF_MAKE_VERSION(ALF_IO_major_version, ALF_IO_minor_version)
-#define ALF_IO_version_str ALF_STR(ALF_IO_major_version) "." ALF_STR(ALF_IO_minor_version) "." ALF_STR(ALF_IO_patch_version)
-
-#define ALF_ANSI_COLOR_BLACK	"\x1b[30m"
-#define ALF_ANSI_COLOR_RED		"\x1b[31m"
-#define ALF_ANSI_COLOR_GREEN	"\x1b[32m"
-#define ALF_ANSI_COLOR_YELLOW	"\x1b[33m"
-#define ALF_ANSI_COLOR_BLUE		"\x1b[34m"
-#define ALF_ANSI_COLOR_MAGENTA	"\x1b[35m"
-#define ALF_ANSI_COLOR_CYAN		"\x1b[36m"
-#define ALF_ANSI_COLOR_WHITE	"\x1b[37m"
-#define ALF_ANSI_COLOR_RESET	"\x1b[0m"
+#define ALF_IO_ANSI_COLOR_BLACK	    "\x1b[30m"
+#define ALF_IO_ANSI_COLOR_RED		"\x1b[31m"
+#define ALF_IO_ANSI_COLOR_GREEN	    "\x1b[32m"
+#define ALF_IO_ANSI_COLOR_YELLOW	"\x1b[33m"
+#define ALF_IO_ANSI_COLOR_BLUE		"\x1b[34m"
+#define ALF_IO_ANSI_COLOR_MAGENTA	"\x1b[35m"
+#define ALF_IO_ANSI_COLOR_CYAN		"\x1b[36m"
+#define ALF_IO_ANSI_COLOR_WHITE	    "\x1b[37m"
+#define ALF_IO_ANSI_COLOR_RESET     "\x1b[0m"
 
 /// Python-like input of data.
 /** 
@@ -40,7 +34,11 @@
  * ->char *: The user input.
 
 **/
-char *ALF_raw_input(const char *outMessage);
+char *ALF_IO_raw_input(const char *outMessage);
+/// @deprecated
+char *ALF_raw_input(const char *outMessage){
+    return ALF_IO_raw_input(outMessage);
+}
 
 /// Printfs a char like an hex number
 /** Printfs an unsigned char like an hex number.
@@ -55,7 +53,11 @@ char *ALF_raw_input(const char *outMessage);
 
  * ->void
 **/
-void ALF_puthex(unsigned char character);
+void ALF_IO_puthex(unsigned char character);
+/// @deprecated 
+void ALF_puthex(unsigned char character){
+    return ALF_IO_puthex(unsigned char character);
+}
 
 /// Printfs a colored block. The color depends on the input.
 /** !! Doesn't work on Windows !!
@@ -73,6 +75,10 @@ void ALF_puthex(unsigned char character);
 * ->void
 
 **/
-void ALF_printfColoredBlock(unsigned char character, char withNumber);
+void ALF_IO_printfColoredBlock(unsigned char character, char withNumber);
+/// @deprecated
+void ALF_printfColoredBlock(unsigned char character, char withNumber){
+    return ALF_IO_printfColoredBlock(character, withNumber);
+}
 
 #endif /* ALF_LIB_IO */

@@ -16,6 +16,8 @@
 
 #include "ALF_common.h"
 
+// TODO: Update this file with the new function convetion.
+
 #define ALF_OS_major_version 1
 #define ALF_OS_minor_version 0
 #define ALF_OS_patch_version 0

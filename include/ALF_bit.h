@@ -7,12 +7,6 @@
 
 #include "ALF_common.h"
 
-#define ALF_bit_major_version 1
-#define ALF_bit_minor_version 0
-#define ALF_bit_patch_version 0
-#define ALF_bit_version ALF_MAKE_VERSION(ALF_bit_major_version, ALF_bit_minor_version)
-#define ALF_bit_version_str ALF_STR(ALF_bit_major_version) "." ALF_STR(ALF_bit_minor_version) "." ALF_STR(ALF_bit_patch_version)
-
 /// Bit 0
 #define ALF_BIT_0   0x1  // 0b00000001
 /// Bit 1
@@ -31,13 +25,21 @@
 #define ALF_BIT_7   0x80 // 0b10000000
 
 /// Upper half of a byte
-#define ALF_HIGH_NIBBLE 0xF0 // 0b11110000
+#define ALF_BIT_HIGH_NIBBLE 0xF0 // 0b11110000
+/// @deprecated
+#define ALF_HIGH_NIBBLE ALF_BIT_HIGH_NIBBLE 
 /// Lower half of a byte
-#define ALF_LOW_NIBBLE  0x0F // 0b00001111
+#define ALF_BIT_LOW_NIBBLE  0x0F // 0b00001111
+/// @deprecated
+#define ALF_LOW_NIBBLE  ALF_BIT_LOW_NIBBLE 
 
 /// Returns the value at that exact bit position
-#define ALF_GET_BIT(value, bit) ((value & (0x1<<bit)) >> bit)
+#define ALF_BIT_GET_BIT(value, bit) ((value & (0x1<<bit)) >> bit)
+/// @deprecated
+#define ALF_GET_BIT(value, bit) ALF_BIT_GET_BIT(value, bit)
 /// Returns the value at that exact byte position
-#define ALF_GET_BYTE(value, byte) ((value & (0xFF<<(byte*0x8))) >> (byte*0x8))
+#define ALF_BIT_GET_BYTE(value, byte) ((value & (0xFF<<(byte*0x8))) >> (byte*0x8))
+/// @deprecated
+#define ALF_GET_BYTE(value, byte) ALF_BIT_GET_BYTE(value, byte)
 
 #endif /* ALF_bit_h */

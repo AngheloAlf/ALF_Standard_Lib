@@ -16,6 +16,10 @@
 
 #include "ALF_common.h"
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 /// Detects the macro _WIN32
 char ALF_OS_isWindows(void);
 
@@ -69,6 +73,83 @@ char ALF_OS_isFreeBSD(void);
  * 0 Otherwise.
 **/
 char ALF_OS_isOther(void);
+
+
+#ifdef __cplusplus
+}
+
+namespace ALF{
+    namespace OS{
+        bool isWindows(void){
+            return ALF_OS_isWindows();
+        }
+
+        bool isOSX(void){
+            return ALF_OS_isOSX();
+        }
+        bool isMac(){
+            return ALF_OS_isOSX();
+        }
+
+        bool isLinux(void){
+            return ALF_OS_isLinux();
+        }
+
+        bool isWindows32(void){
+            return ALF_OS_isWindows32();
+        }
+        bool isWindows64(void){
+            return ALF_OS_isWindows64();
+        }
+
+        bool isUnix(void){
+            return ALF_OS_isUnix();
+        }
+        bool isUnixOther(void){
+            return ALF_OS_isUnixOther();
+        }
+
+        bool isPosix(void){
+            return ALF_OS_isPosix();
+        }
+
+        bool isAndroid(void){
+            return ALF_OS_isAndroid();
+        }
+
+        bool isIOS(void){
+            return ALF_OS_isIOS();
+        }
+        bool isIphone(){
+            return ALF_OS_isIOS();
+        }
+        bool isIOSSimulator(void){
+            return ALF_OS_isIOSSimulator();
+        }
+        bool isIphoneSimulator(){
+            return ALF_OS_isIOSSimulator();
+        }
+        bool isOSXOther(void){
+            return ALF_OS_isOSXOther();
+        }
+        bool isMACOther(){
+            return ALF_OS_isOSXOther();
+        }
+        bool isAppleOther(void){
+            return ALF_OS_isAppleOther();
+        }
+
+        bool isFreeBSD(void){
+            return ALF_OS_isFreeBSD();
+        }
+
+        bool ALF_OS_isOther(void){
+            return ALF_OS_isOther();
+        }
+    }
+}
+#endif
+
 
 /* OS DETECTOR */
 /*

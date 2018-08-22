@@ -9,6 +9,10 @@
 
 #include <stdlib.h>
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 /// Python-like string.split()
 /**
  * Params:
@@ -32,5 +36,21 @@ char* ALF_STR_changeExtension(const char* word, const char* newExt, int lenExt);
 #define ALF_changeExtension(word, newExt, lenExt) ALF_STR_changeExtension(word, newExt, lenExt)
 
 
+
+#ifdef __cplusplus
+}
+
+namespace ALF{
+    namespace STR{
+        char **split(char *string, const char *delimiters){
+            return ALF_STR_split(string, delimiters);
+        }
+
+        char* changeExtension(const char* word, const char* newExt, int lenExt){
+            return ALF_STR_changeExtension(word, newExt, lenExt);
+        }
+    }
+}
+#endif
 
 #endif /* ALF_str_h */

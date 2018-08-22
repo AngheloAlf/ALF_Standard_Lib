@@ -17,6 +17,12 @@
 #define ALF_IO_ANSI_COLOR_WHITE	    "\x1b[37m"
 #define ALF_IO_ANSI_COLOR_RESET     "\x1b[0m"
 
+#ifdef __cplusplus
+#include <string>
+
+extern "C"{
+#endif
+
 /// Python-like input of data.
 /** 
  * This function prints out a message to screen (stdout).
@@ -36,9 +42,7 @@
 **/
 char *ALF_IO_raw_input(const char *outMessage);
 /// @deprecated
-char *ALF_raw_input(const char *outMessage){
-    return ALF_IO_raw_input(outMessage);
-}
+#define ALF_raw_input(outMessage) ALF_IO_raw_input(outMessage)
 
 /// Printfs a char like an hex number
 /** Printfs an unsigned char like an hex number.
@@ -55,9 +59,7 @@ char *ALF_raw_input(const char *outMessage){
 **/
 void ALF_IO_puthex(unsigned char character);
 /// @deprecated 
-void ALF_puthex(unsigned char character){
-    return ALF_IO_puthex(character);
-}
+#define ALF_puthex(character) ALF_IO_puthex(character)
 
 /// Printfs a colored block. The color depends on the input.
 /** !! Doesn't work on Windows !!
@@ -77,8 +79,29 @@ void ALF_puthex(unsigned char character){
 **/
 void ALF_IO_printfColoredBlock(unsigned char character, char withNumber);
 /// @deprecated
-void ALF_printfColoredBlock(unsigned char character, char withNumber){
-    return ALF_IO_printfColoredBlock(character, withNumber);
+#define ALF_printfColoredBlock(character, withNumber) ALF_IO_printfColoredBlock(character, withNumber)
+
+#ifdef __cplusplus
 }
+
+namespace ALF{
+    namespace IO{
+        char *raw_input(const char* outMessage){
+            return ALF_IO_raw_input(outMessage);
+        }
+        std::string raw_input(std::string outMessage){
+            return std::string(ALF_IO_raw_input(outMessage.c_str()));
+        }
+
+        void puthex(unsigned char character){
+            ALF_IO_puthex(character);
+        }
+
+        void printfColoredBlock(unsigned char character, char withNumber){
+            ALF_IO_printfColoredBlock(character, withNumber);
+        }
+    }
+}
+#endif
 
 #endif /* ALF_LIB_IO */

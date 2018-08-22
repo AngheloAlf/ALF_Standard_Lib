@@ -13,11 +13,11 @@ ALF_jit_buf *ALF_jit_init(void){
 	if(handler != NULL){
 		#ifdef _WIN32
 			DWORD type = MEM_RESERVE | MEM_COMMIT;
-			handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_PAGE_SIZE(), type, PAGE_READWRITE);
+			handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_jit_pageSize(), type, PAGE_READWRITE);
 		#else
 			int prot = PROT_READ | PROT_WRITE;
 			int flags = MAP_ANONYMOUS | MAP_PRIVATE;
-			handler->code = (uint8_t *)mmap(NULL, ALF_PAGE_SIZE(), prot, flags, -1, 0);
+			handler->code = (uint8_t *)mmap(NULL, ALF_jit_pageSize(), prot, flags, -1, 0);
 		#endif
 
 		if(handler->code == NULL){
@@ -30,16 +30,16 @@ ALF_jit_buf *ALF_jit_init(void){
     return handler;
 }
 
-uint64_t ALF_jit_get_avaible_size(ALF_jit_buf *handler){
-	return ALF_PAGE_SIZE() - sizeof(uint64_t) - sizeof(uint8_t) - handler->position*sizeof(uint8_t);
+uint64_t ALF_jit_getAvaibleSize(ALF_jit_buf *handler){
+	return ALF_jit_pageSize() - sizeof(uint64_t) - sizeof(uint8_t) - handler->position*sizeof(uint8_t);
 }
 
-int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
+int ALF_jit_addInstruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 	if (handler->state & 0x1){
 		ALF_jit_error = "ALF_jit_instruction(): JIT buffer is finalized. Can't write on it.";
 		return 1;
 	}
-	if(ALF_jit_get_avaible_size(handler) < size){
+	if(ALF_jit_getAvaibleSize(handler) < size){
 		ALF_jit_error = "ALF_jit_instruction(): Input data is bigger than free space.";
 		return 2;
 	}
@@ -49,12 +49,12 @@ int ALF_jit_instruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
     return 0;
 }
 
-int ALF_jit_immediate(ALF_jit_buf *handler, uint64_t size, const void *value){
+int ALF_jit_addImmediate(ALF_jit_buf *handler, uint64_t size, const void *value){
 	if (handler->state & 0x1){
 		ALF_jit_error = "ALF_jit_immediate(): JIT buffer is finalized. Can't write on it.";
 		return 1;
 	}
-	if(ALF_jit_get_avaible_size(handler) < size){
+	if(ALF_jit_getAvaibleSize(handler) < size){
 		ALF_jit_error = "ALF_jit_immediate(): Input data is bigger than free space.";
 		return 2;
 	}
@@ -71,9 +71,9 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 
 	#ifdef _WIN32
 		DWORD old;
-		VirtualProtect(handler->code, ALF_PAGE_SIZE(), PAGE_EXECUTE_READ, &old);
+		VirtualProtect(handler->code, ALF_jit_pageSize(), PAGE_EXECUTE_READ, &old);
 	#else
-		mprotect(handler->code, ALF_PAGE_SIZE(), PROT_READ | PROT_EXEC);
+		mprotect(handler->code, ALF_jit_pageSize(), PROT_READ | PROT_EXEC);
 	#endif
 	handler->state |= 0x1;
 	return 0;
@@ -87,7 +87,7 @@ int ALF_jit_free(ALF_jit_buf *handler){
 			ALF_jit_error = GetLastError();
 		}
 	#else
-		if (munmap(handler->code, ALF_PAGE_SIZE())) {
+		if (munmap(handler->code, ALF_jit_pageSize())) {
 			retVal = errno;
 			ALF_jit_error = "ALF_jit_free(): Couldn't unmap the memory allocated";
 		}
@@ -96,14 +96,16 @@ int ALF_jit_free(ALF_jit_buf *handler){
 	return retVal;
 }
 
-char *ALF_jit_get_error(void){
+char *ALF_jit_getError(void){
 	return ALF_jit_error;
 }
 
-#ifdef _WIN32
-	uint64_t ALF_PAGE_SIZE(void){
+uint64_t ALF_jit_pageSize(void){
+	#ifdef _WIN32
 		SYSTEM_INFO system_info;
 		GetSystemInfo(&system_info);
-		return system_info.dwPageSize;
-	}
-#endif
+		return system_info.dwALF_jit_pageSize;
+	#else
+		return sysconf(_SC_PAGESIZE);
+	#endif
+}

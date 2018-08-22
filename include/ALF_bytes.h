@@ -49,32 +49,33 @@ void ALF_bytes_setBytes(ALF_bytes *bytesObj, const char *bytes, long size);
 }
 
 namespace ALF{
-    /// C++ class wrapper.
-    class Bytes{
-    public:
-        
-        Bytes(const char *bytes, long size){
-            bytesObj = ALF_bytes_init(bytes, size);
-        }
-        ~Bytes(){
-            ALF_bytes_free(bytesObj);
-        }
+    namespace bytes{
+        /// C++ class wrapper.
+        class Bytes{
+        public:
+            Bytes(const char *bytes, long size){
+                bytesObj = ALF_bytes_init(bytes, size);
+            }
+            ~Bytes(){
+                ALF_bytes_free(bytesObj);
+            }
 
-        long getSize(){
-            return ALF_bytes_getSize(bytesObj);
-        }
+            long getSize(){
+                return ALF_bytes_getSize(bytesObj);
+            }
 
-        const char *getBytes(){
-            return ALF_bytes_getBytes(bytesObj);
-        }
+            const char *getBytes(){
+                return ALF_bytes_getBytes(bytesObj);
+            }
 
-        void setBytes(const char *bytes, long size){
-            ALF_bytes_setBytes(bytesObj, bytes, size);
-        }
+            void setBytes(const char *bytes, long size){
+                ALF_bytes_setBytes(bytesObj, bytes, size);
+            }
 
-    private:
-        ALF_bytes *bytesObj;
-    };
+        private:
+            ALF_bytes *bytesObj;
+        };
+    }
 }
 
 

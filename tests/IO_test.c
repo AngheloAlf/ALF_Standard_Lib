@@ -2,22 +2,22 @@
 #include <stdio.h>
 
 void raw_input_test(void) {
-	char* mensaje = ALF_raw_input("Ingrese un mensaje: ");
+	char* mensaje = ALF_IO_raw_input("Ingrese un mensaje: ");
 	printf("Su mensaje es: %s\n", mensaje);
 }
 
 void puthex_test(void) {
-	ALF_puthex(5);
+	ALF_IO_puthex(5);
 	printf("\n");
-	ALF_puthex(83);
+	ALF_IO_puthex(83);
 	printf("\n");
-	ALF_puthex(0x25);
+	ALF_IO_puthex(0x25);
 	printf("\n");
-	ALF_puthex(0x13);
+	ALF_IO_puthex(0x13);
 	printf("\n");
-	ALF_puthex(0x6);
+	ALF_IO_puthex(0x6);
 	printf("\n");
-	ALF_puthex(13);
+	ALF_IO_puthex(13);
 	printf("\n");
 }
 
@@ -27,7 +27,7 @@ void printfColoredBlock_test(void) {
 		if(i % 8 == 0){
 			printf("\n");
 		}
-		ALF_printfColoredBlock(i, 0);
+		ALF_IO_printfColoredBlock(i, 0);
 	}
 
 	printf("\n");
@@ -35,7 +35,7 @@ void printfColoredBlock_test(void) {
 		if(i % 8 == 0){
 			printf("\n");
 		}
-		ALF_printfColoredBlock(i, 1);
+		ALF_IO_printfColoredBlock(i, 1);
 	}
 
 	printf("\n");
@@ -53,6 +53,6 @@ int main(int argc, char *argv[]) {
 	// puthex_test();
 	printfColoredBlock_test();
 
-	ALF_raw_input("ENTER ");
+	ALF_IO_raw_input("ENTER ");
 	return 0;
 }

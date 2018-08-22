@@ -4,10 +4,10 @@
 #include <string.h>
 
 ALF_bytes *ALF_bytes_init(const char *bytes, long size){
-    ALF_bytes *this = malloc(sizeof(ALF_bytes));
+    ALF_bytes *this = (ALF_bytes *)malloc(sizeof(ALF_bytes));
     this->size = size;
     if(bytes && size > 0){
-        this->bytes = malloc(sizeof(char) * size);
+        this->bytes = (char *)malloc(sizeof(char) * size);
         memcpy(this->bytes, bytes, size);
     }
     return this;
@@ -32,7 +32,7 @@ void ALF_bytes_setBytes(ALF_bytes *this, const char *bytes, long size){
     }
     this->size = size;
     if(bytes && size > 0){
-        this->bytes = malloc(sizeof(char) * size);
+        this->bytes = (char *)malloc(sizeof(char) * size);
         memcpy(this->bytes, bytes, size);
     }
 }

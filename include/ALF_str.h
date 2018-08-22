@@ -24,16 +24,13 @@
 **/
 char **ALF_STR_split(char *string, const char *delimiters);
 /// @deprecated
-char **ALF_split(char *string, const char *delimiters){
-    return ALF_STR_split(string, delimiters);
-}
+#define ALF_split(string, delimiters) ALF_STR_split(string, delimiters)
 
 /// 
 char* ALF_STR_changeExtension(const char* word, const char* newExt, int lenExt);
 /// @deprecated
-char* ALF_changeExtension(const char* word, const char* newExt, int lenExt){
-    return ALF_STR_changeExtension(word, newExt, lenExt);
-}
+#define ALF_changeExtension(word, newExt, lenExt) ALF_STR_changeExtension(word, newExt, lenExt)
+
 
 
 #endif /* ALF_str_h */

@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-char **ALF_split(char *string, const char *delimiters){
+char **ALF_STR_split(char *string, const char *delimiters){
     char **splitted = malloc(sizeof(char *));
     char *token = strtok(string, delimiters);
     int i = 0;
@@ -15,7 +15,7 @@ char **ALF_split(char *string, const char *delimiters){
     return splitted;
 }
 
-char* ALF_changeExtension(const char* word, const char* newExt, int lenExt){
+char* ALF_STR_changeExtension(const char* word, const char* newExt, int lenExt){
     int oldLen = 0, lastDotLen = 0, lenChange = 0;
     char* newWord;
 

@@ -16,58 +16,50 @@
 
 #include "ALF_common.h"
 
-// TODO: Update this file with the new function convetion.
-
-#define ALF_OS_major_version 1
-#define ALF_OS_minor_version 0
-#define ALF_OS_patch_version 0
-#define ALF_OS_version ALF_MAKE_VERSION(ALF_OS_major_version, ALF_OS_minor_version)
-#define ALF_OS_version_str ALF_STR(ALF_OS_major_version) "." ALF_STR(ALF_OS_minor_version) "." ALF_STR(ALF_OS_patch_version)
-
 /// Detects the macro _WIN32
-char ALF_isWindows(void);
+char ALF_OS_isWindows(void);
 
 /// Detects the macro __APPLE__
-char ALF_isOSX(void);
+char ALF_OS_isOSX(void);
 /// Just another name for ALF_isOSX()
-#define ALF_isMac() ALF_isOSX()
+#define ALF_OS_isMac() ALF_OS_isOSX()
 
 /// Detects the macro __linux__
-char ALF_isLinux(void);
+char ALF_OS_isLinux(void);
 
 /// Detects if is a WIN32 and not a WIN64
-char ALF_isWindows32(void);
+char ALF_OS_isWindows32(void);
 /// Detects _WIN64
-char ALF_isWindows64(void);
+char ALF_OS_isWindows64(void);
 
 /// Detects __unix__
-char ALF_isUnix(void);
+char ALF_OS_isUnix(void);
 /// Detects if defined __unix__ but is not a linux, apple, or android machine.
-char ALF_isUnixOther(void);
+char ALF_OS_isUnixOther(void);
 
 /// Detects _POSIX_VERSION
-char ALF_isPosix(void);
+char ALF_OS_isPosix(void);
 
 /// Detects __ANDROID__
-char ALF_isAndroid(void);
+char ALF_OS_isAndroid(void);
 
 /// Detects iOS (iPhone)
-char ALF_isIOS(void);
+char ALF_OS_isIOS(void);
 /// Other name for ALF_isIOS()
-#define ALF_isIphone() ALF_isIOS()
+#define ALF_OS_isIphone() ALF_OS_isIOS()
 /// Detects TARGET_IPHONE_SIMULATOR
-char ALF_isIOSSimulator(void);
+char ALF_OS_isIOSSimulator(void);
 /// Other name for ALF_isIOSSimulator()
-#define ALF_isIphoneSimulator() ALF_isIOSSimulator()
+#define ALF_OS_isIphoneSimulator() ALF_OS_isIOSSimulator()
 /// Detects TARGET_OS_MAC
-char ALF_isOSXOther(void);
+char ALF_OS_isOSXOther(void);
 /// Other name for ALF_isOSXOther()
-#define ALF_isMACOther() ALF_isOSXOther()
+#define ALF_OS_isMACOther() ALF_OS_isOSXOther()
 /// Detect is Apple product, but not detected by the others macros. 
-char ALF_isAppleOther(void);
+char ALF_OS_isAppleOther(void);
 
 /// Detects FreeBSD
-char ALF_isFreeBSD(void);
+char ALF_OS_isFreeBSD(void);
 
 /// Detects the not detected by this library.
 /**
@@ -76,7 +68,7 @@ char ALF_isFreeBSD(void);
 
  * 0 Otherwise.
 **/
-char ALF_isOther(void);
+char ALF_OS_isOther(void);
 
 /* OS DETECTOR */
 /*

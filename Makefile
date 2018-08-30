@@ -3,6 +3,12 @@ STC_LIB_PRE		= lib
 STC_LIB_EXT		= a
 DYN_LIB_PRE		= lib
 DYN_LIB_EXT		= so
+ifeq ($(OS),Windows_NT)
+	STC_LIB_PRE		= 
+	STC_LIB_EXT		= lib
+	DYN_LIB_PRE		= 
+	DYN_LIB_EXT		= dll
+endif
 
 LIB_STATIC		= $(STC_LIB_PRE)$(LIB_NAME).$(STC_LIB_EXT)
 LIB_DYNAMIC		= $(DYN_LIB_PRE)$(LIB_NAME).$(DYN_LIB_EXT)

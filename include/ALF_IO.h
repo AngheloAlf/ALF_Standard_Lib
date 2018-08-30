@@ -17,12 +17,6 @@
 #define ALF_IO_ANSI_COLOR_WHITE	    "\x1b[37m"
 #define ALF_IO_ANSI_COLOR_RESET     "\x1b[0m"
 
-#ifdef __cplusplus
-#include <string>
-
-extern "C"{
-#endif
-
 /// Python-like input of data.
 /** 
  * This function prints out a message to screen (stdout).
@@ -81,27 +75,4 @@ void ALF_IO_printfColoredBlock(unsigned char character, char withNumber);
 /// @deprecated
 #define ALF_printfColoredBlock(character, withNumber) ALF_IO_printfColoredBlock(character, withNumber)
 
-#ifdef __cplusplus
-}
-
-namespace ALF{
-    namespace IO{
-        char *raw_input(const char* outMessage){
-            return ALF_IO_raw_input(outMessage);
-        }
-        std::string raw_input(std::string outMessage){
-            return std::string(ALF_IO_raw_input(outMessage.c_str()));
-        }
-
-        void puthex(unsigned char character){
-            ALF_IO_puthex(character);
-        }
-
-        void printfColoredBlock(unsigned char character, char withNumber){
-            ALF_IO_printfColoredBlock(character, withNumber);
-        }
-    }
-}
-#endif
-
-#endif /* ALF_LIB_IO */
+#endif /* ALF_IO_h */

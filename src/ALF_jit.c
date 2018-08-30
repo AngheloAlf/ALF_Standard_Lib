@@ -79,12 +79,13 @@ int ALF_jit_finalize(ALF_jit_buf *handler){
 	return 0;
 }
 
-int ALF_jit_free(ALF_jit_buf *handler){
-	int retVal = 0;
+long ALF_jit_free(ALF_jit_buf *handler){
+	long retVal = 0;
 	#ifdef _WIN32
 		retVal = !VirtualFree(handler->code, 0, MEM_RELEASE);
 		if (retVal) {
-			ALF_jit_error = GetLastError();
+			retVal = GetLastError();
+			ALF_jit_error = "ALF_jit_free(): Couldn't unmap the memory allocated";
 		}
 	#else
 		if (munmap(handler->code, ALF_jit_pageSize())) {
@@ -104,7 +105,7 @@ uint64_t ALF_jit_pageSize(void){
 	#ifdef _WIN32
 		SYSTEM_INFO system_info;
 		GetSystemInfo(&system_info);
-		return system_info.dwALF_jit_pageSize;
+		return system_info.dwPageSize;
 	#else
 		return sysconf(_SC_PAGESIZE);
 	#endif

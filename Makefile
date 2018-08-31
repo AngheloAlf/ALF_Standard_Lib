@@ -21,10 +21,11 @@ ifeq ($(OS),Windows_NT)
 endif
 SRC_DIR		= src
 OBJ_DIR		= obj
-INCLUDE_DIR	= include
+INCLUDE_DIR	= include/ src/
 OUT_DIR		= out
 DOCS		= docs
 TESTS		= tests
+LIBS_DIR	= lib/ src/
 
 TESTS_OUT	= $(OUT_DIR)$(PATH_SEPARATOR)$(TESTS)
 
@@ -36,10 +37,13 @@ CC			= @gcc
 LANG_EXT	= c
 HEADER_EXT	= h
 OBJ_EXT		= o
-FLAGS		= -Wall -fPIC -I$(INCLUDE_DIR)
+FLAGS		= -Wall -fPIC
 SHARED_FLAG	= -shared
 DEBUG_FLAG	= -g
 LIBS		= 
+LIBS_NAMES	= $(addprefix -l, $(LIBS))
+LIBS_FOLDER	= $(addprefix -L, $(LIBS_DIR))
+INCLUDE_FOLD= $(addprefix -I, $(INCLUDE_DIR))
 
 # 
 AR			= @ar
@@ -91,11 +95,11 @@ tests: $(TEST_EXE)
 
 $(TESTS_OUT)/%: $(TESTS)/%.$(LANG_EXT)
 	$(ECHO) $(CC) $<
-	$(CC) $< -o $@ $(FLAGS) -L$(OUT_DIR) -l$(LIB_NAME)
+	$(CC) $< -o $@ $(FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) -L$(OUT_DIR) -l$(LIB_NAME)
+
 
 make_docs_folder:
 	$(MAKEDIR) $(MKDIR_FLAGS) $(DOCS)
-
 doxygen_make_docs: make_docs_folder
 	$(DOXYGEN) docs.conf
 
@@ -117,14 +121,14 @@ makefolders:
 
 $(OBJ_DIR)/%.$(OBJ_EXT): $(SRC_DIR)/%.$(LANG_EXT)
 	$(ECHO) $(CC) -c $< 
-	$(CC) -c $< -o $@ $(FLAGS) $(LIBS)
+	$(CC) -c $< -o $@ $(FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES)
 
 make_objects: makefolders $(OBJ_O)
 	$(ECHO) "\tObjects done\n"
 
 make_debug_objects: makefolders
 	$(ECHO) "Making objects"
-	$(CC) -c $(SRC_DIR)$(PATH_SEPARATOR)*.$(LANG_EXT) $(FLAGS) $(DEBUG_FLAG)
+	$(CC) -c $(SRC_DIR)$(PATH_SEPARATOR)*.$(LANG_EXT) $(FLAGS) $(DEBUG_FLAG) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES)
 	$(ECHO) "->Moving files"
 	$(MOVE) *.$(OBJ_EXT) $(OBJ_DIR)$(PATH_SEPARATOR)
 	$(ECHO) "\tObjects done\n"
@@ -138,5 +142,5 @@ ar_static_lib: make_objects
 compile_dynamic_lib: make_objects
 	$(ECHO) "Making dynamic lib"
 	$(ECHO) $(CC) $(OUT_DIR)$(PATH_SEPARATOR)$(LIB_DYNAMIC) $(SHARED_FLAG)
-	$(CC) $(OBJ_DIR)/*.$(OBJ_EXT) $(SHARED_FLAG) -o $(OUT_DIR)/$(LIB_DYNAMIC) $(LIBS)
+	$(CC) $(OBJ_DIR)/*.$(OBJ_EXT) $(SHARED_FLAG) -o $(OUT_DIR)/$(LIB_DYNAMIC) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES)
 	$(ECHO) "->Dynamic lib done"

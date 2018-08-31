@@ -1,4 +1,4 @@
-#include "ALF_jit.h"
+#include "ALF_std/ALF_jit.h"
 
 #include <stdlib.h>
 #include <string.h>

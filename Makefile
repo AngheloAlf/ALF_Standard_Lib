@@ -74,7 +74,7 @@ TEST_EXE	= $(patsubst $(TESTS)/%.$(LANG_EXT), $(TESTS_OUT)/%, $(TEST_SRC))
 SRC_FILES	= $(wildcard $(SRC_DIR)/*.$(LANG_EXT))
 OBJ_O		= $(patsubst $(SRC_DIR)/%.$(LANG_EXT), $(OBJ_DIR)/%.$(OBJ_EXT), $(SRC_FILES))
 
-all: static_lib dynamic_lib
+all: dynamic_lib # static_lib
 	$(ECHO) "Done\n"
 
 debug: make_debug_objects ar_static_lib compile_dynamic_lib

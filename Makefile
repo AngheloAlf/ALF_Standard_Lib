@@ -94,7 +94,7 @@ install: dynamic_lib #static_lib
 
 clean:
 	$(REMOVE) $(RM_FLAGS) $(RM_FOLDERS)
-	$(REMOVE) $(TEST_EXE)
+	$(REMOVE) $(RM_FLAGS) $(TEST_EXE)
 
 docs: make_docs_folder doxygen_make_docs
 	$(ECHO) "done"

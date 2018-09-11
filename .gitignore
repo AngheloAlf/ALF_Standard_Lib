@@ -60,3 +60,5 @@ out/
 .vs/
 *.user
 *.suo
+
+!tests/*.c

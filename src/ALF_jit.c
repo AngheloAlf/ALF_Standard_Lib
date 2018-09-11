@@ -10,18 +10,27 @@ ALF_jit_buf *ALF_jit_init(void){
 	ALF_jit_buf *handler = malloc(sizeof(ALF_jit_buf *));
 	handler->position = 0;
 	handler->state = 0;
+	char error = 0;
 	if(handler != NULL){
 		#ifdef _WIN32
 			DWORD type = MEM_RESERVE | MEM_COMMIT;
 			handler->code = (uint8_t *)VirtualAlloc(NULL, ALF_jit_pageSize(), type, PAGE_READWRITE);
+
+			if(handler->code == NULL){
+				error = 1;
+			}
 		#else
 			int prot = PROT_READ | PROT_WRITE;
 			int flags = MAP_ANONYMOUS | MAP_PRIVATE;
 			handler->code = (uint8_t *)mmap(NULL, ALF_jit_pageSize(), prot, flags, -1, 0);
+			if(handler->code == MAP_FAILED){
+				error = 1;
+			}
 		#endif
 
-		if(handler->code == NULL){
+		if(error){
 			ALF_jit_error = "ALF_jit_init(): Can't init. Couldn't allocate memory for instructions.";
+			free(handler);
 		}
 	}
 	else{

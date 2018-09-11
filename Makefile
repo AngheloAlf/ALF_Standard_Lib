@@ -29,6 +29,9 @@ LIBS_DIR	= lib/ src/
 OUT_LIB_DIR	= $(OUT_DIR)$(PATH_SEPARATOR)lib
 OUT_INC_DIR	= $(OUT_DIR)$(PATH_SEPARATOR)include
 
+INSTALL_LIB_DIR		= /usr/lib/
+INSTALL_HEADER_DIR	= /usr/include/
+
 FOLDERS		= $(OBJ_DIR) $(OUT_DIR) $(OUT_LIB_DIR) $(OUT_INC_DIR)
 RM_FOLDERS	= $(OBJ_DIR) $(OUT_DIR)
 
@@ -81,20 +84,27 @@ all: dynamic_lib # static_lib
 	$(COPY) $(COPY_FLAGS) $(SRC_DIR)$(PATH_SEPARATOR)$(LIB_NAME).$(HEADER_EXT) $(OUT_INC_DIR)$(PATH_SEPARATOR)
 	$(COPY) $(COPY_FLAGS) $(SRC_DIR)$(PATH_SEPARATOR)$(LIB_NAME)$(PATH_SEPARATOR) $(OUT_INC_DIR)$(PATH_SEPARATOR)
 	$(ECHO) "Done\n"
-	$(ECHO) $(PREFIX)
 
 debug: make_debug_objects ar_static_lib compile_dynamic_lib
 	$(ECHO) "Debug ready\n"
 
-install: dynamic_lib #static_lib
-	$(INSTALL_COM) $(OUT_LIB_DIR)/* --target-directory=/usr/lib/
-	$(INSTALL_COM) -d /usr/include/$(LIB_NAME)
-	$(INSTALL_COM) $(OUT_INC_DIR)/$(LIB_NAME).$(HEADER_EXT) /usr/include/
-	$(INSTALL_COM) $(OUT_INC_DIR)/$(LIB_NAME)/* --target-directory=/usr/include/$(LIB_NAME)/
+install: # dynamic_lib #static_lib
+	$(INSTALL_COM) $(OUT_LIB_DIR)/* --target-directory=$(INSTALL_LIB_DIR)
+	$(INSTALL_COM) -d $(INSTALL_HEADER_DIR)$(LIB_NAME)
+	$(INSTALL_COM) $(OUT_INC_DIR)/$(LIB_NAME).$(HEADER_EXT) $(INSTALL_HEADER_DIR)
+	$(INSTALL_COM) $(OUT_INC_DIR)/$(LIB_NAME)/* --target-directory=$(INSTALL_HEADER_DIR)$(LIB_NAME)/
+	$(ECHO) "Installed."
+
+uninstall:
+	$(REMOVE) $(RM_FLAGS) $(INSTALL_LIB_DIR)$(LIB_DYNAMIC)
+	$(REMOVE) $(RM_FLAGS) $(INSTALL_HEADER_DIR)$(LIB_NAME).$(HEADER_EXT)
+	$(REMOVE) $(RM_FLAGS) $(INSTALL_HEADER_DIR)$(LIB_NAME)/
+	$(ECHO) "Uninstalled."
 
 clean:
 	$(REMOVE) $(RM_FLAGS) $(RM_FOLDERS)
 	$(REMOVE) $(RM_FLAGS) $(TEST_EXE)
+	$(ECHO) "Cleaned."
 
 docs: make_docs_folder doxygen_make_docs
 	$(ECHO) "done"

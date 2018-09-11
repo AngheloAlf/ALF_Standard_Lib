@@ -61,4 +61,5 @@ out/
 *.user
 *.suo
 
+tests/*
 !tests/*.c

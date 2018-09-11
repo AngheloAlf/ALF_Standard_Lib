@@ -1,9 +1,9 @@
 #include "ALF_std/ALF_bool.h"
 
 bool ALF_true(void){
-	return true;
+    return true;
 }
 
 bool ALF_false(void){
-	return false;
+    return false;
 }

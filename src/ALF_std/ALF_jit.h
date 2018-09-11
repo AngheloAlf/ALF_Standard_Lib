@@ -13,17 +13,17 @@
 #	include <windows.h>
 #else
 #	include <unistd.h>
-#	include <sys/mman.h>
+#   include <sys/mman.h>
 #endif
 
 typedef struct {
     uint64_t position;
     /**
-	 * Posible states:
+     * Posible states:
 
-	 * 0x0: Normal. Data can be inserted.
+     * 0x0: Normal. Data can be inserted.
 
-	 * 0x1: Ready for execution.
+     * 0x1: Ready for execution.
     **/
     uint8_t state;
     uint8_t *code;

@@ -10,11 +10,11 @@
 #include "ALF_common.h"
 
 #ifndef __cplusplus
-	/// The bool type. Has 2 posible values: true and false;
-	typedef enum{
-		false,
-		true,
-	} bool;
+    /// The bool type. Has 2 posible values: true and false;
+    typedef enum{
+        false,
+        true,
+    } bool;
 #endif /* __cplusplus */
 
 #endif /* ALF_bool_h */

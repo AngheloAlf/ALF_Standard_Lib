@@ -22,4 +22,18 @@
 
 #define ALF_MAKE_VERSION(x, y) ALF_CONC(x, ALF_CONC(.,y))
 
+#define ALF_BITS_IN_BYTE 8
+
+///
+#define ALF_MOVE_RIGHT(x) (x >> ((sizeof x)*ALF_BITS_IN_BYTE/2) )
+
+///
+#define ALF_MOVE_LEFT(x) (x << ((sizeof x)*ALF_BITS_IN_BYTE/2) )
+
+/// Return the lower half of the variable.
+#define ALF_HIGH_HALF(x) ALF_MOVE_RIGHT(x)
+
+/// Return the lower half of the variable.
+#define ALF_LOW_HALF(x) (x & ( (1L << ( (sizeof x)*ALF_BITS_IN_BYTE/2 ) ) - 1))
+
 #endif /* ALF_common_h */

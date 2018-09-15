@@ -1,6 +1,4 @@
 #include "ALF_std/ALF_math.h"
-#include <stdio.h>
-
 
 char ALF_MATH_multiply_64(uint64_t a, uint64_t b, uint64_t *result, uint64_t *carry){
     uint64_t x0, x1, x2, x3, aux;

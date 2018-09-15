@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 int main(){
+    /*
     uint8_t a = 0xFF;
     uint8_t b = 20;
     uint8_t result, carry;
@@ -11,6 +12,7 @@ int main(){
 
     printf("overflow: %d\n", overflow);
     printf("%x*%x = 0x%x%x\n", a, b, carry, result);
+    */
 
     uint64_t b = 0x0FFFFFFFFFFFFFFF;
     uint64_t a = 20;

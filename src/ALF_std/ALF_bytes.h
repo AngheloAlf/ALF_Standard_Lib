@@ -8,6 +8,8 @@
 #include "ALF_common.h"
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
 typedef struct{
     uint8_t *bytes;
@@ -17,9 +19,9 @@ typedef struct{
 /** Object initializer.
  * Params:
 
- * - const char *bytes: The bytes that will be stored.
+ * - const uint8_t *bytes: The bytes that will be stored. If NULL, the bytes will be initialized to zero.
 
- * - long size: The size of the stored bytes. If the bytes's size are greater than this param, it will be truncated.
+ * - size_t size: The size of the stored bytes. If the bytes's size are greater than this param, it will be truncated.
 
  * Return value: The object.
 **/
@@ -34,12 +36,27 @@ ALF_bytes *ALF_bytes_init(const uint8_t *bytes, size_t size);
 void ALF_bytes_free(ALF_bytes *bytesObj);
 
 /// Return the size of the bytes.
-long ALF_bytes_getSize(ALF_bytes *bytesObj);
+size_t ALF_bytes_getSize(ALF_bytes *bytesObj);
 
 /// Return the bytes.
 uint8_t *ALF_bytes_getBytes(ALF_bytes *bytesObj);
 
 /// Set a new set of bytes, deleting the old one.
-void ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size);
+bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size);
+
+/** Change the size.
+ * If the size param is greater than the old size, the memory is allocated with zeros.
+
+ * If size is smaller, the memory is truncated.
+
+ * Returns true is size was successfully changed. false otherwise.
+**/
+bool ALF_bytes_setSize(ALF_bytes *bytesObj, size_t size);
+
+/// Return the byte at the position provided. If position is greater than the size, returns the last byte.
+uint8_t ALF_bytes_getByte(ALF_bytes *bytesObj, size_t position);
+
+/// Change the byte at the position provided.
+void ALF_bytes_changeByte(ALF_bytes *bytesObj, size_t position, uint8_t newByte);
 
 #endif /* ALF_bytes_h */

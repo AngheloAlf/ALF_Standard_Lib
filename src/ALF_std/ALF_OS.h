@@ -16,50 +16,52 @@
 
 #include "ALF_common.h"
 
+#include <stdbool.h>
+
 /// Detects the macro _WIN32
-char ALF_OS_isWindows(void);
+bool ALF_OS_isWindows(void);
 
 /// Detects the macro __APPLE__
-char ALF_OS_isOSX(void);
+bool ALF_OS_isOSX(void);
 /// Just another name for ALF_isOSX()
 #define ALF_OS_isMac() ALF_OS_isOSX()
 
 /// Detects the macro __linux__
-char ALF_OS_isLinux(void);
+bool ALF_OS_isLinux(void);
 
 /// Detects if is a WIN32 and not a WIN64
-char ALF_OS_isWindows32(void);
+bool ALF_OS_isWindows32(void);
 /// Detects _WIN64
-char ALF_OS_isWindows64(void);
+bool ALF_OS_isWindows64(void);
 
 /// Detects __unix__
-char ALF_OS_isUnix(void);
+bool ALF_OS_isUnix(void);
 /// Detects if defined __unix__ but is not a linux, apple, or android machine.
-char ALF_OS_isUnixOther(void);
+bool ALF_OS_isUnixOther(void);
 
 /// Detects _POSIX_VERSION
-char ALF_OS_isPosix(void);
+bool ALF_OS_isPosix(void);
 
 /// Detects __ANDROID__
-char ALF_OS_isAndroid(void);
+bool ALF_OS_isAndroid(void);
 
 /// Detects iOS (iPhone)
-char ALF_OS_isIOS(void);
+bool ALF_OS_isIOS(void);
 /// Other name for ALF_isIOS()
 #define ALF_OS_isIphone() ALF_OS_isIOS()
 /// Detects TARGET_IPHONE_SIMULATOR
-char ALF_OS_isIOSSimulator(void);
+bool ALF_OS_isIOSSimulator(void);
 /// Other name for ALF_isIOSSimulator()
 #define ALF_OS_isIphoneSimulator() ALF_OS_isIOSSimulator()
 /// Detects TARGET_OS_MAC
-char ALF_OS_isOSXOther(void);
+bool ALF_OS_isOSXOther(void);
 /// Other name for ALF_isOSXOther()
 #define ALF_OS_isMACOther() ALF_OS_isOSXOther()
 /// Detect is Apple product, but not detected by the others macros. 
-char ALF_OS_isAppleOther(void);
+bool ALF_OS_isAppleOther(void);
 
 /// Detects FreeBSD
-char ALF_OS_isFreeBSD(void);
+bool ALF_OS_isFreeBSD(void);
 
 /// Detects the not detected by this library.
 /**
@@ -68,7 +70,7 @@ char ALF_OS_isFreeBSD(void);
 
  * 0 Otherwise.
 **/
-char ALF_OS_isOther(void);
+bool ALF_OS_isOther(void);
 
 /* OS DETECTOR */
 /*

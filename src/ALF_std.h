@@ -15,6 +15,7 @@
 #include "ALF_std/ALF_bool.h"
 #include "ALF_std/ALF_IO.h"
 #include "ALF_std/ALF_jit.h"
+#include "ALF_std/ALF_math.h"
 #include "ALF_std/ALF_OS.h"
 #include "ALF_std/ALF_str.h"
 

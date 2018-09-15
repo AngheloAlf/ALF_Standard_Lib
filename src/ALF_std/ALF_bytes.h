@@ -7,9 +7,11 @@
 
 #include "ALF_common.h"
 
+#include <stdint.h>
+
 typedef struct{
-    char *bytes;
-    long size;
+    uint8_t *bytes;
+    size_t size;
 } ALF_bytes;
 
 /** Object initializer.
@@ -21,7 +23,7 @@ typedef struct{
 
  * Return value: The object.
 **/
-ALF_bytes *ALF_bytes_init(const char *bytes, long size);
+ALF_bytes *ALF_bytes_init(const uint8_t *bytes, size_t size);
 
 
 /** Object destroyer.
@@ -35,9 +37,9 @@ void ALF_bytes_free(ALF_bytes *bytesObj);
 long ALF_bytes_getSize(ALF_bytes *bytesObj);
 
 /// Return the bytes.
-const char *ALF_bytes_getBytes(ALF_bytes *bytesObj);
+uint8_t *ALF_bytes_getBytes(ALF_bytes *bytesObj);
 
 /// Set a new set of bytes, deleting the old one.
-void ALF_bytes_setBytes(ALF_bytes *bytesObj, const char *bytes, long size);
+void ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size);
 
 #endif /* ALF_bytes_h */

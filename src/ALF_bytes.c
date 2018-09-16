@@ -34,7 +34,8 @@ size_t ALF_bytes_getSize(ALF_bytes *bytesObj){
 }
 
 uint8_t *ALF_bytes_getBytes(ALF_bytes *bytesObj){
-    return bytesObj->bytes;
+    uint8_t *aux = malloc(sizeof(uint8_t) * bytesObj->size);
+    return memcpy(aux, bytesObj->bytes, bytesObj->size);
 }
 
 bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size){

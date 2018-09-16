@@ -21,9 +21,9 @@ typedef struct{
 
  * - const uint8_t *bytes: The bytes that will be stored. If NULL, the bytes will be initialized to zero.
 
- * - size_t size: The size of the stored bytes. If the bytes's size are greater than this param, it will be truncated.
+ * - size_t size: The size of the stored bytes. If the bytes's size are greater than this param, it will be truncated. If equal to zero, the object will not be created and NULL will be returned.
 
- * Return value: The object.
+ * Return value: The object. In case of error, NULL will be returned.
 **/
 ALF_bytes *ALF_bytes_init(const uint8_t *bytes, size_t size);
 
@@ -38,7 +38,7 @@ void ALF_bytes_free(ALF_bytes *bytesObj);
 /// Return the size of the bytes.
 size_t ALF_bytes_getSize(ALF_bytes *bytesObj);
 
-/// Return the bytes.
+/// Return a copy of the bytes. You have to free it after use.
 uint8_t *ALF_bytes_getBytes(ALF_bytes *bytesObj);
 
 /// Set a new set of bytes, deleting the old one.

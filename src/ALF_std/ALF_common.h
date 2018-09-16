@@ -24,14 +24,14 @@
 
 #define ALF_BITS_IN_BYTE 8
 
-///
+/// Takes the left half of the variable and moves it to the right. The old right half is deleted.
 #define ALF_MOVE_RIGHT(x) (x >> ((sizeof x)*ALF_BITS_IN_BYTE/2) )
 
-///
+/// Takes the right half of the variable and moves it to the left. The old left half is deleted.
 #define ALF_MOVE_LEFT(x) (x << ((sizeof x)*ALF_BITS_IN_BYTE/2) )
 
-/// Return the lower half of the variable.
-#define ALF_HIGH_HALF(x) ALF_MOVE_RIGHT(x)
+/// Return the upper half of the variable.
+#define ALF_HIGH_HALF(x) ALF_MOVE_LEFT(ALF_MOVE_RIGHT(x))
 
 /// Return the lower half of the variable.
 #define ALF_LOW_HALF(x) (x & ( (1L << ( (sizeof x)*ALF_BITS_IN_BYTE/2 ) ) - 1))

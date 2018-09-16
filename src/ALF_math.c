@@ -10,9 +10,9 @@ bool ALF_MATH_multiply_64(uint64_t a, uint64_t b, uint64_t *result, uint64_t *ca
         overflows = true;
 
         x0 = ALF_LOW_HALF(a) * ALF_LOW_HALF(b);
-        x1 = ALF_HIGH_HALF(a) * ALF_LOW_HALF(b);
-        x2 = ALF_LOW_HALF(a) * ALF_HIGH_HALF(b);
-        x3 = ALF_HIGH_HALF(a) * ALF_HIGH_HALF(b);
+        x1 = ALF_MOVE_RIGHT(a) * ALF_LOW_HALF(b);
+        x2 = ALF_LOW_HALF(a) * ALF_MOVE_RIGHT(b);
+        x3 = ALF_MOVE_RIGHT(a) * ALF_MOVE_RIGHT(b);
 
         *result = ALF_MOVE_LEFT(x2) + ALF_MOVE_LEFT(x1) + x0;
         aux = x2 + x1 + ALF_MOVE_RIGHT(x0);
@@ -32,9 +32,9 @@ bool ALF_MATH_multiply_32(uint32_t a, uint32_t b, uint32_t *result, uint32_t *ca
         overflows = true;
 
         x0 = ALF_LOW_HALF(a) * ALF_LOW_HALF(b);
-        x1 = ALF_HIGH_HALF(a) * ALF_LOW_HALF(b);
-        x2 = ALF_LOW_HALF(a) * ALF_HIGH_HALF(b);
-        x3 = ALF_HIGH_HALF(a) * ALF_HIGH_HALF(b);
+        x1 = ALF_MOVE_RIGHT(a) * ALF_LOW_HALF(b);
+        x2 = ALF_LOW_HALF(a) * ALF_MOVE_RIGHT(b);
+        x3 = ALF_MOVE_RIGHT(a) * ALF_MOVE_RIGHT(b);
 
         *result = ALF_MOVE_LEFT(x2) + ALF_MOVE_LEFT(x1) + x0;
         aux = x2 + x1 + ALF_MOVE_RIGHT(x0);
@@ -55,9 +55,9 @@ bool ALF_MATH_multiply_16(uint16_t a, uint16_t b, uint16_t *result, uint16_t *ca
         overflows = true;
 
         x0 = ALF_LOW_HALF(a) * ALF_LOW_HALF(b);
-        x1 = ALF_HIGH_HALF(a) * ALF_LOW_HALF(b);
-        x2 = ALF_LOW_HALF(a) * ALF_HIGH_HALF(b);
-        x3 = ALF_HIGH_HALF(a) * ALF_HIGH_HALF(b);
+        x1 = ALF_MOVE_RIGHT(a) * ALF_LOW_HALF(b);
+        x2 = ALF_LOW_HALF(a) * ALF_MOVE_RIGHT(b);
+        x3 = ALF_MOVE_RIGHT(a) * ALF_MOVE_RIGHT(b);
 
         *result = ALF_MOVE_LEFT(x2) + ALF_MOVE_LEFT(x1) + x0;
         aux = x2 + x1 + ALF_MOVE_RIGHT(x0);
@@ -78,9 +78,9 @@ bool ALF_MATH_multiply_8(uint8_t a, uint8_t b, uint8_t *result, uint8_t *carry){
         overflows = true;
 
         x0 = ALF_LOW_HALF(a) * ALF_LOW_HALF(b);
-        x1 = ALF_HIGH_HALF(a) * ALF_LOW_HALF(b);
-        x2 = ALF_LOW_HALF(a) * ALF_HIGH_HALF(b);
-        x3 = ALF_HIGH_HALF(a) * ALF_HIGH_HALF(b);
+        x1 = ALF_MOVE_RIGHT(a) * ALF_LOW_HALF(b);
+        x2 = ALF_LOW_HALF(a) * ALF_MOVE_RIGHT(b);
+        x3 = ALF_MOVE_RIGHT(a) * ALF_MOVE_RIGHT(b);
 
         *result = ALF_MOVE_LEFT(x2) + ALF_MOVE_LEFT(x1) + x0;
         aux = x2 + x1 + ALF_MOVE_RIGHT(x0);

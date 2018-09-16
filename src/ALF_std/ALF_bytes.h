@@ -41,6 +41,9 @@ size_t ALF_bytes_getSize(ALF_bytes *bytesObj);
 /// Return a copy of the bytes. You have to free it after use.
 uint8_t *ALF_bytes_getBytes(ALF_bytes *bytesObj);
 
+/// Return the same bytes contained inside of the object. You must not free this.
+const uint8_t *ALF_bytes_seeBytes(ALF_bytes *bytesObj);
+
 /// Set a new set of bytes, deleting the old one.
 bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size);
 

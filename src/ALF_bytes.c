@@ -38,6 +38,10 @@ uint8_t *ALF_bytes_getBytes(ALF_bytes *bytesObj){
     return memcpy(aux, bytesObj->bytes, bytesObj->size);
 }
 
+const uint8_t *ALF_bytes_seeBytes(ALF_bytes *bytesObj){
+    return bytesObj->bytes;
+}
+
 bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size){
     if(size > 0){
         uint8_t *aux = realloc(bytesObj->bytes, sizeof(uint8_t) * size);

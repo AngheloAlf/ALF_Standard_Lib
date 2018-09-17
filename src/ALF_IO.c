@@ -50,7 +50,7 @@ void ALF_IO_puthex(unsigned char character){
 void ALF_IO_printfColoredBlock(unsigned char character, char withNumber){
     unsigned char color = 0, param = character;
     character &= 0x0F;
-    if(character >= 0 && character <= 7){
+    if(character <= 7){
         color = character + 40;
     }
     else if(character >= 8 && character <= 15){

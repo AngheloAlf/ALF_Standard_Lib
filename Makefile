@@ -40,7 +40,7 @@ CC			= @gcc
 LANG_EXT	= c
 HEADER_EXT	= h
 OBJ_EXT		= o
-FLAGS		= -Wall -fPIC -O2 -Wpedantic -std=gnu11
+FLAGS		= -Wall -Wextra -fPIC -O2 -Wpedantic -std=gnu11
 OTHER		= 
 SHARED_FLAG	= -shared
 DEBUG_FLAG	= -g

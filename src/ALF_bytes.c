@@ -56,7 +56,7 @@ bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size){
             memcpy(bytesObj->bytes, bytes, size);
         }
         else{
-            for(int i = 0; i < size; i++){
+            for(size_t i = 0; i < size; i++){
                 bytesObj->bytes[i] = 0;
             }
         }
@@ -72,7 +72,7 @@ bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size){
             memcpy(bytesObj->bytes, bytes, size);
         }
         else{
-            for(int i = 0; i < size; i++){
+            for(size_t i = 0; i < size; i++){
                 bytesObj->bytes[i] = 0;
             }
         }

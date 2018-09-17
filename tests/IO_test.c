@@ -48,7 +48,7 @@ void printfColoredBlock_test(void) {
 	*/
 }
 
-int main(int argc, char *argv[]) {
+int main(){ // int argc, char *argv[]) {
 	// raw_input_test();
 	// puthex_test();
 	printfColoredBlock_test();

@@ -115,8 +115,8 @@ tests: $(TEST_EXE)
 
 
 $(TESTS)/%: $(TESTS)/%.$(LANG_EXT)
-	$(ECHO) $(CC) $<
-	$(CC) $< -o $@ $(FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) -L$(OUT_LIB_DIR) -l$(LIB_NAME)
+	$(ECHO) $(CC) $< $(OTHER)
+	$(CC) $< -o $@ $(FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) -L$(OUT_LIB_DIR) -l$(LIB_NAME) $(OTHER)
 
 
 make_docs_folder:

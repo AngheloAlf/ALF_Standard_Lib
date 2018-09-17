@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-int main(int argc, char *argv[]){
+int main(){ // int argc, char *argv[]){
 	long number = 15;
 	uint64_t instruction = 0;
 

@@ -1,7 +1,7 @@
 #include "ALF_std.h"
 #include "stdio.h"
 
-int main(int argc, char *argv[]){
+int main(){// int argc, char *argv[]){
 	printf("ALF_OS_isWindows: %d\n", ALF_OS_isWindows());
 	printf("ALF_OS_isOSX: %d\n", ALF_OS_isOSX());
 	printf("ALF_OS_isMac: %d\n", ALF_OS_isMac());

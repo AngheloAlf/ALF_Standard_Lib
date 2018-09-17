@@ -52,7 +52,14 @@ const uint8_t *ALF_bytes_seeBytes(ALF_bytes *bytesObj){
 
 bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size){
     if(size == bytesObj->size){
-        memcpy(bytesObj->bytes, bytes, size);
+        if(bytes){
+            memcpy(bytesObj->bytes, bytes, size);
+        }
+        else{
+            for(int i = 0; i < size; i++){
+                bytesObj->bytes[i] = 0;
+            }
+        }
     }
     else if(size > 0){
         uint8_t *aux = realloc(bytesObj->bytes, sizeof(uint8_t) * size);

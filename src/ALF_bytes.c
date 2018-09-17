@@ -11,10 +11,18 @@ ALF_bytes *ALF_bytes_init(const uint8_t *bytes, size_t size){
             bytesObj->bytes = NULL;
             if(bytes){
                 bytesObj->bytes = (uint8_t *)malloc(sizeof(uint8_t) * size);
+                if(bytesObj->bytes == NULL){
+                    free(bytesObj);
+                    return NULL;
+                }
                 memcpy(bytesObj->bytes, bytes, size);
             }
             else{
                 bytesObj->bytes = (uint8_t *)calloc(size, sizeof(uint8_t));
+                if(bytesObj->bytes == NULL){
+                    free(bytesObj);
+                    return NULL;
+                }
             }
         }
         return bytesObj;
@@ -43,7 +51,10 @@ const uint8_t *ALF_bytes_seeBytes(ALF_bytes *bytesObj){
 }
 
 bool ALF_bytes_setBytes(ALF_bytes *bytesObj, const uint8_t *bytes, size_t size){
-    if(size > 0){
+    if(size == bytesObj->size){
+        memcpy(bytesObj->bytes, bytes, size);
+    }
+    else if(size > 0){
         uint8_t *aux = realloc(bytesObj->bytes, sizeof(uint8_t) * size);
         if(aux == NULL){
             return false;

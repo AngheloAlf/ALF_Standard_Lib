@@ -8,6 +8,7 @@
 #include "ALF_common.h"
 
 #include <stdlib.h>
+#include <stdint.h>
 
 /// Python-like string.split()
 /**
@@ -23,12 +24,8 @@
 
 **/
 char **ALF_STR_split(char *string, const char *delimiters);
-/// @deprecated
-#define ALF_split(string, delimiters) ALF_STR_split(string, delimiters)
 
 /// 
-char* ALF_STR_changeExtension(const char* word, const char* newExt, int lenExt);
-/// @deprecated
-#define ALF_changeExtension(word, newExt, lenExt) ALF_STR_changeExtension(word, newExt, lenExt)
+char* ALF_STR_changeExtension(const char* word, const char* newExt, size_t lenExt);
 
 #endif /* ALF_str_h */

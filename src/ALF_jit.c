@@ -5,6 +5,7 @@
 #include <errno.h>
 
 char *ALF_jit_error = "";
+int ALF_jit_errorCode = 0;
 
 ALF_jit_buf *ALF_jit_init(void){
     ALF_jit_buf *handler = malloc(sizeof(ALF_jit_buf *));
@@ -30,11 +31,14 @@ ALF_jit_buf *ALF_jit_init(void){
 
         if(error){
             ALF_jit_error = "ALF_jit_init(): Can't init. Couldn't allocate memory for instructions.";
+            ALF_jit_errorCode = 4;
             free(handler);
+            handler = NULL;
         }
     }
     else{
         ALF_jit_error = "ALF_jit_init(): Can't init. The malloc returned NULL.";
+        ALF_jit_errorCode = 5;
     }
     return handler;
 }
@@ -46,11 +50,13 @@ uint64_t ALF_jit_getAvaibleSize(ALF_jit_buf *handler){
 int ALF_jit_addInstruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
     if (handler->state & 0x1){
         ALF_jit_error = "ALF_jit_instruction(): JIT buffer is finalized. Can't write on it.";
-        return 1;
+        ALF_jit_errorCode = 1;
+        return ALF_jit_errorCode;
     }
     if(ALF_jit_getAvaibleSize(handler) < size){
         ALF_jit_error = "ALF_jit_instruction(): Input data is bigger than free space.";
-        return 2;
+        ALF_jit_errorCode = 2;
+        return ALF_jit_errorCode;
     }
     for (int64_t i = size - 1; i >= 0; i--){
         handler->code[handler->position++] = (ins >> (i * 8)) & 0xff;
@@ -61,11 +67,13 @@ int ALF_jit_addInstruction(ALF_jit_buf *handler, uint64_t size, uint64_t ins){
 int ALF_jit_addImmediate(ALF_jit_buf *handler, uint64_t size, const void *value){
     if (handler->state & 0x1){
         ALF_jit_error = "ALF_jit_immediate(): JIT buffer is finalized. Can't write on it.";
-        return 1;
+        ALF_jit_errorCode = 1;
+        return ALF_jit_errorCode;
     }
     if(ALF_jit_getAvaibleSize(handler) < size){
         ALF_jit_error = "ALF_jit_immediate(): Input data is bigger than free space.";
-        return 2;
+        ALF_jit_errorCode = 2;
+        return ALF_jit_errorCode;
     }
     memcpy(handler->code + handler->position, value, size);
     handler->position += size;
@@ -75,7 +83,8 @@ int ALF_jit_addImmediate(ALF_jit_buf *handler, uint64_t size, const void *value)
 int ALF_jit_finalize(ALF_jit_buf *handler){
     if (handler->state & 0x1){
         ALF_jit_error = "ALF_jit_finalize(): JIT buffer was already finalized.";
-        return 1;
+        ALF_jit_errorCode = 1;
+        return ALF_jit_errorCode;
     }
 
     #ifdef _WIN32
@@ -95,19 +104,25 @@ long ALF_jit_free(ALF_jit_buf *handler){
         if (retVal) {
             retVal = GetLastError();
             ALF_jit_error = "ALF_jit_free(): Couldn't unmap the memory allocated";
+            ALF_jit_errorCode = 3;
         }
     #else
         if (munmap(handler->code, ALF_jit_pageSize())) {
             retVal = errno;
             ALF_jit_error = "ALF_jit_free(): Couldn't unmap the memory allocated";
+            ALF_jit_errorCode = 3;
         }
     #endif
     // free(handler); // FIXME: Throws error on windows.
     return retVal;
 }
 
-char *ALF_jit_getError(void){
+const char *ALF_jit_getError(void){
     return ALF_jit_error;
+}
+
+int ALF_jit_getErrorCode(void){
+    return ALF_jit_errorCode;
 }
 
 uint64_t ALF_jit_pageSize(void){

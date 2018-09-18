@@ -70,9 +70,12 @@ long ALF_jit_free(ALF_jit_buf *handler);
 /**
  * 
 **/
-char *ALF_jit_getError(void);
+const char *ALF_jit_getError(void);
 
+/// Returns the last error code.
+int ALF_jit_getErrorCode(void);
 
+/// Returns the page size.
 uint64_t ALF_jit_pageSize(void);
 
 #endif /* ALF_jit_h */

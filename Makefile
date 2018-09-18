@@ -43,7 +43,6 @@ OBJ_EXT		= o
 FLAGS		= -Wall -Wextra -fPIC -O2 -Wpedantic -std=gnu11
 OTHER		= 
 SHARED_FLAG	= -shared
-DEBUG_FLAG	= -g
 LIBS		= 
 LIBS_NAMES	= $(addprefix -l, $(LIBS))
 LIBS_FOLDER	= $(addprefix -L, $(LIBS_DIR))

@@ -69,7 +69,7 @@ bool ALF_MATH_multiply_16(uint16_t a, uint16_t b, uint16_t *result, uint16_t *ca
 
 bool ALF_MATH_multiply_8(uint8_t a, uint8_t b, uint8_t *result, uint8_t *carry){
     uint8_t x0, x1, x2, x3, aux;
-    char overflows = false;
+    bool overflows = false;
     *result = a*b;
     *carry = 0;
 

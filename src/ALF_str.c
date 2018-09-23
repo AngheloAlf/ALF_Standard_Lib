@@ -2,52 +2,67 @@
 
 #include <string.h>
 
+inline void __ALF_cleanCharDoublePointer(char **pointer, size_t last_i){
+    while(last_i > 0){
+        free(pointer[--last_i]);
+    }
+    free(pointer);
+}
+
+void *ALF_allocAndCopy(const void *input_data, size_t size){
+    void *output_pointer = malloc(size);
+    if(output_pointer == NULL){
+        return NULL;
+    }
+    memcpy(output_pointer, input_data, size);
+    return output_pointer;
+}
+
 char **ALF_STR_split(const char *string, const char *delimiters){
     void *aux;
-    size_t i = 0, difference = 0;
+    size_t i = 0, difference = 0, deliSize = strlen(delimiters);
+    char *next, *last = (char *)string;
+
     char **splitted = (char **)malloc(sizeof(char *) * (i+2));
     if(splitted == NULL){
         return NULL;
     }
-    size_t deliSize = strlen(delimiters);
 
-    char *last = (char *)string;
-
-    char *next = strstr(last, delimiters);
-    while(next != NULL){
-        aux = realloc(splitted, sizeof(char *) * (i+3));
-        if(aux == NULL){
-            while(i > 0){
-                free(splitted[--i]);
-            }
-            free(splitted);
+    for(next = strstr(last, delimiters); next != NULL; i++, next = strstr(last, delimiters)){
+        if((aux = realloc(splitted, sizeof(char *) * (i+3))) == NULL){
+            __ALF_cleanCharDoublePointer(splitted, i);
             return NULL;
         }
         splitted = (char **)aux;
 
         difference = next - last;
-        splitted[i] = (char *)malloc(sizeof(char) * (difference + 1));
-        if(splitted[i] == NULL){
-            while(i > 0){
-                free(splitted[--i]);
-            }
-            free(splitted);
+        if((splitted[i] = (char *)ALF_allocAndCopy(last, sizeof(char) * (difference + 1) )) == NULL){
+            __ALF_cleanCharDoublePointer(splitted, i);
             return NULL;
         }
-        memcpy(splitted[i], last, difference);
         splitted[i][difference] = 0;
 
         last = next + deliSize;
-        next = strstr(last, delimiters);
-        i++;
     }
-    difference = strlen(last);
-    splitted[i] = (char *)malloc(sizeof(char) * (difference + 1));
-    memcpy(splitted[i], last, difference);
-    splitted[i][difference] = 0;
-    splitted[i+1] = NULL;
 
+    difference = strlen(last);
+    if((splitted[i] = (char *)ALF_allocAndCopy(last, sizeof(char) * (difference + 1))) == NULL){
+        __ALF_cleanCharDoublePointer(splitted, i);
+        return NULL;
+    }
+    splitted[i][difference] = 0;
+
+    splitted[i+1] = NULL;
     return splitted;
+}
+
+void ALF_STR_freeSplitted(char **splitted){
+    char *aux;
+    size_t i = 0;
+    while((aux = splitted[i++]) != NULL){
+        free(aux);
+    }
+    free(splitted);
 }
 
 char* ALF_STR_changeExtension(const char* word, const char* newExt, size_t lenExt){

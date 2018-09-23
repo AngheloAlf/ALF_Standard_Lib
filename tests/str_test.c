@@ -7,15 +7,16 @@ int main(){
     // char *example = ALF_STR_changeExtension("example.txt", "asdf", 4);
     // printf("%s\n", example);
 
-    const char *coso = "wea123de123la123wea.";
+    const char *coso = "123wea123de123la123wea.123";
     const char *cortar = "123";
     char **ejemplo = ALF_STR_split(coso, cortar);
     char *aux;
     int i = 0;
     while((aux = ejemplo[i++]) != NULL){
-        printf("%s\n", aux);
+        printf("\"%s\"\n", aux);
     }
     printf("%s\n", coso);
+    ALF_STR_freeSplitted(ejemplo);
     /*
     char *wea =  strstr(coso, "123");
     printf("%p\n", coso);

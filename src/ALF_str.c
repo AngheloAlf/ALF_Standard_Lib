@@ -2,22 +2,51 @@
 
 #include <string.h>
 
-char **ALF_STR_split(char *string, const char *delimiters){
-    char **splitted = malloc(sizeof(char *));
+char **ALF_STR_split(const char *string, const char *delimiters){
+    void *aux;
+    size_t i = 0, difference = 0;
+    char **splitted = (char **)malloc(sizeof(char *) * (i+2));
     if(splitted == NULL){
         return NULL;
     }
-    char *token = strtok(string, delimiters);
-    size_t i = 0;
-    splitted[i++] = token;
-    while(token != NULL){
-        splitted = realloc(splitted, sizeof(char *) * (i + 1));
-        if(splitted == NULL){
+    size_t deliSize = strlen(delimiters);
+
+    char *last = (char *)string;
+
+    char *next = strstr(last, delimiters);
+    while(next != NULL){
+        aux = realloc(splitted, sizeof(char *) * (i+3));
+        if(aux == NULL){
+            while(i > 0){
+                free(splitted[--i]);
+            }
             free(splitted);
+            return NULL;
         }
-        token = strtok(NULL, delimiters);
-        splitted[i++] = token;
+        splitted = (char **)aux;
+
+        difference = next - last;
+        splitted[i] = (char *)malloc(sizeof(char) * (difference + 1));
+        if(splitted[i] == NULL){
+            while(i > 0){
+                free(splitted[--i]);
+            }
+            free(splitted);
+            return NULL;
+        }
+        memcpy(splitted[i], last, difference);
+        splitted[i][difference] = 0;
+
+        last = next + deliSize;
+        next = strstr(last, delimiters);
+        i++;
     }
+    difference = strlen(last);
+    splitted[i] = (char *)malloc(sizeof(char) * (difference + 1));
+    memcpy(splitted[i], last, difference);
+    splitted[i][difference] = 0;
+    splitted[i+1] = NULL;
+
     return splitted;
 }
 

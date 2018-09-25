@@ -17,6 +17,13 @@ int main(){
     }
     printf("%s\n", coso);
     ALF_STR_freeSplitted(ejemplo);
+/*
+    char asdf[3] = {0, 0, 0};
+    for(i = 0; i < (2<<11); i++){
+        asdf[0] = 0b11000000 | (i & 0b00011111);
+        asdf[1] = 0b10000000 | (i & 0b00011111100000)>>5;
+        printf("%s\n", asdf);
+    }*/
     /*
     char *wea =  strstr(coso, "123");
     printf("%p\n", coso);

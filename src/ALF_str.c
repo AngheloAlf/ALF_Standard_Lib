@@ -2,20 +2,11 @@
 
 #include <string.h>
 
-inline void __ALF_cleanCharDoublePointer(char **pointer, size_t last_i){
+static inline void __ALF_cleanCharDoublePointer(char **pointer, size_t last_i){
     while(last_i > 0){
         free(pointer[--last_i]);
     }
     free(pointer);
-}
-
-void *ALF_allocAndCopy(const void *input_data, size_t size){
-    void *output_pointer = malloc(size);
-    if(output_pointer == NULL){
-        return NULL;
-    }
-    memcpy(output_pointer, input_data, size);
-    return output_pointer;
 }
 
 char **ALF_STR_split(const char *string, const char *delimiters){

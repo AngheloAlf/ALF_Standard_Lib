@@ -6,6 +6,8 @@
 #ifndef ALF_common_h
 #define ALF_common_h
 
+#include <stdlib.h>
+
 #define _ALF_STR(x) #x
 
 /// Converts things to string at compile-time.
@@ -35,5 +37,8 @@
 
 /// Return the lower half of the variable.
 #define ALF_LOW_HALF(x) (x & ( (1L << ( (sizeof x)*ALF_BITS_IN_BYTE/2 ) ) - 1))
+
+/// Copies the input_data into a new space of memory. The caller is responsible of free.
+void *ALF_allocAndCopy(const void *input_data, size_t size);
 
 #endif /* ALF_common_h */

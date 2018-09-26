@@ -89,3 +89,20 @@ char* ALF_STR_changeExtension(const char* word, const char* newExt, size_t lenEx
 
     return newWord;
 }
+
+char *ALF_STR_searchCharPair(const char *string, char left, char right){
+    if(string == NULL){
+        return NULL;
+    }
+    int found = 1;
+    for(; *string != '\0' && found > 0; ++string){
+        if(*string == left){
+            ++found;
+        }
+        else if(*string == right){
+            --found;
+        }
+        
+    }
+    return found == 0 ? (char *)string : NULL;
+}

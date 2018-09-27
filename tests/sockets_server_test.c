@@ -36,16 +36,16 @@ int main(){
     fprintf(stderr, "Client accepted.\n");
 
     ssize_t asd;
-    char *msg = ALF_sockets_recv(client, 5-1);
+    char *msg = ALF_sockets_recv_s(client, 5-1);
     while(msg != NULL){
         fprintf(stderr, "recv: %s\n", msg);
         asd = ALF_sockets_send(client, msg);
-        // free(msg);
+        free(msg);
         if(asd < 0){
             fprintf(stderr, "Couldn't send.\n");
             break;
         }
-        msg = ALF_sockets_recv(client, 5-1);
+        msg = ALF_sockets_recv_s(client, 5-1);
     }
 
     fprintf(stderr, "Connection ended.\n");

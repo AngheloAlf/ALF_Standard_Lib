@@ -38,9 +38,9 @@ int ALF_sockets_listen(ALF_socket *handler);
 
 ALF_socket *ALF_sockets_accept(ALF_socket *handler);
 
-char *ALF_sockets_recv(ALF_socket *client_handler, size_t maxRecv);
+int ALF_sockets_recv(ALF_socket *client_handler, size_t maxRecv, char *msg);
 
-int ALF_sockets_recv_a(ALF_socket *client_handler, size_t maxRecv, char *msg);
+char *ALF_sockets_recv_s(ALF_socket *client_handler, size_t maxRecv);
 
 int ALF_sockets_send(ALF_socket *client_handler, const char* msg);
 

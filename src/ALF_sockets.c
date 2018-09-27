@@ -133,26 +133,7 @@ ALF_socket *ALF_sockets_accept(ALF_socket *handler){
     return client_handler;
 }
 
-char *ALF_sockets_recv(ALF_socket *client_handler, size_t maxRecv){
-    char *msg = (char *)malloc(sizeof(char)* (maxRecv + 1));
-    if(msg == NULL){
-        return NULL;
-    }
-    size_t read_size;
-    if((read_size = ALF_sockets_recv_a(client_handler, maxRecv, msg)) <= 0){
-        free(msg);
-        return NULL;
-    }
-    void *aux = realloc(msg, sizeof(char) * (read_size + 1));
-    if(aux == NULL){
-        // free(msg);
-        return NULL;
-    }
-    msg = (char *)aux;
-    return msg;
-}
-
-int ALF_sockets_recv_a(ALF_socket *client_handler, size_t maxRecv, char *msg){
+int ALF_sockets_recv(ALF_socket *client_handler, size_t maxRecv, char *msg){
     if(client_handler->binded){
         return -2;
     }
@@ -167,6 +148,25 @@ int ALF_sockets_recv_a(ALF_socket *client_handler, size_t maxRecv, char *msg){
     msg[read_size] = 0;
 
     return read_size;
+}
+
+char *ALF_sockets_recv_s(ALF_socket *client_handler, size_t maxRecv){
+    char *msg = (char *)malloc(sizeof(char) * (maxRecv + 1));
+    if(msg == NULL){
+        return NULL;
+    }
+    size_t read_size;
+    if((read_size = ALF_sockets_recv(client_handler, maxRecv, msg)) <= 0){
+        free(msg);
+        return NULL;
+    }
+    void *aux = realloc(msg, sizeof(char) * (read_size + 1));
+    if(aux == NULL){
+        free(msg);
+        return NULL;
+    }
+    msg = (char *)aux;
+    return msg;
 }
 
 int ALF_sockets_send(ALF_socket *client_handler, const char* msg){

@@ -32,9 +32,9 @@ int main(){
         }
         free(msg);
 
-        recv_retval = ALF_sockets_recv_a(server, 5-1, aux);
+        recv_retval = ALF_sockets_recv(server, 5-1, aux);
         if(recv_retval <= 0){
-            printf("auxBreak: %i\n", recv_retval);
+            printf("auxBreak: %i\n", (int)recv_retval);
             break;
         }
         printf("recv: %s\n", aux);

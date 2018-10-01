@@ -7,48 +7,70 @@
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>    //write
 
+#include <errno.h>
+
 int main(){
 
     ALF_socket *server = ALF_sockets_init(NULL, 8888);
     if(server == NULL){
         fprintf(stderr, "Could not create socket.\n");
+        perror("ERROR");
         return 1;
     }
     fprintf(stderr, "Socket created.\n");
 
     if(ALF_sockets_bind(server)){
         fprintf(stderr, "Bind failed.\n");
+        perror("ERROR");
         return 1;
     }
     fprintf(stderr, "Bind done.\n");
 
     if(ALF_sockets_listen(server)){
         fprintf(stderr, "Listen failed.\n");
+        perror("ERROR");
         return 1;
     }
     fprintf(stderr, "Listen done.\n");
 
+    fprintf(stderr, "Waiting connections...\n");
+
     ALF_socket *client = ALF_sockets_accept(server);
     if(client == NULL){
         fprintf(stderr, "Accept failed.\n");
+        perror("ERROR");
         return 1;
     }
     fprintf(stderr, "Client accepted.\n");
 
-    ssize_t asd;
-    char *msg = ALF_sockets_recv_s(client, 5-1);
-    while(msg != NULL){
+    size_t msgSize = 3;
+    char msg[msgSize + 1];
+
+    ssize_t asd = ALF_sockets_recv(server, client, msgSize, msg);
+    while(asd > 0){
         fprintf(stderr, "recv: %s\n", msg);
-        asd = ALF_sockets_send(client, msg);
-        free(msg);
+        asd = ALF_sockets_send(server, client, msg);
         if(asd < 0){
             fprintf(stderr, "Couldn't send.\n");
+            perror("ERROR");
             break;
         }
-        msg = ALF_sockets_recv_s(client, 5-1);
+        while(ALF_sockets_recvNonBlocking(server, client, msgSize, msg) > 0){
+            fprintf(stderr, "\t%s\n", msg);
+            asd = ALF_sockets_send(server, client, msg);
+            if(asd < 0){
+                fprintf(stderr, "Couldn't send.\n");
+                perror("ERROR");
+                break;
+            }
+        }
+       asd = ALF_sockets_recv(server, client, msgSize, msg);
     }
 
     fprintf(stderr, "Connection ended.\n");
+        perror("ERROR");
+
+    fprintf(stderr, "errno: %i, EAGAIN: %i, EWOULDBLOCK: %i\n", errno, EAGAIN, EWOULDBLOCK);
 
     ALF_sockets_free(client);
     ALF_sockets_free(server);
@@ -114,7 +136,7 @@ int main(){
     {
         perror("recv failed");
     }
-    */
-     
+    
+     */
     return 0;
 }

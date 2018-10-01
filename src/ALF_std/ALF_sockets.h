@@ -38,11 +38,13 @@ int ALF_sockets_listen(ALF_socket *handler);
 
 ALF_socket *ALF_sockets_accept(ALF_socket *handler);
 
-int ALF_sockets_recv(ALF_socket *client_handler, size_t maxRecv, char *msg);
+ssize_t ALF_sockets_recv(ALF_socket *main_handler, ALF_socket *client_handler, size_t maxRecv, char *msg);
 
-char *ALF_sockets_recv_s(ALF_socket *client_handler, size_t maxRecv);
+ssize_t ALF_sockets_recvNonBlocking(ALF_socket *main_handler, ALF_socket *client_handler, size_t maxRecv, char *msg);
 
-int ALF_sockets_send(ALF_socket *client_handler, const char* msg);
+ssize_t ALF_sockets_send(ALF_socket *main_handler, ALF_socket *client_handler, const char* msg);
 
+ssize_t ALF_sockets_getLastError();
+const char *ALF_sockets_getLastErrorMsg();
 
 #endif /* ALF_sockets_h */

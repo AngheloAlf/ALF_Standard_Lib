@@ -10,35 +10,45 @@
 int main(){
     ALF_socket *server = ALF_sockets_init("127.0.0.1", 8888);
     if(server == NULL){
-        printf("Could not create socket.\n");
+        // printf("Could not create socket.\n");
+        printf("%s\n", ALF_sockets_getLastErrorMsg());
         return 1;
     }
     printf("Socket created.\n");
 
     if(ALF_sockets_connect(server)){
-        printf("Connect failed.\n");
+        printf("%s\n", ALF_sockets_getLastErrorMsg());
         return 1;
     }
     printf("Connect done.\n");
 
-    char *msg, aux[5];
-    ssize_t recv_retval;
+    ssize_t recv_retval, auxSize = 4;
+    char *msg, aux[auxSize+1];
     msg = ALF_IO_raw_input("Message: ");
 
     do{
-        if(ALF_sockets_send(server, msg) <= 0){
+        if(ALF_sockets_send(NULL, server, msg) < 0){
             printf("sendBreak\n");
+            printf("%s\n", ALF_sockets_getLastErrorMsg());
             break;
         }
         free(msg);
 
-        recv_retval = ALF_sockets_recv(server, 5-1, aux);
-        if(recv_retval <= 0){
+        recv_retval = ALF_sockets_recv(NULL, server, auxSize, aux);
+        if(recv_retval < 0){
             printf("auxBreak: %i\n", (int)recv_retval);
+            printf("%s\n", ALF_sockets_getLastErrorMsg());
             break;
         }
         printf("recv: %s\n", aux);
         // free(aux);
+        struct timespec tim, tim2;
+        tim.tv_sec = 0;
+        tim.tv_nsec = 10000L;
+        nanosleep(&tim, &tim2);
+        while(ALF_sockets_recvNonBlocking(NULL, server, auxSize, aux) > 0){
+            printf("\t%s\n", aux);
+        }
         
         msg = ALF_IO_raw_input("Message: ");
     } while(strcmp(msg, ""));

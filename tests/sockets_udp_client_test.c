@@ -19,16 +19,14 @@ int main() {
         printf("%s\n", ALF_sockets_getLastErrorMsg());
         return ALF_sockets_getLastError();
     }
-
-    printf("%i\n", len);
-
-    char buffer[100];
-    if(ALF_sockets_recv(server, buffer, len, server) < 0){
-        printf("%s\n", ALF_sockets_getLastErrorMsg());
-        return ALF_sockets_getLastError();
+    else{
+        size_t bufferSize = 1024;
+        char buffer[bufferSize + 1];
+        if(ALF_sockets_recv(server, buffer, len, server) < 0){
+            printf("%s\n", ALF_sockets_getLastErrorMsg());
+        }
+	    printf("recieved: '%s'\n", buffer);
     }
-
-    printf("recieved: '%s'\n", buffer);
 
     ALF_sockets_free(server);
     return 0;

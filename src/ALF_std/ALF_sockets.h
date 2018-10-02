@@ -30,7 +30,7 @@ typedef struct {
 
 ALF_socket *ALF_sockets_init(int type, const char *ip, uint16_t port);
 
-ALF_socket *ALF_sockets_createDestObj();
+ALF_socket *ALF_sockets_createDestObj(int type);
 
 void ALF_sockets_free(ALF_socket *handler);
 

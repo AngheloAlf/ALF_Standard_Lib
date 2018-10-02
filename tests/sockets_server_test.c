@@ -8,30 +8,30 @@ int main(){
         printf("%s\n", ALF_sockets_getLastErrorMsg());
         return ALF_sockets_getLastError();
     }
-    fprintf(stderr, "Socket created.\n");
+    printf("Socket created.\n");
 
     if(ALF_sockets_bind(server)){
         printf("%s\n", ALF_sockets_getLastErrorMsg());
         return ALF_sockets_getLastError();
     }
-    fprintf(stderr, "Bind done.\n");
+    printf("Bind done.\n");
 
     if(ALF_sockets_listen(server)){
         printf("%s\n", ALF_sockets_getLastErrorMsg());
         return ALF_sockets_getLastError();
     }
-    fprintf(stderr, "Listen done.\n");
+    printf("Listen done.\n");
 
-    fprintf(stderr, "Waiting connections...\n");
+    printf("Waiting connections...\n");
 
     ALF_socket *client = ALF_sockets_accept(server);
     if(client == NULL){
         printf("%s\n", ALF_sockets_getLastErrorMsg());
         return ALF_sockets_getLastError();
     }
-    fprintf(stderr, "Client accepted.\n");
+    printf("Client accepted.\n");
 
-    size_t msgSize = 3;
+    size_t msgSize = 1024;
     char msg[msgSize + 1];
 
     ssize_t asd = ALF_sockets_recv(client, msg, msgSize, NULL);
@@ -40,23 +40,13 @@ int main(){
         asd = ALF_sockets_send(client, msg, 0, NULL);
         if(asd < 0){
             printf("%s\n", ALF_sockets_getLastErrorMsg());
-            // return ALF_sockets_getLastError();
             break;
-        }
-        while(ALF_sockets_recvNonBlocking(client, msg, msgSize, NULL) > 0){
-            fprintf(stderr, "\t%s\n", msg);
-            asd = ALF_sockets_send(client, msg, 0, NULL);
-            if(asd < 0){
-                printf("%s\n", ALF_sockets_getLastErrorMsg());
-                // return ALF_sockets_getLastError();
-                break;
-            }
         }
        asd = ALF_sockets_recv(client, msg, msgSize, NULL);
     }
     printf("%s\n", ALF_sockets_getLastErrorMsg());
 
-    fprintf(stderr, "Connection ended.\n");
+    printf("Connection ended.\n");
 
     ALF_sockets_free(client);
     ALF_sockets_free(server);

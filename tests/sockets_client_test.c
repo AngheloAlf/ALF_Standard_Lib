@@ -20,13 +20,12 @@ int main(){
     }
     printf("Connect done.\n");
 
-    ssize_t recv_retval, auxSize = 4;
+    ssize_t recv_retval, auxSize = 1024;
     char *msg, aux[auxSize+1];
     msg = ALF_IO_raw_input("Message: ");
 
     do{
         if(ALF_sockets_send(server, msg, 0, NULL) < 0){
-            printf("sendBreak\n");
             printf("%s\n", ALF_sockets_getLastErrorMsg());
             break;
         }
@@ -34,19 +33,10 @@ int main(){
 
         recv_retval = ALF_sockets_recv(server, aux, auxSize, NULL);
         if(recv_retval < 0){
-            printf("auxBreak: %i\n", (int)recv_retval);
             printf("%s\n", ALF_sockets_getLastErrorMsg());
             break;
         }
         printf("recv: %s\n", aux);
-        // free(aux);
-        struct timespec tim, tim2;
-        tim.tv_sec = 0;
-        tim.tv_nsec = 10000L;
-        nanosleep(&tim, &tim2);
-        while(ALF_sockets_recvNonBlocking(server, aux, auxSize, NULL) > 0){
-            printf("\t%s\n", aux);
-        }
         
         msg = ALF_IO_raw_input("Message: ");
     } while(strcmp(msg, ""));

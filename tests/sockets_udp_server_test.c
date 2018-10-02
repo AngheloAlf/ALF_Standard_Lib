@@ -20,13 +20,14 @@ int main() {
 
     ALF_socket *destinatary = ALF_sockets_createDestObj(ALF_SOCKETS_TYPE_UDP);
 
-    while (true) {
-        char buffer[500];
-        int len = ALF_sockets_recv(destinatary, buffer, sizeof buffer, server);
+    size_t bufferSize = 1024;
+    char buffer[bufferSize + 1];
+    while(1){
+        int len = ALF_sockets_recv(destinatary, buffer, bufferSize, server);
 
         if(len < 0){
             printf("%s\n", ALF_sockets_getLastErrorMsg());
-            return ALF_sockets_getLastError();
+            break;
         }
 
         buffer[len] = '\0';
@@ -34,7 +35,7 @@ int main() {
 
         if(ALF_sockets_send(destinatary, buffer, len, server) < 0){
             printf("%s\n", ALF_sockets_getLastErrorMsg());
-            return ALF_sockets_getLastError();
+            break;
         }
     }
 

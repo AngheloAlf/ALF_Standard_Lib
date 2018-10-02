@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <time.h>
+
 #include<string.h>    //strlen
 #include<sys/socket.h>    //socket
 #include<arpa/inet.h> //inet_addr
 
 
 int main(){
-    ALF_socket *server = ALF_sockets_init("127.0.0.1", 8888);
+    ALF_socket *server = ALF_sockets_init(ALF_SOCKETS_TYPE_TCP, "127.0.0.1", 8888);
     if(server == NULL){
         // printf("Could not create socket.\n");
         printf("%s\n", ALF_sockets_getLastErrorMsg());
@@ -27,14 +29,14 @@ int main(){
     msg = ALF_IO_raw_input("Message: ");
 
     do{
-        if(ALF_sockets_send(NULL, server, msg) < 0){
+        if(ALF_sockets_send(server, msg, NULL) < 0){
             printf("sendBreak\n");
             printf("%s\n", ALF_sockets_getLastErrorMsg());
             break;
         }
         free(msg);
 
-        recv_retval = ALF_sockets_recv(NULL, server, auxSize, aux);
+        recv_retval = ALF_sockets_recv(server, auxSize, aux, NULL);
         if(recv_retval < 0){
             printf("auxBreak: %i\n", (int)recv_retval);
             printf("%s\n", ALF_sockets_getLastErrorMsg());
@@ -46,7 +48,7 @@ int main(){
         tim.tv_sec = 0;
         tim.tv_nsec = 10000L;
         nanosleep(&tim, &tim2);
-        while(ALF_sockets_recvNonBlocking(NULL, server, auxSize, aux) > 0){
+        while(ALF_sockets_recvNonBlocking(server, auxSize, aux, NULL) > 0){
             printf("\t%s\n", aux);
         }
         

@@ -7,11 +7,9 @@
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>    //write
 
-#include <errno.h>
-
 int main(){
 
-    ALF_socket *server = ALF_sockets_init(NULL, 8888);
+    ALF_socket *server = ALF_sockets_init(ALF_SOCKETS_TYPE_TCP, NULL, 8888);
     if(server == NULL){
         fprintf(stderr, "Could not create socket.\n");
         perror("ERROR");
@@ -46,31 +44,28 @@ int main(){
     size_t msgSize = 3;
     char msg[msgSize + 1];
 
-    ssize_t asd = ALF_sockets_recv(server, client, msgSize, msg);
+    ssize_t asd = ALF_sockets_recv(client, msgSize, msg, NULL);
     while(asd > 0){
         fprintf(stderr, "recv: %s\n", msg);
-        asd = ALF_sockets_send(server, client, msg);
+        asd = ALF_sockets_send(client, msg, NULL);
         if(asd < 0){
             fprintf(stderr, "Couldn't send.\n");
             perror("ERROR");
             break;
         }
-        while(ALF_sockets_recvNonBlocking(server, client, msgSize, msg) > 0){
+        while(ALF_sockets_recvNonBlocking(client, msgSize, msg, NULL) > 0){
             fprintf(stderr, "\t%s\n", msg);
-            asd = ALF_sockets_send(server, client, msg);
+            asd = ALF_sockets_send(client, msg, NULL);
             if(asd < 0){
                 fprintf(stderr, "Couldn't send.\n");
                 perror("ERROR");
                 break;
             }
         }
-       asd = ALF_sockets_recv(server, client, msgSize, msg);
+       asd = ALF_sockets_recv(client, msgSize, msg, NULL);
     }
 
     fprintf(stderr, "Connection ended.\n");
-        perror("ERROR");
-
-    fprintf(stderr, "errno: %i, EAGAIN: %i, EWOULDBLOCK: %i\n", errno, EAGAIN, EWOULDBLOCK);
 
     ALF_sockets_free(client);
     ALF_sockets_free(server);

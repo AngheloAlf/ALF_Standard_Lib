@@ -8,6 +8,7 @@
 #include "ALF_common.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include <sys/socket.h>
 
 #define ALF_SOCKETS_TYPE_TCP SOCK_STREAM
 #define ALF_SOCKETS_TYPE_UDP SOCK_DGRAM
@@ -45,11 +46,11 @@ int ALF_sockets_listen(ALF_socket *handler);
 
 ALF_socket *ALF_sockets_accept(ALF_socket *handler);
 
-ssize_t ALF_sockets_recv(ALF_socket *client_handler, size_t maxRecv, char *msg, ALF_socket *other_handler);
+ssize_t ALF_sockets_recv(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket *_from);
 
-ssize_t ALF_sockets_recvNonBlocking(ALF_socket *client_handler, size_t maxRecv, char *msg, ALF_socket *other_handler);
+ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket *_from);
 
-ssize_t ALF_sockets_send(ALF_socket *client_handler, const char* msg, ALF_socket *other_handler);
+ssize_t ALF_sockets_send(ALF_socket *_to, const char* msg, size_t msgSize, ALF_socket *_from);
 
 ssize_t ALF_sockets_getLastError();
 const char *ALF_sockets_getLastErrorMsg();

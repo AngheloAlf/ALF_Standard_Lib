@@ -92,49 +92,10 @@ ALF_socket *ALF_sockets_init(int type, const char *ip, uint16_t port){
         return NULL;
     }
 
-    /*
-
-    ALF_socket *handler = malloc(sizeof(ALF_socket));
-    if(handler == NULL){
-        ALF_sockets_error = -2;
-        strcpy(ALF_sockets_errorMsg, MALLOC_ERROR);
-        return NULL;
-    }
-
-    if((handler->addr = malloc(sizeof(struct sockaddr_in))) == NULL){
-        ALF_sockets_error = -2;
-        strcpy(ALF_sockets_errorMsg, MALLOC_ERROR);
-        free(handler);
-        return NULL;
-    }
-
-    memset(handler->addr, 0, sizeof *(handler->addr));
-    handler->addr->sin_family = AF_INET;
-    handler->addr->sin_addr.s_addr = htonl(INADDR_ANY);
-    if(ip != NULL){
-        // handler->addr->sin_addr.s_addr = inet_addr(ip);
-        int aux = inet_pton(AF_INET, ip, &handler->addr->sin_addr.s_addr);
-
-        if(aux <= 0){
-            ALF_sockets_error = -17;
-            strcpy(ALF_sockets_errorMsg, IP_ERROR);
-            if(aux < 0){
-                strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-            }
-            free(handler->addr);
-            free(handler);
-            return NULL;
-        }
-    }
-    handler->addr->sin_port = htons(port);
-
-    */
-
     ALF_socket *handler = ALF_sockets_createObject(ip, port, NULL);
     if(handler == NULL){
         return NULL;
     }
-
 
     if((handler->sock_desc = socket(AF_INET, type, 0)) < 0){
         ALF_sockets_error = -3;
@@ -325,21 +286,6 @@ ALF_socket *ALF_sockets_accept(ALF_socket *handler){
         return NULL;
     }
 
-/*
-    ALF_socket *client_handler = malloc(sizeof(ALF_socket));
-    if(client_handler == NULL){
-        ALF_sockets_error = -2;
-        strcpy(ALF_sockets_errorMsg, MALLOC_ERROR);
-        return NULL;
-    }
-    if((client_handler->addr = malloc(sizeof(struct sockaddr_in))) == NULL){
-        ALF_sockets_error = -2;
-        strcpy(ALF_sockets_errorMsg, MALLOC_ERROR);
-        free(client_handler);
-        return NULL;
-    }
-    */
-
     socklen_t address_len = sizeof(struct sockaddr_in);
     struct sockaddr addr_aux;
 
@@ -362,6 +308,8 @@ ALF_socket *ALF_sockets_accept(ALF_socket *handler){
     client_handler->binded = false;
     client_handler->listening = false;
     client_handler->connected = true;
+
+    client_handler->type = handler->type;
 
     return client_handler;
 }
@@ -389,13 +337,13 @@ int parseDataInterchangeErrors(ALF_socket *client_handler){
     return 0;
 }
 
-ssize_t ALF_sockets_recv(ALF_socket *_to, size_t maxRecv, char *msg, ALF_socket *_from){
+ssize_t ALF_sockets_recv(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket *_from){
     ssize_t aux;
     if((aux = parseDataInterchangeErrors(_to)) < 0){
         return aux;
     }
-    ssize_t read_size;
 
+    ssize_t read_size;
     if(_to->type == ALF_SOCKETS_TYPE_TCP){
         read_size = recv(_to->sock_desc, msg, maxRecv, 0);
     }
@@ -420,14 +368,13 @@ ssize_t ALF_sockets_recv(ALF_socket *_to, size_t maxRecv, char *msg, ALF_socket 
     return read_size;
 }
 
-ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_to, size_t maxRecv, char *msg, ALF_socket *_from){
+ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket *_from){
     ssize_t aux;
     if((aux = parseDataInterchangeErrors(_to)) < 0){
         return aux;
     }
 
     ssize_t read_size;
-
 
     if(_to->type == ALF_SOCKETS_TYPE_TCP){
         read_size = recv(_to->sock_desc, msg, maxRecv, MSG_DONTWAIT);
@@ -458,18 +405,19 @@ ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_to, size_t maxRecv, char *msg, 
     return read_size;
 }
 
-ssize_t ALF_sockets_send(ALF_socket *_to, const char* msg, ALF_socket *_from){
+ssize_t ALF_sockets_send(ALF_socket *_to, const char* msg, size_t msgSize, ALF_socket *_from){
     ssize_t aux;
     if((aux = parseDataInterchangeErrors(_to)) < 0){
         return aux;
     }
     ssize_t retval;
+    msgSize = msgSize > 0 ? msgSize : strlen(msg);
 
     if(_to->type == ALF_SOCKETS_TYPE_TCP){
-        retval = send(_to->sock_desc, msg, strlen(msg), 0);
+        retval = send(_to->sock_desc, msg, msgSize, 0);
     }
     else if(_to->type == ALF_SOCKETS_TYPE_UDP){
-        retval = sendto(_from->sock_desc, msg, strlen(msg), 0, (struct sockaddr *)(_to->addr), sizeof *(_to->addr));
+        retval = sendto(_from->sock_desc, msg, msgSize, 0, (struct sockaddr *)(_to->addr), sizeof *(_to->addr));
     }
     else{
         ALF_sockets_error = -18;
@@ -482,7 +430,7 @@ ssize_t ALF_sockets_send(ALF_socket *_to, const char* msg, ALF_socket *_from){
         strcpy(ALF_sockets_errorMsg, SEND_ERROR);
         strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
     }
-    
+
     return retval;
 }
 

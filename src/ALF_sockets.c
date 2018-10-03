@@ -84,7 +84,6 @@ ALF_socket *ALF_sockets_createDestObj(int type){
     return aux;
 }
 
-
 ALF_socket *ALF_sockets_init(int type, const char *ip, uint16_t port){
     if(type != ALF_SOCKETS_TYPE_TCP && type != ALF_SOCKETS_TYPE_UDP){
         ALF_sockets_error = -18;
@@ -227,13 +226,13 @@ int parseListenErrors(ALF_socket *handler){
         aux = -6;
         strcpy(ALF_sockets_errorMsg, ALREADY_CONNECTED_ERROR);
     }
-    if(aux < 0){
-        ALF_sockets_error = aux;
-        return aux;
-    }
     if(handler->type != ALF_SOCKETS_TYPE_TCP){
         aux = -19;
         strcpy(ALF_sockets_errorMsg, INVALID_TYPE_FUNCTION_ERROR);
+    }
+    if(aux < 0){
+        ALF_sockets_error = aux;
+        return aux;
     }
     return 0;
 }
@@ -270,13 +269,13 @@ int parseAcceptErrors(ALF_socket *handler){
         aux = -6;
         strcpy(ALF_sockets_errorMsg, ALREADY_CONNECTED_ERROR);
     }
-    if(aux < 0){
-        ALF_sockets_error = aux;
-        return aux;
-    }
     if(handler->type != ALF_SOCKETS_TYPE_TCP){
         aux = -19;
         strcpy(ALF_sockets_errorMsg, INVALID_TYPE_FUNCTION_ERROR);
+    }
+    if(aux < 0){
+        ALF_sockets_error = aux;
+        return aux;
     }
     return 0;
 }

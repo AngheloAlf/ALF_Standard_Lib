@@ -337,19 +337,19 @@ int parseDataInterchangeErrors(ALF_socket *client_handler){
     return 0;
 }
 
-ssize_t ALF_sockets_recv(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket *_from){
+ssize_t ALF_sockets_recv(ALF_socket *_from, char *msg, size_t maxRecv, ALF_socket *_to){
     ssize_t aux;
-    if((aux = parseDataInterchangeErrors(_to)) < 0){
+    if((aux = parseDataInterchangeErrors(_from)) < 0){
         return aux;
     }
 
     ssize_t read_size;
-    if(_to->type == ALF_SOCKETS_TYPE_TCP){
-        read_size = recv(_to->sock_desc, msg, maxRecv, 0);
+    if(_from->type == ALF_SOCKETS_TYPE_TCP){
+        read_size = recv(_from->sock_desc, msg, maxRecv, 0);
     }
-    else if(_to->type == ALF_SOCKETS_TYPE_UDP){
-        socklen_t sock_len = sizeof *(_to->addr);
-        read_size = recvfrom(_from->sock_desc, msg, maxRecv, 0, (struct sockaddr *)_to->addr, &sock_len);
+    else if(_from->type == ALF_SOCKETS_TYPE_UDP){
+        socklen_t sock_len = sizeof *(_from->addr);
+        read_size = recvfrom(_to->sock_desc, msg, maxRecv, 0, (struct sockaddr *)_from->addr, &sock_len);
     }
     else{
         ALF_sockets_error = -18;
@@ -368,20 +368,20 @@ ssize_t ALF_sockets_recv(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket 
     return read_size;
 }
 
-ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_to, char *msg, size_t maxRecv, ALF_socket *_from){
+ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_from, char *msg, size_t maxRecv, ALF_socket *_to){
     ssize_t aux;
-    if((aux = parseDataInterchangeErrors(_to)) < 0){
+    if((aux = parseDataInterchangeErrors(_from)) < 0){
         return aux;
     }
 
     ssize_t read_size;
 
-    if(_to->type == ALF_SOCKETS_TYPE_TCP){
-        read_size = recv(_to->sock_desc, msg, maxRecv, MSG_DONTWAIT);
+    if(_from->type == ALF_SOCKETS_TYPE_TCP){
+        read_size = recv(_from->sock_desc, msg, maxRecv, MSG_DONTWAIT);
     }
-    else if(_to->type == ALF_SOCKETS_TYPE_UDP){
-        socklen_t sock_len = sizeof *(_to->addr);
-        read_size = recvfrom(_from->sock_desc, msg, maxRecv, MSG_DONTWAIT, (struct sockaddr *)_to->addr, &sock_len);
+    else if(_from->type == ALF_SOCKETS_TYPE_UDP){
+        socklen_t sock_len = sizeof *(_from->addr);
+        read_size = recvfrom(_to->sock_desc, msg, maxRecv, MSG_DONTWAIT, (struct sockaddr *)_from->addr, &sock_len);
     }
     else{
         ALF_sockets_error = -18;

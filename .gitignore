@@ -63,3 +63,6 @@ out/
 
 tests/*
 !tests/*.c
+
+*.pro
+*.pro.user

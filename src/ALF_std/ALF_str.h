@@ -31,4 +31,16 @@ void ALF_STR_freeSplitted(char **splitted);
 /// 
 char* ALF_STR_changeExtension(const char* word, const char* newExt, size_t lenExt);
 
+/** Finds the position of right inside the string. Usefull, for example, for searching a pair of parenthesis.
+ 
+ * If there are multiple combinations of 'left' and 'right', it counts it until a pair is matched. 
+
+ * The first 'left' should not be in the string.
+
+ * The return value is part of the original 'string' parameter.
+
+ * If not found or the 'string' parameter is NULL, NULL is returned.
+**/
+char *ALF_STR_searchCharPair(const char *string, char left, char right);
+
 #endif /* ALF_str_h */

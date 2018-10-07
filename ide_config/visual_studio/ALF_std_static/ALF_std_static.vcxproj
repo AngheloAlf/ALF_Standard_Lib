@@ -181,22 +181,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\ALF_bit.c" />
-    <ClCompile Include="..\..\..\src\ALF_bool.c" />
+    <ClCompile Include="..\..\..\src\ALF_bytes.c" />
     <ClCompile Include="..\..\..\src\ALF_common.c" />
     <ClCompile Include="..\..\..\src\ALF_IO.c" />
     <ClCompile Include="..\..\..\src\ALF_jit.c" />
+    <ClCompile Include="..\..\..\src\ALF_math.c" />
     <ClCompile Include="..\..\..\src\ALF_OS.c" />
+    <ClCompile Include="..\..\..\src\ALF_sockets.c" />
     <ClCompile Include="..\..\..\src\ALF_str.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\ALF_bit.h" />
-    <ClInclude Include="..\..\..\include\ALF_bool.h" />
-    <ClInclude Include="..\..\..\include\ALF_common.h" />
-    <ClInclude Include="..\..\..\include\ALF_IO.h" />
-    <ClInclude Include="..\..\..\include\ALF_jit.h" />
-    <ClInclude Include="..\..\..\include\ALF_OS.h" />
-    <ClInclude Include="..\..\..\include\ALF_std.h" />
-    <ClInclude Include="..\..\..\include\ALF_str.h" />
+    <ClInclude Include="..\..\..\src\ALF_std.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_bit.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_bytes.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_common.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_IO.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_jit.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_math.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_OS.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_sockets.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_str.h" />
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_version.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

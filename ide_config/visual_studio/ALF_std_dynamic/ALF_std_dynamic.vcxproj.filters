@@ -21,9 +21,6 @@
     <ClCompile Include="..\..\..\src\ALF_str.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ALF_bool.c">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\ALF_jit.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -36,30 +33,48 @@
     <ClCompile Include="..\..\..\src\ALF_common.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\ALF_math.c">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ALF_sockets.c">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ALF_bytes.c">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\ALF_IO.h">
+    <ClInclude Include="..\..\..\src\ALF_std.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_std.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_math.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_str.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_OS.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_bool.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_sockets.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_jit.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_str.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_OS.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_version.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_common.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_bit.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ALF_bit.h">
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_bytes.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_common.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_IO.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ALF_std\ALF_jit.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

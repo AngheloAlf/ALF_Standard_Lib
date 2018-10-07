@@ -177,7 +177,7 @@ ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_from, char *msg, size_t maxRecv
 ssize_t ALF_sockets_send(ALF_socket *_to, const char* msg, size_t msgSize, ALF_socket *_from);
 
 /// Returns the last error code.
-ssize_t ALF_sockets_getLastError();
+int ALF_sockets_getLastError();
 /// Returns the last error message.
 const char *ALF_sockets_getLastErrorMsg();
 

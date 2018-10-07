@@ -8,7 +8,16 @@
 #include "ALF_common.h"
 #include <stdint.h>
 #include <stdbool.h>
+
+
+#ifdef _WIN32
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+
+#else
+#include <unistd.h>
 #include <sys/socket.h>
+#endif
 
 #define ALF_SOCKETS_TYPE_TCP SOCK_STREAM
 #define ALF_SOCKETS_TYPE_UDP SOCK_DGRAM

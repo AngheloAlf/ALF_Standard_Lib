@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define msgSize 1024
+
 int main(){
     ALF_socket *server = ALF_sockets_init(ALF_SOCKETS_TYPE_TCP, NULL, 8888);
     if(server == NULL){
@@ -31,7 +33,6 @@ int main(){
     }
     printf("Client accepted.\n");
 
-    size_t msgSize = 1024;
     char msg[msgSize + 1];
 
     ssize_t asd = ALF_sockets_recv(client, msg, msgSize, NULL);

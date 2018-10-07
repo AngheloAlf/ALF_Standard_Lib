@@ -6,6 +6,8 @@
 
 #include<string.h>
 
+#define auxSize 1024
+
 int main(){
     ALF_socket *server = ALF_sockets_init(ALF_SOCKETS_TYPE_TCP, "127.0.0.1", 8888);
     if(server == NULL){
@@ -20,7 +22,7 @@ int main(){
     }
     printf("Connect done.\n");
 
-    ssize_t recv_retval, auxSize = 1024;
+    ssize_t recv_retval;
     char *msg, aux[auxSize+1];
     msg = ALF_IO_raw_input("Message: ");
 

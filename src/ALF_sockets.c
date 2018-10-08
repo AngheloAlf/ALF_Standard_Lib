@@ -15,7 +15,7 @@ typedef int socklen_t;
 
 #define MSG_DONTWAIT 0
 
-#pragma comment( lib, "ws2_32.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 #else
 #include <arpa/inet.h>

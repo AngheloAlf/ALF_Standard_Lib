@@ -9,13 +9,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
 #ifdef _WIN32
 #include <BaseTsd.h>
 typedef SSIZE_T ssize_t;
 
 #else
-#include <unistd.h>
 #include <sys/socket.h>
 #endif
 

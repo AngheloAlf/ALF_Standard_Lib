@@ -40,7 +40,8 @@ CC			= @gcc
 LANG_EXT	= c
 HEADER_EXT	= h
 OBJ_EXT		= o
-FLAGS		= -Wall -Wextra -fPIC -O2 -Wpedantic -std=gnu11
+FLAGS		= -Wall -Wextra -fPIC -Wpedantic -std=gnu11
+OPTI_FLAGS	= -O2
 OTHER		= 
 SHARED_FLAG	= -shared
 LIBS		= 
@@ -111,8 +112,8 @@ tests: $(TEST_EXE)
 
 
 $(TESTS)/%: $(TESTS)/%.$(LANG_EXT)
-	$(ECHO) $(CC) $< $(OTHER)
-	$(CC) $< -o $@ $(FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) -L$(OUT_LIB_DIR) -l$(LIB_NAME) $(OTHER)
+	$(ECHO) $(CC) $< $(OTHER) $(OPTI_FLAGS)
+	$(CC) $< -o $@ $(FLAGS) $(OPTI_FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) -L$(OUT_LIB_DIR) -l$(LIB_NAME) $(OTHER)
 
 
 make_docs_folder:
@@ -137,8 +138,8 @@ makefolders:
 	$(ECHO) "\tFolders done\n"
 
 $(OBJ_DIR)/%.$(OBJ_EXT): $(SRC_DIR)/%.$(LANG_EXT)
-	$(ECHO) $(CC) -c $< $(OTHER)
-	$(CC) -c $< -o $@ $(FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) $(OTHER)
+	$(ECHO) $(CC) -c $< $(OTHER) $(OPTI_FLAGS)
+	$(CC) -c $< -o $@ $(FLAGS) $(OPTI_FLAGS) $(INCLUDE_FOLD) $(LIBS_FOLDER) $(LIBS_NAMES) $(OTHER)
 
 make_objects: makefolders $(OBJ_O)
 	$(ECHO) "\tObjects done\n"

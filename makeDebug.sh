@@ -1,5 +1,4 @@
 make clean
-make OTHER=-g
+make OTHER=-g  OPTI_FLAGS= 
 sudo make install
-make tests OTHER=-g
-
+make tests OTHER=-g OPTI_FLAGS=

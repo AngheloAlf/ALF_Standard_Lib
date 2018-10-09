@@ -66,3 +66,5 @@ tests/*
 
 *.pro
 *.pro.user
+
+*.bin

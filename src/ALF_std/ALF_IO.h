@@ -2,6 +2,8 @@
 * Macros and functions concerning I/O (input/output)
 **/
 
+#include <stdio.h>
+
 #ifndef ALF_IO_h
 #define ALF_IO_h
 
@@ -16,6 +18,29 @@
 #define ALF_IO_ANSI_COLOR_CYAN		"\x1b[36m"
 #define ALF_IO_ANSI_COLOR_WHITE	    "\x1b[37m"
 #define ALF_IO_ANSI_COLOR_RESET     "\x1b[0m"
+
+
+
+/// Python-like input of data.
+/**
+ * This function prints out a message to screen (stdout).
+
+ * Then read from a file a line that ends in \\n.
+
+ * The input string is propety of the caller, and he have to free it.
+
+ * Params:
+
+ * -FILE *fileIn: The file to be readed.
+
+ * -const char *outMessage: The string to be printed.
+
+ * Return value:
+
+ * ->char *: The user input.
+
+**/
+char *ALF_IO_fraw_input(FILE *fileIn, const char *outMessage);
 
 /// Python-like input of data.
 /** 

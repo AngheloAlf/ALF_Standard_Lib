@@ -2,14 +2,13 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 
-char *ALF_IO_raw_input(const char *outMessage){
+char *ALF_IO_fraw_input(FILE *fileIn, const char *outMessage){
     printf("%s", outMessage);
 
     int inSize = 32;
     char *inData = malloc(sizeof(char)*inSize);
-    if(!fgets(inData, inSize, stdin)){ // No se pudo leer
+    if(!fgets(inData, inSize, fileIn)){ // No se pudo leer
         free(inData);
         return NULL;
     }
@@ -23,7 +22,7 @@ char *ALF_IO_raw_input(const char *outMessage){
     else{ // No se encontro el salto de linea. A seguir leyendo!
         char *auxData = malloc(sizeof(char)*inSize*2); // String mas grande
         strcpy(auxData, inData); // Copiando datos al string final
-        while(fgets(inData, inSize, stdin)){ // Lee datos de stdin
+        while(fgets(inData, inSize, fileIn)){ // Lee datos del archivo
             strcat(auxData, inData); // Se concatena al string grande
             len = strlen(auxData);
             if(auxData[len-1] == '\n'){ // Revisando si tenemos toodo el string
@@ -38,6 +37,10 @@ char *ALF_IO_raw_input(const char *outMessage){
         free(auxData);
         return NULL; // En caso de error
     }
+}
+
+char *ALF_IO_raw_input(const char *outMessage){
+    return ALF_IO_fraw_input(stdin, outMessage);
 }
 
 void ALF_IO_puthex(unsigned char character){

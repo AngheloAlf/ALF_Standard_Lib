@@ -22,7 +22,7 @@ int main(){// int argc, char *argv[]){
 	printf("ALF_OS_isFreeBSD: %d\n", ALF_OS_isFreeBSD());
 	printf("ALF_OS_isOther: %d\n", ALF_OS_isOther());
 
-	ALF_IO_raw_input("ENTER");
+	free(ALF_IO_raw_input("ENTER"));
 
 	return 0;
 }

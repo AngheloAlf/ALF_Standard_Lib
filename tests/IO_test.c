@@ -76,6 +76,6 @@ int main(int argc, char *argv[]){
         }
     }
 
-    ALF_IO_raw_input("ENTER ");
+    free(ALF_IO_raw_input("ENTER "));
     return 0;
 }

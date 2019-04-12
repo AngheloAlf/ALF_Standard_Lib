@@ -25,7 +25,7 @@ int main() {
         if(ALF_sockets_recv(server, buffer, len, server) < 0){
             printf("%s\n", ALF_sockets_getLastErrorMsg());
         }
-	    printf("recieved: '%s'\n", buffer);
+        printf("recieved: '%s'\n", buffer);
     }
 
     ALF_sockets_free(server);

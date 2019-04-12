@@ -25,7 +25,7 @@
 **/
 char **ALF_STR_split(const char *string, const char *delimiters);
 
-/// Free an splitted string like the returned from ALF_STR_split().
+/// Free an splitted string, like the returned from ALF_STR_split().
 void ALF_STR_freeSplitted(char **splitted);
 
 /// 

@@ -70,25 +70,25 @@ int ALF_sockets_error = 0;
 char ALF_sockets_errorMsg[ERROR_MSG_LEN];
 
 int ALF_sockets_getLastError() {
-	return ALF_sockets_error;
+    return ALF_sockets_error;
 }
 
 const char *ALF_sockets_getLastErrorMsg() {
-	return ALF_sockets_errorMsg;
+    return ALF_sockets_errorMsg;
 }
 
 int setError(int code, char *msg1, char *msg2) {
-	size_t msg1len = strlen(msg1);
-	long howMuchCpy = ERROR_MSG_LEN - msg1len;
-	if (howMuchCpy < 0) {
-		howMuchCpy = 0;
-	}
+    size_t msg1len = strlen(msg1);
+    long howMuchCpy = ERROR_MSG_LEN - msg1len;
+    if (howMuchCpy < 0) {
+        howMuchCpy = 0;
+    }
 
-	ALF_sockets_error = code;
-	strncpy(ALF_sockets_errorMsg, msg1, ERROR_MSG_LEN);
-	if(msg2 != NULL){
-		strncpy(ALF_sockets_errorMsg + msg1len, msg2, howMuchCpy);
-	}
+    ALF_sockets_error = code;
+    strncpy(ALF_sockets_errorMsg, msg1, ERROR_MSG_LEN);
+    if(msg2 != NULL){
+        strncpy(ALF_sockets_errorMsg + msg1len, msg2, howMuchCpy);
+    }
     return code;
 }
 
@@ -96,16 +96,12 @@ int setError(int code, char *msg1, char *msg2) {
 ALF_socket *ALF_sockets_createObject(const char *ip, uint16_t port, struct sockaddr_in *sock_addr){
     ALF_socket *handler = malloc(sizeof(ALF_socket));
     if(handler == NULL){
-        /*ALF_sockets_error = -2;
-        strcpy(ALF_sockets_errorMsg, MALLOC_ERROR);*/
-		setError(MALLOC_ERROR_CODE, MALLOC_ERROR, NULL);
+        setError(MALLOC_ERROR_CODE, MALLOC_ERROR, NULL);
         return NULL;
     }
 
     if((handler->addr = malloc(sizeof(struct sockaddr_in))) == NULL){
-        //ALF_sockets_error = -2;
-        //strcpy(ALF_sockets_errorMsg, MALLOC_ERROR);
-		setError(MALLOC_ERROR_CODE, MALLOC_ERROR, NULL);
+        setError(MALLOC_ERROR_CODE, MALLOC_ERROR, NULL);
         free(handler);
         return NULL;
     }
@@ -118,19 +114,15 @@ ALF_socket *ALF_sockets_createObject(const char *ip, uint16_t port, struct socka
         handler->addr->sin_family = AF_INET;
         handler->addr->sin_addr.s_addr = htonl(INADDR_ANY);
         if(ip != NULL){
-            // handler->addr->sin_addr.s_addr = inet_addr(ip);
             int aux = inet_pton(AF_INET, ip, &(handler->addr->sin_addr.s_addr));
 
             if(aux <= 0){
-				char *auxError = NULL;
-                //ALF_sockets_error = -17;
-                //strcpy(ALF_sockets_errorMsg, IP_ERROR);
+                char *auxError = NULL;
                 if(aux < 0){
-					auxError = strerror(errno);
-                    //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
+                    auxError = strerror(errno);
                 }
 
-				setError(IP_ERROR_CODE, IP_ERROR, auxError);
+                setError(IP_ERROR_CODE, IP_ERROR, auxError);
                 free(handler->addr);
                 free(handler);
                 return NULL;
@@ -153,27 +145,24 @@ ALF_socket *ALF_sockets_createDestObj(int type){
 
 ALF_socket *ALF_sockets_init(int type, const char *ip, uint16_t port){
     #ifdef _WIN32
-	WSADATA wsadata;
-	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0) {
-		wchar_t *s = NULL;
+    WSADATA wsadata;
+    if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0) {
+        wchar_t *s = NULL;
 
-		FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL, WSAGetLastError(),
-			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-			(LPWSTR)&s, 0, NULL);
+        FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, WSAGetLastError(),
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPWSTR)&s, 0, NULL);
 
-		setError(WINDOWS_INIT_ERROR_CODE, WINDOWS_INIT_ERROR, s);
+        setError(WINDOWS_INIT_ERROR_CODE, WINDOWS_INIT_ERROR, s);
 
-		LocalFree(s);
+        LocalFree(s);
         return NULL;
-	}
+    }
     #endif
 
     if(type != ALF_SOCKETS_TYPE_TCP && type != ALF_SOCKETS_TYPE_UDP){
-        //ALF_sockets_error = -18;
-        //strcpy(ALF_sockets_errorMsg, TYPE_ERROR);
-
-		setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
+        setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
         return NULL;
     }
 
@@ -183,11 +172,7 @@ ALF_socket *ALF_sockets_init(int type, const char *ip, uint16_t port){
     }
 
     if((handler->sock_desc = socket(AF_INET, type, 0)) < 0){
-        //ALF_sockets_error = -3;
-        //strcpy(ALF_sockets_errorMsg, SOCKET_CREATION_ERROR);
-        //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-
-		setError(SOCKET_CREATION_ERROR_CODE, SOCKET_CREATION_ERROR, strerror(errno));
+        setError(SOCKET_CREATION_ERROR_CODE, SOCKET_CREATION_ERROR, strerror(errno));
         free(handler->addr);
         free(handler);
         return NULL;
@@ -221,26 +206,17 @@ int ALF_sockets_getBacklog(ALF_socket *handler){
 }
 
 int parseConnectErrors(ALF_socket *handler){
-    // int aux = 0;
     if(handler->binded){
-        // aux = -4;
-        // strcpy(ALF_sockets_errorMsg, ALREADY_BINDED_ERROR);
-		return setError(ALREADY_BINDED_ERROR_CODE, ALREADY_BINDED_ERROR, NULL);
+        return setError(ALREADY_BINDED_ERROR_CODE, ALREADY_BINDED_ERROR, NULL);
     }
     if(handler->listening){
-        // aux = -5;
-        //strcpy(ALF_sockets_errorMsg, ALREADY_LISTENING_ERROR);
-		return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
+        return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
     }
     if(handler->connected){
-        // aux = -6;
-        //strcpy(ALF_sockets_errorMsg, ALREADY_CONNECTED_ERROR);
-		return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
+        return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
     }
     if(handler->type != ALF_SOCKETS_TYPE_TCP){
-        // aux = -19;
-        //strcpy(ALF_sockets_errorMsg, INVALID_TYPE_FUNCTION_ERROR);
-		return setError(INVALID_TYPE_FUNCTION_ERROR_CODE, INVALID_TYPE_FUNCTION_ERROR, NULL);
+        return setError(INVALID_TYPE_FUNCTION_ERROR_CODE, INVALID_TYPE_FUNCTION_ERROR, NULL);
     }
     return 0;
 }
@@ -255,31 +231,20 @@ int ALF_sockets_connect(ALF_socket *handler){
         handler->connected = true;
     }
     if(retval < 0){
-        // ALF_sockets_error = -8;
-        // strcpy(ALF_sockets_errorMsg, CONNECT_ERROR);
-        // strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-
-		setError(CONNECT_ERROR_CODE, CONNECT_ERROR, strerror(errno));
+        setError(CONNECT_ERROR_CODE, CONNECT_ERROR, strerror(errno));
     }
     return retval;
 }
 
 int parseBindErrors(ALF_socket *handler){
-    // int aux = 0;
     if(handler->binded){
-        // aux = -4;
-        // strcpy(ALF_sockets_errorMsg, ALREADY_BINDED_ERROR);
-		return setError(ALREADY_BINDED_ERROR_CODE, ALREADY_BINDED_ERROR, NULL);
+        return setError(ALREADY_BINDED_ERROR_CODE, ALREADY_BINDED_ERROR, NULL);
     }
     if(handler->listening){
-        // aux = -5;
-        // strcpy(ALF_sockets_errorMsg, ALREADY_LISTENING_ERROR);
-		return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
+        return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
     }
     if(handler->connected){
-        // aux = -6;
-        // strcpy(ALF_sockets_errorMsg, ALREADY_CONNECTED_ERROR);
-		return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
+        return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
     }
     return 0;
 }
@@ -294,40 +259,23 @@ int ALF_sockets_bind(ALF_socket *handler){
         handler->binded = true;
     }
     if(retval < 0){
-        //ALF_sockets_error = -9;
-        // strcpy(ALF_sockets_errorMsg, BIND_ERROR);
-        //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-
-		setError(BIND_ERROR_CODE, BIND_ERROR, strerror(errno));
+        setError(BIND_ERROR_CODE, BIND_ERROR, strerror(errno));
     }
     return retval;
 }
 
 int parseListenErrors(ALF_socket *handler){
-    // int aux = 0;
     if(!handler->binded){
-        // aux = -7;
-        // strcpy(ALF_sockets_errorMsg, NOT_BINDED_ERROR);
-
-		return setError(BIND_ERROR_CODE, BIND_ERROR, NULL);
+        return setError(BIND_ERROR_CODE, BIND_ERROR, NULL);
     }
     if(handler->listening){
-        // aux = -5;
-        // strcpy(ALF_sockets_errorMsg, ALREADY_LISTENING_ERROR);
-
-		return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
+        return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
     }
     if(handler->connected){
-        // aux = -6;
-        // strcpy(ALF_sockets_errorMsg, ALREADY_CONNECTED_ERROR);
-
-		return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
+        return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
     }
     if(handler->type != ALF_SOCKETS_TYPE_TCP){
-        // aux = -19;
-        //  strcpy(ALF_sockets_errorMsg, INVALID_TYPE_FUNCTION_ERROR);
-
-		return setError(INVALID_TYPE_FUNCTION_ERROR_CODE, INVALID_TYPE_FUNCTION_ERROR, NULL);
+        return setError(INVALID_TYPE_FUNCTION_ERROR_CODE, INVALID_TYPE_FUNCTION_ERROR, NULL);
     }
     return 0;
 }
@@ -343,36 +291,23 @@ int ALF_sockets_listen(ALF_socket *handler){
         handler->listening = true;
     }
     if(retval < 0){
-        // ALF_sockets_error = -10;
-        // strcpy(ALF_sockets_errorMsg, LISTEN_ERROR);
-        // strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-
-		setError(LISTEN_ERROR_CODE, LISTEN_ERROR, strerror(errno));
+        setError(LISTEN_ERROR_CODE, LISTEN_ERROR, strerror(errno));
     }
     return retval;
 }
 
 int parseAcceptErrors(ALF_socket *handler){
-    // int aux = 0;
     if(!handler->binded){
-        // aux = -7;
-        //strcpy(ALF_sockets_errorMsg, NOT_BINDED_ERROR);
-		return setError(NOT_BINDED_ERROR_CODE, NOT_BINDED_ERROR, NULL);
+        return setError(NOT_BINDED_ERROR_CODE, NOT_BINDED_ERROR, NULL);
     }
     if(!handler->listening){
-        // aux = -11;
-        //strcpy(ALF_sockets_errorMsg, NOT_LISTENING_ERROR);
-		return setError(NOT_LISTENING_ERROR_CODE, NOT_LISTENING_ERROR, NULL);
+        return setError(NOT_LISTENING_ERROR_CODE, NOT_LISTENING_ERROR, NULL);
     }
     if(handler->connected){
-        // aux = -6;
-        //strcpy(ALF_sockets_errorMsg, ALREADY_CONNECTED_ERROR);
-		return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
+        return setError(ALREADY_CONNECTED_ERROR_CODE, ALREADY_CONNECTED_ERROR, NULL);
     }
     if(handler->type != ALF_SOCKETS_TYPE_TCP){
-        // aux = -19;
-        //strcpy(ALF_sockets_errorMsg, INVALID_TYPE_FUNCTION_ERROR);
-		return setError(INVALID_TYPE_FUNCTION_ERROR_CODE, INVALID_TYPE_FUNCTION_ERROR, NULL);
+        return setError(INVALID_TYPE_FUNCTION_ERROR_CODE, INVALID_TYPE_FUNCTION_ERROR, NULL);
     }
     return 0;
 }
@@ -388,10 +323,7 @@ ALF_socket *ALF_sockets_accept(ALF_socket *handler){
     int sock = accept(handler->sock_desc, &addr_aux, &address_len);
 
     if(sock < 0){
-        //ALF_sockets_error = -12;
-        //strcpy(ALF_sockets_errorMsg, ACCEPT_ERROR);
-        //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-		setError(ACCEPT_ERROR_CODE, ACCEPT_ERROR, strerror(errno));
+        setError(ACCEPT_ERROR_CODE, ACCEPT_ERROR, strerror(errno));
         return NULL;
     }
 
@@ -412,22 +344,15 @@ ALF_socket *ALF_sockets_accept(ALF_socket *handler){
 }
 
 int parseDataInterchangeErrors(ALF_socket *client_handler){
-    // int aux = 0;
     if(client_handler->type == ALF_SOCKETS_TYPE_TCP){
         if(client_handler->binded){
-            //aux = -4;
-            // strcpy(ALF_sockets_errorMsg, ALREADY_BINDED_ERROR);
-			return setError(ALREADY_BINDED_ERROR_CODE, ALREADY_BINDED_ERROR, NULL);
+            return setError(ALREADY_BINDED_ERROR_CODE, ALREADY_BINDED_ERROR, NULL);
         }
         if(client_handler->listening){
-            //aux = -5;
-            //strcpy(ALF_sockets_errorMsg, ALREADY_LISTENING_ERROR);
-			return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
+            return setError(ALREADY_LISTENING_ERROR_CODE, ALREADY_LISTENING_ERROR, NULL);
         }
         if(!client_handler->connected){
-            //aux = -13;
-            //strcpy(ALF_sockets_errorMsg, NOT_CONNECTED_ERROR);
-			return setError(NOT_CONNECTED_ERROR_CODE, NOT_CONNECTED_ERROR, NULL);
+            return setError(NOT_CONNECTED_ERROR_CODE, NOT_CONNECTED_ERROR, NULL);
         }
     }
     return 0;
@@ -448,9 +373,7 @@ ssize_t ALF_sockets_recv(ALF_socket *_from, char *msg, size_t maxRecv, ALF_socke
         read_size = recvfrom(_to->sock_desc, msg, maxRecv, 0, (struct sockaddr *)_from->addr, &sock_len);
     }
     else{
-        //ALF_sockets_error = -18;
-        //strcpy(ALF_sockets_errorMsg, TYPE_ERROR);
-		setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
+        setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
         return ALF_sockets_error;
     }
 
@@ -458,39 +381,31 @@ ssize_t ALF_sockets_recv(ALF_socket *_from, char *msg, size_t maxRecv, ALF_socke
         msg[read_size] = 0;
     }
     else{
-        //ALF_sockets_error = -14;
-        //strcpy(ALF_sockets_errorMsg, RECV_ERROR);
-        //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-		setError(RECV_ERROR_CODE, RECV_ERROR, strerror(errno));
+        setError(RECV_ERROR_CODE, RECV_ERROR, strerror(errno));
     }
     return read_size;
 }
 
 long changeBlockingMode(ALF_socket *handler, long mode){
-	int retVal = 0;
+    int retVal = 0;
     #ifdef _WIN32
-	long _mode = mode;
-	retVal = ioctlsocket(handler->sock_desc, FIONBIO, &mode);
-	if (retVal != 0) {
-		//ALF_sockets_error = -20;
-		//strcpy(ALF_sockets_errorMsg, NONBLOCKING_ERROR);
+    long _mode = mode;
+    retVal = ioctlsocket(handler->sock_desc, FIONBIO, &mode);
+    if (retVal != 0) {
+        wchar_t *s = NULL;
+        FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, WSAGetLastError(),
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPWSTR)&s, 0, NULL);
 
-		wchar_t *s = NULL;
-		FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL, WSAGetLastError(),
-			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-			(LPWSTR)&s, 0, NULL);
+        setError(NONBLOCKING_ERROR_CODE, NONBLOCKING_ERROR, s);
 
-		//strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), s);
-
-		setError(NONBLOCKING_ERROR_CODE, NONBLOCKING_ERROR, s);
-
-		LocalFree(s);
-	}
+        LocalFree(s);
+    }
     #else
     handler = handler + mode;
     #endif
-	return retVal;
+    return retVal;
 }
 
 ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_from, char *msg, size_t maxRecv, ALF_socket *_to){
@@ -502,28 +417,26 @@ ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_from, char *msg, size_t maxRecv
     ssize_t read_size;
 
     if(_from->type == ALF_SOCKETS_TYPE_TCP){
-		if (changeBlockingMode(_from, -1) != 0){ // Windows bullshit. Init non blocking mode.
-			return ALF_sockets_error;
-		}
-		read_size = recv(_from->sock_desc, msg, maxRecv, MSG_DONTWAIT);
-		if (changeBlockingMode(_from, 0) != 0) { // Windows bullshit. Exit non blocking mode.
-			return ALF_sockets_error;
-		}
+        if (changeBlockingMode(_from, -1) != 0){ // Windows bullshit. Init non blocking mode.
+            return ALF_sockets_error;
+        }
+        read_size = recv(_from->sock_desc, msg, maxRecv, MSG_DONTWAIT);
+        if (changeBlockingMode(_from, 0) != 0) { // Windows bullshit. Exit non blocking mode.
+            return ALF_sockets_error;
+        }
     }
     else if(_from->type == ALF_SOCKETS_TYPE_UDP){
-		if (changeBlockingMode(_from, -1) != 0) { // Windows bullshit
-			return ALF_sockets_error;
-		}
-		socklen_t sock_len = sizeof *(_from->addr);
-		read_size = recvfrom(_to->sock_desc, msg, maxRecv, MSG_DONTWAIT, (struct sockaddr *)_from->addr, &sock_len);
-		if (changeBlockingMode(_from, 0) != 0) { // Windows bullshit
-			return ALF_sockets_error;
-		}
+        if (changeBlockingMode(_from, -1) != 0) { // Windows bullshit
+            return ALF_sockets_error;
+        }
+        socklen_t sock_len = sizeof *(_from->addr);
+        read_size = recvfrom(_to->sock_desc, msg, maxRecv, MSG_DONTWAIT, (struct sockaddr *)_from->addr, &sock_len);
+        if (changeBlockingMode(_from, 0) != 0) { // Windows bullshit
+            return ALF_sockets_error;
+        }
     }
     else{
-        //ALF_sockets_error = -18;
-        //strcpy(ALF_sockets_errorMsg, TYPE_ERROR);
-		setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
+        setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
         return ALF_sockets_error;
     }
 
@@ -535,10 +448,7 @@ ssize_t ALF_sockets_recvNonBlocking(ALF_socket *_from, char *msg, size_t maxRecv
         msg[read_size] = 0;
     }
     if(read_size < 0){
-       // ALF_sockets_error = -15;
-       // strcpy(ALF_sockets_errorMsg, RECV_NB_ERROR);
-        //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-		setError(RECV_NB_ERROR_CODE, RECV_NB_ERROR, strerror(errno));
+        setError(RECV_NB_ERROR_CODE, RECV_NB_ERROR, strerror(errno));
     }
 
     return read_size;
@@ -559,19 +469,13 @@ ssize_t ALF_sockets_send(ALF_socket *_to, const char* msg, size_t msgSize, ALF_s
         retval = sendto(_from->sock_desc, msg, msgSize, 0, (struct sockaddr *)(_to->addr), sizeof *(_to->addr));
     }
     else{
-        //ALF_sockets_error = -18;
-        //strcpy(ALF_sockets_errorMsg, TYPE_ERROR);
-		setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
+        setError(TYPE_ERROR_CODE, TYPE_ERROR, NULL);
         return ALF_sockets_error;
     }
 
     if(retval < 0){
-        //ALF_sockets_error = -16;
-        //strcpy(ALF_sockets_errorMsg, SEND_ERROR);
-        //strcpy(ALF_sockets_errorMsg + strlen(ALF_sockets_errorMsg), strerror(errno));
-		setError(SEND_ERROR_CODE, SEND_ERROR, strerror(errno));
+        setError(SEND_ERROR_CODE, SEND_ERROR, strerror(errno));
     }
 
     return retval;
 }
-
